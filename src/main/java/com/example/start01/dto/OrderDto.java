@@ -12,7 +12,7 @@ import java.util.UUID;
 @Setter
 @ToString
 public class OrderDto {
-    private Integer orderid;
+    private Integer id;
     private Integer roomid;
     private UUID userid;
     private Integer storeid;
