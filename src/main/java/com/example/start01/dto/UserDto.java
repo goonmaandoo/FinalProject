@@ -21,4 +21,7 @@ public class UserDto {
     private String roomAddressDetail;
     private String role;
     private String status;
+    private String email;
+    private String password;
+    private String phoneNum;
 }
