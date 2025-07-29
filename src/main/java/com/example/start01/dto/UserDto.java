@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Setter
 @ToString
 public class UserDto {
-    private UUID id;
+    private Integer id;
     private String nickname;
     private double userRating;
     private Integer cash;
@@ -21,4 +22,7 @@ public class UserDto {
     private String roomAddressDetail;
     private String role;
     private String status;
+    private String email;
+    private String password;
+    private String phoneNum;
 }

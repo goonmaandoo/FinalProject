@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MenuCategoryDto {
-    private String id;
+    private Integer id;
     private String category;
     private Integer num;
 }

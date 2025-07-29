@@ -13,7 +13,7 @@ import java.util.UUID;
 public class RoomJoinDto {
     private Integer id;
     private Integer roomId;
-    private UUID userId;
+    private Integer userId;
     private LocalDateTime joinedAt;
     private String status;
 }

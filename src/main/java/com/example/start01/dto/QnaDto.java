@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -12,9 +13,9 @@ import java.util.UUID;
 @ToString
 public class QnaDto {
     private Integer id;
+    private Integer userId;
     private String title;
     private String qContents;
     private String qAnswer;
-    private LocalDate createdAt;
-    private UUID userId;
+    private LocalDateTime createdAt;
 }

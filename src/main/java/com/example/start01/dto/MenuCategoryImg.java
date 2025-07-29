@@ -4,14 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @ToString
-public class PaymentDto {
+public class MenuCategoryImg {
     private Integer id;
-    private Integer userId;
-    private String status;
-    private Integer amount;
+    private Integer menuCategory;
+    private String filePath;
 }

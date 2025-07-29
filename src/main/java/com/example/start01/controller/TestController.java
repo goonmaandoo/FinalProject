@@ -12,4 +12,8 @@ public class TestController {
     public String hello() {
         return "Hello from Spring!";
     }
+    @GetMapping("/mainpage")
+    public String mainpage() {
+        return "Hello from Spring!";
+    }
 }

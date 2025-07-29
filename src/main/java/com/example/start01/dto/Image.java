@@ -4,14 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @ToString
-public class PaymentDto {
+public class Image {
     private Integer id;
-    private Integer userId;
-    private String status;
-    private Integer amount;
+    private String bucket;
+    private String folder;
+    private String fileName;
+    private String filePath;
 }
