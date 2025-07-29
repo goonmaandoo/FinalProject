@@ -4,14 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 @ToString
-public class UserDto {
+public class UsersDto {
     private Integer id;
     private String nickname;
     private double userRating;
