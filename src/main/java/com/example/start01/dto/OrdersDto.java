@@ -6,12 +6,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 @ToString
-public class OrderDto {
+public class OrdersDto {
     private Integer orderId;
     private Integer roomId;
     private String userId;

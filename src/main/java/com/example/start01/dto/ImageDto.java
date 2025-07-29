@@ -9,8 +9,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ImageDto {
-    private Integer imageId;
+    private Integer id;
     private String bucket;
     private String folder;
     private String filename;
+    private String filePath;
 }
