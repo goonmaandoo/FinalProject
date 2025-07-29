@@ -14,7 +14,7 @@ import java.util.UUID;
 public class OrderDto {
     private Integer orderId;
     private Integer roomId;
-    private UUID userId;
+    private String userId;
     private Integer storeId;
     private JsonNode roomOrder;
     private Integer totalPrice;

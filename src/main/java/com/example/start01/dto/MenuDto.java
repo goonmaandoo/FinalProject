@@ -9,8 +9,9 @@ import lombok.ToString;
 @ToString
 public class MenuDto {
     private Integer id;
+    private Integer menuCategoryId;
     private Integer storeId;
-    private Integer imgId;
+    private Integer imageId;
     private String menuName;
     private Integer menuPrice;
 }

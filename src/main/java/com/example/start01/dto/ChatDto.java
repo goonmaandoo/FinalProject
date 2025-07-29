@@ -15,6 +15,6 @@ public class ChatDto {
     private Integer id;
     private Integer roomId;
     private String chat;
-    private UUID userId;
+    private Integer userId;
     private LocalDateTime createdAt;
 }

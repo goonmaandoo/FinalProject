@@ -12,9 +12,9 @@ import java.util.UUID;
 @ToString
 public class ReviewDto {
     private Integer id;
-    private UUID userid;
+    private Integer userid;
     private Integer score;
     private Integer orderId;
-    private String comment;
+    private String comments;
     private LocalDateTime createdAt;
 }
