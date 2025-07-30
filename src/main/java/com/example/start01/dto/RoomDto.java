@@ -1,5 +1,6 @@
 package com.example.start01.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
+@Data
 public class RoomDto {
     private Integer id;
     private Integer storeId;
@@ -21,4 +23,5 @@ public class RoomDto {
     private String status;
     private LocalDateTime createdAt;
     private String roomAddressDetail;
+    private Integer joinCount;
 }
