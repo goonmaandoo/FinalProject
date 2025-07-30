@@ -1,0 +1,21 @@
+package com.example.start01.service;
+
+import com.example.start01.dao.QnaDao;
+import com.example.start01.dto.QnaDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+
+@Service
+public class QnaService {
+    @Autowired
+    private QnaDao qnaDao;
+
+    //insert
+
+    //selectByUserId
+    public ArrayList<QnaDto> selectByUserId(Integer userId) {
+        return qnaDao.selectByUserId(userId);
+    }
+}
