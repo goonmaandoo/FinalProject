@@ -18,4 +18,8 @@ public class QnaService {
     public ArrayList<QnaDto> selectByUserId(Integer userId) {
         return qnaDao.selectByUserId(userId);
     }
+    //deleteByQnaId
+    public void deleteByQnaId(Integer qnaId) {
+        qnaDao.deleteByQnaId(qnaId);
+    }
 }
