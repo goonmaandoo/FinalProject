@@ -17,8 +17,12 @@ public class MyPageController {
     @Autowired
     private QnaService qnaService;
 
+    @GetMapping
     public ArrayList<QnaDto> selectMyQna(@RequestParam Integer userId) {
+        System.out.println("userId: " + userId);
         ArrayList<QnaDto> dtos = qnaService.selectByUserId(userId);
+        System.out.println("dtos.size(): " + dtos.size());
+        dtos.forEach(System.out::println);
         return dtos;
     }
 }
