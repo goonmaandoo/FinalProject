@@ -15,5 +15,5 @@ public class StoreDto {
     private Integer minPrice;
     private String tel;
     private Integer ownerId;
-    private Integer deliveryFee;
+    private String storeImgPath;
 }
