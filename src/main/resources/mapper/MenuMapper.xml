@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.start01.mapper.MenuMapper">
+
+    <select id="findByIdList" resultType="com.example.start01.dto.MenuDto">
+        SELECT
+        id,
+        menu_category_id,
+        store_id,
+        image_id,
+        menu_name,
+        menu_price
+        FROM menu
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>
