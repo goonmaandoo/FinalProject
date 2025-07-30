@@ -1,5 +1,5 @@
 <mapper namespace="com.example.start01.dao.PopularDao">
-    <select id="PopularSelect" resultType="PopularDao">
-        SELECT * FROM popular;
+    <select id="PopularSelect" resultType="PopularDto">
+        SELECT * FROM popular
     </select>
 </mapper>

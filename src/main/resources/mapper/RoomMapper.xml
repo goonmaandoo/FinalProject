@@ -1,5 +1,5 @@
 <mapper namespace="com.example.start01.dao.RoomDao">
-    <select id="RoomSelect" returnType="RoomDto">
+    <select id="RoomSelect" resultType="RoomDto">
         SELECT * FROM room
     </select>
     <insert id="RoomUpdate" parameterType="RoomDto">
