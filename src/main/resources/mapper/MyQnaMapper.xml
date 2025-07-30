@@ -3,12 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.start01.mapper.MyQnaMapper">
-
-    <!-- QnA 목록 조회 -->
-    <select id="getQnaList" resultType="QnaDto">
+<mapper namespace="com.example.start01.dao.QnaDao">
+    <select id="selectByUserId" resultType="QnaDto">
         SELECT
         id,
+        user_id,
         title,
         q_contents,
         q_answer,
@@ -20,5 +19,7 @@
         ORDER BY
         created_at DESC
     </select>
-
+    <delete id="deleteByQnaId" parameterType="int">
+        DELETE FROM qna WHERE id = #{qnaId}
+    </delete>
 </mapper>
