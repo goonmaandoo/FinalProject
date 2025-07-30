@@ -20,7 +20,7 @@ public class UsersController {
         return ResponseEntity.ok("회원가입 성공!");
     }
 
-    // 닉네임 중복 체크 API
+    // 닉네임 중복 체크
     @GetMapping("/nicknameCheck")
     public ResponseEntity<NicknameCheckDto> NicknameCheck(@RequestParam String nickname) {
         boolean isDuplicate = usersService.NicknameSelect(nickname);
