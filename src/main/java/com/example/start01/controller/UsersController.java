@@ -17,7 +17,7 @@ public class UsersController {
     @PostMapping("/register")
     public ResponseEntity<String> UsersInsert(@RequestBody UsersDto usersDto){
         usersService.UsersInsert(usersDto);
-        return ResponseEntity.ok("회원가입");
+        return ResponseEntity.ok("회원가입 성공!");
     }
 
     // 닉네임 중복 체크 API
