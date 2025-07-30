@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.start01.dao.StoreDao">
+    <select id="StoreAll" resultType="StoreDto">
+        SELECT * FROM store
+    </select>
+    <select id="StoreById" resultType="StoreDto">
+        SELECT * FROM store WHERE menu_category_id = #{menuCategoryId}
+    </select>
+    <insert id="StoreInsert" parameterType="StoreDto">
+        INSERT INTO store (menu_category_id, store_name, store_address, min_price, tel, owner_id, delivery_fee)
+        VALUES (#{menuCategoryId},#{storeName},#{storeAddress}, #{minPrice},#{tel},#{ownerId},#{deliveryFee})
+    </insert>
+    <update id="StoreUpdate" parameterType="StoreDto">
+        UPDATE store SET store_name=#{storeName},store_address=#{storeAddress},
+        min_price=#{minPrice},tel=#{tel}, delivery_fee=#{deliveryFee}WHERE id=#{id}
+    </update>
+    <delete id="StoreDelete" parameterType="StoreDto">
+        DELETE FROM store WHERE id=#{id}
+    </delete>
+</mapper>

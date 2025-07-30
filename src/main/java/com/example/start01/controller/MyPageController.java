@@ -14,6 +14,7 @@ public class MyPageController {
     @Autowired
     private QnaService qnaService;
 
+
     @GetMapping("/getQnaList")
     public ArrayList<QnaDto> selectMyQna(@RequestParam Integer userId) {
         System.out.println("userId: " + userId);
