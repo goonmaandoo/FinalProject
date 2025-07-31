@@ -34,7 +34,7 @@ public class OrdersController {
     }
 
     // 주문 생성
-    @PostMapping("/insert")
+    @PostMapping("/insertOrder")
     public Integer insertOrder(@RequestBody OrdersDto dto) {
         System.out.println("insert: " + dto);
         ordersService.insertOrder(dto);
