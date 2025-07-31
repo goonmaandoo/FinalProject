@@ -12,6 +12,6 @@ import java.util.UUID;
 public class PaymentDto {
     private Integer id;
     private Integer userId;
-    private String status;
+    private String inout;
     private Integer amount;
 }

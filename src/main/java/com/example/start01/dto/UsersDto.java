@@ -17,7 +17,7 @@ public class UsersDto {
     private LocalDateTime createdAt;
     private String address;
     private String profileUrl;
-    private String roomAddressDetail;
+    private String addressDetail;
     private String role;
     private String status;
     private String email;
