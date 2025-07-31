@@ -12,4 +12,8 @@
         SELECT COUNT(*) FROM users
         WHERE nickname = #{nickname}
     </select>
+    <select id="findByEmail" resultType="UsersDto" parameterType="String">
+        SELECT * FROM USERS
+        WHERE email = #{email}
+    </select>
 </mapper>
