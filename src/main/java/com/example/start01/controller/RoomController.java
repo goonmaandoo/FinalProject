@@ -36,4 +36,11 @@ public class RoomController {
         return rooms;
 //        return roomDao.RoomsWithJoinCount();
     }
+
+    @GetMapping("/allRoomSelect")
+    public List<RoomDto> AllroomSelect() {
+        List<RoomDto> dto = roomDao.AllRoomSelect();
+        System.out.println("dto:"+ dto);
+        return dto;
+    }
 }

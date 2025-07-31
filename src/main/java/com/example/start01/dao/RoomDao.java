@@ -20,5 +20,5 @@ public interface RoomDao {
     @Select("SELECT * FROM room WHERE status=#{status}")
     RoomDto RoomSelect(String status);
 
-
+    List<RoomDto> AllRoomSelect();
 }
