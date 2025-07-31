@@ -8,4 +8,6 @@ public interface UsersDao {
     void UsersInsert(UsersDto usersDto);
 
     int NicknameSelect(String nickname);
+
+    UsersDto findByEmail(String email);
 }
