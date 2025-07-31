@@ -10,5 +10,5 @@ import lombok.ToString;
 public class MenuCategoryDto {
     private Integer id;
     private String category;
-    private Integer num;
+    private String num;
 }

@@ -30,10 +30,6 @@ public class RoomController {
 
     @GetMapping("/allWithCount")
     public List<RoomDto> RoomsWithJoinCount() {
-        System.out.println("roomDao 호출 전");
-        List<RoomDto> rooms = roomDao.RoomsWithJoinCount();
-        System.out.println("roomDao 결과: " + rooms);
-        return rooms;
-//        return roomDao.RoomsWithJoinCount();
+        return roomDao.RoomsWithJoinCount();
     }
 }
