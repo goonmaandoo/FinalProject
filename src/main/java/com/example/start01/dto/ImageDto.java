@@ -13,5 +13,4 @@ public class ImageDto {
     private String bucket;
     private String folder;
     private String filename;
-    private String filePath;
 }
