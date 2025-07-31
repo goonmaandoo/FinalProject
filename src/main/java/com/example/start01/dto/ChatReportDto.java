@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public class ChatReportDto {
     private Integer id;
     private Integer chatId;
+    private Integer userId;
     private String reason;
     private Integer reportedBy;
-    private Integer roomId;
     private LocalDateTime createdAt;
 }

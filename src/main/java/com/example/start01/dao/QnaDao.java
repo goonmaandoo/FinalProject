@@ -9,5 +9,10 @@ import java.util.ArrayList;
 @Mapper
 public interface QnaDao {
     ArrayList<QnaDto> selectByUserId(@Param("userId") Integer userId);
+
+
+    QnaDto selectByQnaId(@Param("qnaId") Integer qnaId);
+    void updateQna(QnaDto qnaDto);
+
     void deleteByQnaId(@Param("qnaId") Integer qnaId);
 }

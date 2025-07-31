@@ -14,11 +14,19 @@ public class QnaService {
 
     //insert
 
-    //selectByUserId
+    // selectByUserId
     public ArrayList<QnaDto> selectByUserId(Integer userId) {
         return qnaDao.selectByUserId(userId);
     }
-    //deleteByQnaId
+    // selectByQnaId
+    public QnaDto selectByQnaId(Integer qnaId) {
+        return qnaDao.selectByQnaId(qnaId);
+    }
+    // updateQnaId
+    public void updateQna(QnaDto qnaDto) {
+        qnaDao.updateQna(qnaDto);
+    }
+    // deleteByQnaId
     public void deleteByQnaId(Integer qnaId) {
         qnaDao.deleteByQnaId(qnaId);
     }

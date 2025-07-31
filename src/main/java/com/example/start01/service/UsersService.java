@@ -15,4 +15,9 @@ public class UsersService {
     {
         registerDao.UsersInsert(usersDto);
     }
+
+    // 닉네임 중복체크 NicknameSelect
+    public boolean NicknameSelect(String nickname){
+        return registerDao.NicknameSelect(nickname) > 0; // 닉네임의 행이 1이상이면 이미 존재하는것이므로
+    }
 }
