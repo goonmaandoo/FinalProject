@@ -9,18 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/order")
 public class OrdersController {
 
-    private final OrdersService orderService;
+    private final OrdersService ordersService;
 
-    public OrdersController(OrdersService orderService) {
-        this.orderService = orderService;
+    public OrdersController(OrdersService ordersService) {
+        this.ordersService = ordersService;
     }
 
     @GetMapping("/{orderId}")
     public ResponseEntity<OrdersDto> getOrder(@PathVariable int orderId) {
-        OrdersDto order = orderService.getOrderDetail(orderId);
-        return order != null ? ResponseEntity.ok(order) : ResponseEntity.notFound().build();
+        OrdersDto order = ordersService.getOrderDetail(orderId);
+        return ResponseEntity.ok(order);
     }
+
 }
+

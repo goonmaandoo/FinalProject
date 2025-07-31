@@ -13,10 +13,9 @@ import java.time.LocalDateTime;
 public class OrdersDto {
     private Integer orderId;
     private Integer roomId;
-    private String userId;
+    private Integer userId; // ← String → Integer로 수정
     private Integer storeId;
-    private JsonNode roomOrder;
+    private JsonNode roomOrder; // JSON 타입 문제 없음
     private Integer totalPrice;
     private LocalDateTime createdAt;
 }
-

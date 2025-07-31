@@ -3,19 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.start01.dao.OrdersMapper">
+<mapper namespace="com.example.start01.dao.OrdersDao">
 
-    <select id="selectOrderById" parameterType="int" resultType="com.example.start01.dto.OrdersDto">
+    <select id="selectOrderById" resultType="com.example.start01.dto.OrdersDto" parameterType="int">
         SELECT
-        ORDER_ID AS orderId,
-        ROOM_ID AS roomId,
-        USER_ID AS userId,
-        STORE_ID AS storeId,
-        ROOM_ORDER AS roomOrder,
-        TOTAL_PRICE AS totalPrice,
-        CREATED_AT AS createdAt
-        FROM ORDERS
-        WHERE ORDER_ID = #{orderId}
+        order_id AS orderId,
+        room_id AS roomId,
+        user_id AS userId,
+        store_id AS storeId,
+        room_order AS roomOrder,
+        total_price AS totalPrice,
+        created_at AS createdAt
+        FROM orders
+        WHERE order_id = #{orderId}
     </select>
 
 </mapper>
