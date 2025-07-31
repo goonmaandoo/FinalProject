@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class OrdersDto {
     private Integer orderId;
     private Integer roomId;
-    private String userId;
+    private Integer userId;
     private Integer storeId;
     private JsonNode roomOrder;
     private Integer totalPrice;
