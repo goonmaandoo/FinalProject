@@ -15,4 +15,10 @@ public interface QnaDao {
     void updateQna(QnaDto qnaDto);
 
     void deleteByQnaId(@Param("qnaId") Integer qnaId);
+
+    // 관리자
+    ArrayList<QnaDto> selectAllQna();
+
+    ArrayList<QnaDto> selectAllAnswer();
+    void updateAnswer(QnaDto qnaDto);
 }

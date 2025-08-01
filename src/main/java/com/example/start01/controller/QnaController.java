@@ -1,5 +1,6 @@
 package com.example.start01.controller;
 
+import com.example.start01.dao.QnaDao;
 import com.example.start01.dto.QnaDto;
 import com.example.start01.service.QnaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,26 @@ public class QnaController {
     public void deleteQna(@PathVariable Integer qnaId) {
         System.out.println("삭제 요청: " + qnaId);
         qnaService.deleteByQnaId(qnaId);
+    }
+    // 관리자
+    @GetMapping("/selectAllQna")
+    public ArrayList<QnaDto> selectAllQna() {
+        ArrayList<QnaDto> dtos = qnaService.selectAllQna();
+        System.out.println("Qna 리스트 갯수: " + dtos.size());
+        return dtos;
+    }
+
+    @GetMapping("/selectAllAnswer")
+    public ArrayList<QnaDto> selectAllAnswer() {
+        ArrayList<QnaDto> dtos = qnaService.selectAllAnswer();
+        System.out.println("Qna 리스트 갯수: " + dtos.size());
+        return dtos;
+    }
+
+    @PutMapping("/updateAnswer")
+    public String updateAnswer(@RequestBody QnaDto qnaDto) {
+        System.out.println("answer Request");
+        qnaService.updateAnswer(qnaDto);
+        return "success";
     }
 }

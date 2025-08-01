@@ -30,4 +30,18 @@ public class QnaService {
     public void deleteByQnaId(Integer qnaId) {
         qnaDao.deleteByQnaId(qnaId);
     }
+
+    //관리자
+    public ArrayList<QnaDto> selectAllQna() {
+        return qnaDao.selectAllQna();
+    }
+    public ArrayList<QnaDto> selectAllAnswer() {
+        return qnaDao.selectAllAnswer();
+    }
+    public void updateAnswer(QnaDto qnaDto) {
+        System.out.println("QnaService: updateAnswer 메서드 호출");
+        System.out.println("QnaDto 내용: " + qnaDto);
+        qnaDao.updateAnswer(qnaDto);
+        qnaDao.updateAnswer(qnaDto);
+    }
 }
