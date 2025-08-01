@@ -10,4 +10,9 @@ public interface UsersDao {
     int NicknameSelect(String nickname);
 
     UsersDto findByEmail(String email);
+
+    void updateAddress(UsersDto usersDto);
+
+    // 유저 주소 / id로 select
+    UsersDto getUserAddress(Integer userId);
 }
