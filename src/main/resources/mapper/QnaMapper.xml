@@ -30,4 +30,14 @@
     <update id="updateAnswer" parameterType="QnaDto">
         UPDATE qna SET q_answer = #{qAnswer} where id = #{id}
     </update>
+
+    <!--insert-->
+    <insert id="insertQna" parameterType="QnaDto">
+        INSERT INTO qna (user_id, title, q_contents)
+        VALUES (
+        #{userId},
+        #{title},
+        #{qContents, jdbcType=VARCHAR}
+        )
+    </insert>
 </mapper>

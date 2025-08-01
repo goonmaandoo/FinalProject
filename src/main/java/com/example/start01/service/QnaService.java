@@ -13,6 +13,9 @@ public class QnaService {
     private QnaDao qnaDao;
 
     //insert
+    public void insertQna(QnaDto dto) {
+        qnaDao.insertQna(dto);
+    }
 
     // selectByUserId
     public ArrayList<QnaDto> selectByUserId(Integer userId) {
