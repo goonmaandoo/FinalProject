@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.start01.dao.ChatReportDao">
+
+<!--    단건 조회 -->
+    <select id="selectById" parameterType="int" resultType="ChatReportDto">
+        SELECT id, chat_id, users_id, reason, reported_by, created_at
+        FROM chat_report
+        WHERE id = #{id}
+    </select>
+
+<!-- 신고자 기준 목록 -->
+    <select id="selectByReportedBy" parameterType="int" resultType="ChatReportDto">
+        SELECT id, chat_id, users_id, reason, reported_by, created_at
+        FROM chat_report
+        WHERE reported_by = #{reportedBy}
+        ORDER BY created_at DESC
+    </select>
+
+<!-- 피신고자(users_id) 기준 목록 -->
+    <select id="selectByUsersId" parameterType="int" resultType="ChatReportDto">
+        SELECT id, chat_id, users_id, reason, reported_by, created_at
+        FROM chat_report
+        WHERE users_id = #{usersId}
+        ORDER BY created_at DESC
+    </select>
+<!-- Select All 모든 신고 목록 -->
+    <select id="selectAll" resultType="ChatReportDto">
+        SELECT id, chat_id, users_id, reason, reported_by, created_at
+        FROM chat_report
+        ORDER BY created_at DESC
+    </select>
+
+<!-- 신고 insert -->
+    <insert id="insert" parameterType="com.example.start01.dto.ChatReportDto"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
+        INSERT INTO chat_report (chat_id, users_id, reason, reported_by)
+        VALUES (
+        #{chatId},
+        #{usersId},
+        #{reason, jdbcType=VARCHAR},
+        #{reportedBy}
+        )
+    </insert>
+
+<!-- 신고 delete -->
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM chat_report WHERE id = #{id}
+    </delete>
+</mapper>
