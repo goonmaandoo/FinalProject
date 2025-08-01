@@ -3,6 +3,7 @@ package com.example.start01.controller;
 import com.example.start01.dao.UsersDao;
 import com.example.start01.dto.LoginRequest;
 import com.example.start01.dto.NicknameCheckDto;
+import com.example.start01.dto.QnaDto;
 import com.example.start01.dto.UsersDto;
 import com.example.start01.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,15 @@ public class UsersController {
         }
         return ResponseEntity.ok(user);
     }
-
+    // 주소 업데이트
+    @PutMapping("/addressUpdate")
+    public void updateAddress(@RequestBody UsersDto usersDto) {
+        usersService.updateAddress(usersDto);
+        System.out.println("---업데이트된 usersDto---:" +usersDto);
+    }
+    // 주소 불러오기
+    @GetMapping("/getUserAddress/{userId}")
+    public UsersDto getUserAddress(@PathVariable Integer userId) {
+        return usersService.getUserAddress(userId);
+    }
 }

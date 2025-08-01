@@ -40,4 +40,16 @@ public class UsersService {
         }
         return null; // 예외 발생 시 null 반환
     }
+    // 주소 업데이트
+    public void updateAddress(UsersDto usersDto) {
+        System.out.println("usersDto:" + usersDto);
+        registerDao.updateAddress(usersDto);
+    }
+    // 유저 주소 가져오기
+    public UsersDto getUserAddress(Integer userId) {
+        System.out.println("확인할 유저 아이디:"+ userId);
+        UsersDto dto = registerDao.getUserAddress(userId);
+        System.out.println("불러온 유저 주소:"+ dto);
+        return dto;
+    }
 }
