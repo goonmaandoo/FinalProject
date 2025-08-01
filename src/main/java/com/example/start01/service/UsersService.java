@@ -40,4 +40,11 @@ public class UsersService {
         }
         return null; // 예외 발생 시 null 반환
     }
+
+    // 이메일로 사용자 정보만 조회 (비번 확인 없이)
+    public UsersDto findByEmail(String email) {
+        return usersDao.findByEmail(email);
+    }
+
+
 }
