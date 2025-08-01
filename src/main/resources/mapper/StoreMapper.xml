@@ -9,6 +9,9 @@
     <select id="StoreById" resultType="StoreDto">
         SELECT * FROM store WHERE menu_category_id = #{menuCategoryId}
     </select>
+    <select id="StoreDetail" resultType="StoreDto">
+        SELECT * FROM store WHERE id = #{id}
+    </select>
     <insert id="StoreInsert" parameterType="StoreDto">
         INSERT INTO store (menu_category_id, store_name, store_address, min_price, tel, owner_id, delivery_fee)
         VALUES (#{menuCategoryId},#{storeName},#{storeAddress}, #{minPrice},#{tel},#{ownerId},#{deliveryFee})
