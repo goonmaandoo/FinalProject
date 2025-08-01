@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.start01.mapper.MenuMapper">
+<mapper namespace="com.example.start01.dao.MenuDao">
 
-    <select id="findByIdList" resultType="com.example.start01.dto.MenuDto">
+    <select id="findByIdList" resultType="MenuDto">
         SELECT
         id,
         menu_category_id,
@@ -18,6 +18,14 @@
         <foreach item="id" collection="list" open="(" separator="," close=")">
             #{id}
         </foreach>
+    </select>
+
+    <select id="StoreMenuList" parameterType="int" resultType="MenuDto">
+        SELECT * FROM menu WHERE store_id=#{storeId}
+    </select>
+    <select id="StoreMenuImage" parameterType="int" resultType="MenuDto">
+        SELECT m.id, m.store_id, m.image_id, m.menu_name, m.menu_price, i.folder, i.filename
+        FROM menu m LEFT JOIN image i ON m.image_id = i.id WHERE m.store_id = #{storeId}
     </select>
 
 </mapper>
