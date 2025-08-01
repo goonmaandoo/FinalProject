@@ -58,4 +58,22 @@ public class UsersController {
         return ResponseEntity.ok(response);
     }
 
+    // 토큰으로 유저 정보 조회 (이메일 기반)
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(@RequestHeader("Authorization") String authHeader) {
+        try {
+            String token = authHeader.replace("Bearer ", "");
+            String email = jwtTokenProvider.getEmail(token);
+
+            // 비밀번호 확인 없이 유저 정보만 조회
+            UsersDto user = usersService.findByEmail(email);
+            if (user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 없음");
+
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰 유효하지 않음");
+        }
+    }
+
+
 }
