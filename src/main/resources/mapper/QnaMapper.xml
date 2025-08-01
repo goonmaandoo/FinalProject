@@ -19,4 +19,13 @@
     <delete id="deleteByQnaId" parameterType="int">
         DELETE FROM qna WHERE id = #{qnaId}
     </delete>
+<!--    insert-->
+    <insert id="insertQna" parameterType="QnaDto">
+        INSERT INTO qna (user_id, title, q_contents)
+        VALUES (
+        #{userId},
+        #{title},
+        #{qContents, jdbcType=VARCHAR}
+        )
+    </insert>
 </mapper>

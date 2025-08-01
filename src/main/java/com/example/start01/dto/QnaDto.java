@@ -1,5 +1,6 @@
 package com.example.start01.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +16,10 @@ public class QnaDto {
     private Integer id;
     private Integer userId;
     private String title;
+
+    @JsonProperty("qContents")
     private String qContents;
+
     private String qAnswer;
     private LocalDateTime createdAt;
 }

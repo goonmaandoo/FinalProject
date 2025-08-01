@@ -31,6 +31,12 @@ public class QnaController {
         return dto;
     }
 
+    @PostMapping("/insertQna")
+    public void insertQna(@RequestBody QnaDto qnaDto) {
+        System.out.println("Qna 등록: " + qnaDto);
+        qnaService.insertQna(qnaDto);
+    }
+
     @PutMapping("/updateQna")
     public void updateQna(@RequestBody QnaDto qnaDto) {
         System.out.println(qnaDto);
