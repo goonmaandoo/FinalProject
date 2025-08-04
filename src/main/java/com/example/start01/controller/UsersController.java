@@ -111,4 +111,17 @@ public class UsersController {
         return updated ? "success" : "fail";
     }
 
+    // 회원삭제
+    @PostMapping("/delete")
+    public ResponseEntity<String> deleteUserByPost(@RequestBody Map<String, Integer> body) {
+        int id = body.get("id");
+        boolean deleted = usersService.deleteUsers(id);
+        if (deleted) {
+            return ResponseEntity.ok("삭제 성공");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("삭제할 유저 없음");
+        }
+    }
+
+
 }

@@ -72,4 +72,10 @@ public class UsersService {
         int result = usersDao.updatePassword(usersDto);
         return result > 0 ;
     }
+
+    // 회원 삭제
+    public boolean deleteUsers(int id){
+        int result = usersDao.deleteUsers(id);
+        return result > 0;
+    }
 }
