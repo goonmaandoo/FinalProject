@@ -22,4 +22,7 @@
     <update id="updateAddress" parameterType="UsersDto">
         UPDATE USERS SET address = #{address} WHERE id = #{id}
     </update>
+    <select id="selectAll" resultType="UsersDto">
+        SELECT * FROM USERS
+    </select>
 </mapper>
