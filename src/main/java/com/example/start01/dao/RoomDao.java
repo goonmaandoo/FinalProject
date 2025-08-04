@@ -25,5 +25,5 @@ public interface RoomDao {
 
     List<RoomDto> AllRoomSelect();
 
-    List<RoomDto> SelectByIdOnly(@Param("storeId") int id)
+    List<RoomDto> SelectByIdOnly(@Param("storeId") int id);
 }

@@ -26,4 +26,7 @@ public interface UsersDao {
 
     void updateAddressAndDetail(UsersDto usersDto);
 
+    // 회원 삭제
+    int deleteUsers(int id);
+
 }
