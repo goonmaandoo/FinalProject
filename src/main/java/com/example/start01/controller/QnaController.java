@@ -6,6 +6,7 @@ import com.example.start01.service.QnaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @RestController
@@ -50,6 +51,12 @@ public class QnaController {
         qnaService.deleteByQnaId(qnaId);
     }
     // 관리자
+    @GetMapping("/selectAll")
+    public ArrayList<QnaDto> selectAll() {
+        ArrayList<QnaDto> dtos = qnaService.selectAll();
+        return dtos;
+    }
+
     @GetMapping("/selectAllQna")
     public ArrayList<QnaDto> selectAllQna() {
         ArrayList<QnaDto> dtos = qnaService.selectAllQna();
