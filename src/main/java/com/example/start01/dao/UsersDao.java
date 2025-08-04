@@ -2,6 +2,7 @@ package com.example.start01.dao;
 
 import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 
 @Mapper
 public interface UsersDao {
@@ -15,4 +16,7 @@ public interface UsersDao {
 
     // 유저 주소 / id로 select
     UsersDto getUserAddress(Integer userId);
+
+    // 다 불러오기
+    List<UsersDto> selectAll();
 }

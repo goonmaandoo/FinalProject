@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -87,6 +88,12 @@ public class UsersController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰 유효하지 않음");
         }
+    }
+
+    // 다 불러오기
+    @GetMapping("/selectUserinfo")
+    public List<UsersDto> selectAll(){
+        return usersService.selectAll();
     }
 
 
