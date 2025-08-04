@@ -2,6 +2,7 @@ package com.example.start01.dao;
 
 import com.example.start01.dto.RoomDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,8 @@ public interface RoomDao {
     List<RoomDto> RoomSelectRecruit();
 
     int RoomInsert(RoomDto room);
+
+    List<RoomDto> SelectById(@Param("storeId") int storeId);
 
     List<RoomDto> RoomsWithJoinCount();
 

@@ -19,4 +19,6 @@ public interface UsersDao {
 
     // 다 불러오기
     List<UsersDto> selectAll();
+
+    void updateAddressAndDetail(UsersDto usersDto);
 }
