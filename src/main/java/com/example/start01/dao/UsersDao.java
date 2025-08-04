@@ -19,4 +19,7 @@ public interface UsersDao {
 
     // 다 불러오기
     List<UsersDto> selectAll();
+
+    // 비밀번호 업데이트
+    int updatePassword(UsersDto usersDto);
 }

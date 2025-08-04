@@ -25,4 +25,8 @@
     <select id="selectAll" resultType="UsersDto">
         SELECT * FROM USERS
     </select>
+    <update id="updatePassword"  parameterType="UsersDto">
+        UPDATE USERS SET password = #{password}, nickname = #{nickname}
+        WHERE id = #{id}
+    </update>
 </mapper>
