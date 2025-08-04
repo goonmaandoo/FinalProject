@@ -66,4 +66,10 @@ public class UsersService {
     public List<UsersDto> selectAll(){
         return usersDao.selectAll();
     }
+
+    // 비밀번호 업데이트
+    public boolean updatePassword(UsersDto usersDto){
+        int result = usersDao.updatePassword(usersDto);
+        return result > 0 ;
+    }
 }

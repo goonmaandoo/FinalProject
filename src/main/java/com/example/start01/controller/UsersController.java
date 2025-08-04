@@ -104,6 +104,11 @@ public class UsersController {
         return usersService.selectAll();
     }
 
-
+    // 비밀번호 업데이트
+    @PostMapping("/updatePassword")
+    public String updatePassword(@RequestBody UsersDto usersDto){
+        boolean updated = usersService.updatePassword(usersDto);
+        return updated ? "success" : "fail";
+    }
 
 }
