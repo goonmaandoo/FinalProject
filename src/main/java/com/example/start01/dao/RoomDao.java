@@ -24,4 +24,6 @@ public interface RoomDao {
     RoomDto RoomSelect(String status);
 
     List<RoomDto> AllRoomSelect();
+
+    List<RoomDto> SelectByIdOnly(@Param("storeId") int id)
 }
