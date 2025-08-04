@@ -5,6 +5,8 @@ import com.example.start01.dto.UsersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsersService {
     @Autowired
@@ -60,4 +62,14 @@ public class UsersService {
         return usersDao.findByEmail(email);
     }
 
+    // 다 불러오기
+    public List<UsersDto> selectAll(){
+        return usersDao.selectAll();
+    }
+
+    // 비밀번호 업데이트
+    public boolean updatePassword(UsersDto usersDto){
+        int result = usersDao.updatePassword(usersDto);
+        return result > 0 ;
+    }
 }

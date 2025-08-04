@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,6 +21,9 @@ import java.util.Map;
 public class UsersController {
     @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private UsersDao usersDao;
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
@@ -65,6 +69,11 @@ public class UsersController {
         usersService.updateAddress(usersDto);
         System.out.println("---업데이트된 usersDto---:" +usersDto);
     }
+    // 주소 업데이트 + 상세주소
+    @PostMapping("/addressUpdateDetail")
+    public void updateAddressAndDetail(@RequestBody UsersDto usersDto) {
+        usersDao.updateAddressAndDetail(usersDto);
+    }
     // 주소 불러오기
     @GetMapping("/getUserAddress/{userId}")
     public UsersDto getUserAddress(@PathVariable Integer userId) {
@@ -89,6 +98,17 @@ public class UsersController {
         }
     }
 
+    // 다 불러오기
+    @GetMapping("/selectUserinfo")
+    public List<UsersDto> selectAll(){
+        return usersService.selectAll();
+    }
 
+    // 비밀번호 업데이트
+    @PostMapping("/updatePassword")
+    public String updatePassword(@RequestBody UsersDto usersDto){
+        boolean updated = usersService.updatePassword(usersDto);
+        return updated ? "success" : "fail";
+    }
 
 }
