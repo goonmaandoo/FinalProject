@@ -23,6 +23,9 @@ public class UsersController {
     private UsersService usersService;
 
     @Autowired
+    private UsersDao usersDao;
+
+    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     // 회원가입
@@ -65,6 +68,11 @@ public class UsersController {
     public void updateAddress(@RequestBody UsersDto usersDto) {
         usersService.updateAddress(usersDto);
         System.out.println("---업데이트된 usersDto---:" +usersDto);
+    }
+    // 주소 업데이트 + 상세주소
+    @PostMapping("/addressUpdateDetail")
+    public void updateAddressAndDetail(@RequestBody UsersDto usersDto) {
+        usersDao.updateAddressAndDetail(usersDto);
     }
     // 주소 불러오기
     @GetMapping("/getUserAddress/{userId}")

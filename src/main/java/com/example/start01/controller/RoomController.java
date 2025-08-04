@@ -23,10 +23,10 @@ public class RoomController {
         return roomDao.RoomSelectRecruit();
     }
 
-//    @PostMapping("/insert")
-//    public int RoomInsert(@RequestBody RoomDto room) {
-//        return roomDao.RoomInsert(room);
-//    }
+    @GetMapping("/storeid/{storeId}")
+    public List<RoomDto> SelectById(@PathVariable("storeId") int storeId){
+        return roomDao.SelectById(storeId);
+    }
 
     @GetMapping("/allWithCount")
     public List<RoomDto> RoomsWithJoinCount() {
