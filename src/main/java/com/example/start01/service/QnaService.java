@@ -35,6 +35,7 @@ public class QnaService {
     }
 
     //관리자
+    public ArrayList<QnaDto> selectAll() {return qnaDao.selectAll();};
     public ArrayList<QnaDto> selectAllQna() {
         return qnaDao.selectAllQna();
     }
