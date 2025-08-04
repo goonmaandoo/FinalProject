@@ -12,10 +12,9 @@
         SELECT * FROM room WHERE status = '모집중'
     </select>
 
-<!--    <insert id="RoomInsert" parameterType="com.example.start01.dto.RoomDto">-->
-<!--        INSERT INTO room (store_id, room_name, room_address, max_people, users, leader_id, created_at, room_address_detail)-->
-<!--        VALUES (#{storeId}, #{roomName}, #{roomAddress}, #{maxPeople}, #{users}, #{leaderId}, #{createdAt}, #{roomAddressDetail})-->
-<!--    </insert>-->
+    <select id="SelectById" parameterType="int" resultType="RoomDto">
+        SELECT * FROM room WHERE store_id=#{storeId} AND status = '모집중'
+    </select>
 
     <select id="RoomsWithJoinCount" resultType="com.example.start01.dto.RoomDto">
         SELECT r.id, r.store_id, r.room_name, r.room_address, r.max_people,
@@ -26,9 +25,6 @@
         GROUP BY r.id, r.store_id, r.room_name, r.room_address, r.max_people
     </select>
 
-<!--    <select id="RoomSelect" resultType="RoomDto">-->
-<!--        SELECT * FROM room WHERE status = #{status}-->
-<!--    </select>-->
     <select id="AllRoomSelect" resultType="RoomDto">
         SELECT
         r.id, r.store_id, r.room_name, r.room_address, r.max_people, r.status, r.created_at, r.room_address_detail,
@@ -38,5 +34,9 @@
         WHERE r.status = '모집중'
         GROUP BY r.id, r.store_id, r.room_name, r.room_address, r.max_people, r.status, r.created_at, r.room_address_detail
         ORDER BY r.created_at DESC
+    </select>
+
+    <select id="SelectByIdOnly" parameterType="int" resultType="RoomDto">
+        SELECT * FROM room WHERE id=#{storeId}
     </select>
 </mapper>
