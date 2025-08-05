@@ -45,8 +45,8 @@ public class RoomController {
     }
     @PostMapping("/create")
     public RoomDto createRoom(@RequestBody RoomDto roomDto) {
-        roomDao.insertRoom(roomDto);
-        // insertRoom 수행 후 roomDto.id에 자동 생성된 값이 들어옴
+        roomDao.RoomInsert(roomDto);
+        // insert 후 roomDto.id 에 자동 생성된 id가 들어감
         return roomDto;
     }
 }
