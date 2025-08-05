@@ -24,6 +24,9 @@ public interface UsersDao {
     // 비밀번호 업데이트
     int updatePassword(UsersDto usersDto);
 
+    // 비밀번호 재설정
+    int resetPassword(UsersDto usersDto);
+
     void updateAddressAndDetail(UsersDto usersDto);
 
     // 회원 삭제
