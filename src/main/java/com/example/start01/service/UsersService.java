@@ -79,8 +79,8 @@ public class UsersService {
     }
 
     // 회원 삭제
-    public boolean deleteUsers(int id){
-        int result = usersDao.deleteUsers(id);
+    public boolean unactiveUsers(int id){
+        int result = usersDao.unactiveUsers(id);
         return result > 0;
     }
 }
