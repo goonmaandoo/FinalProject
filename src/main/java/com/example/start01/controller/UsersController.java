@@ -111,15 +111,22 @@ public class UsersController {
         return updated ? "success" : "fail";
     }
 
+    // 비밀번호 재설정
+    @PostMapping("/resetPassword")
+    public String resetPassword(@RequestBody UsersDto usersDto){
+        boolean updated = usersService.resetPassword(usersDto);
+        return updated ? "success" : "fail";
+    }
+
     // 회원삭제
     @PostMapping("/delete")
     public ResponseEntity<String> deleteUserByPost(@RequestBody Map<String, Integer> body) {
         int id = body.get("id");
-        boolean deleted = usersService.deleteUsers(id);
+        boolean deleted = usersService.unactiveUsers(id);
         if (deleted) {
-            return ResponseEntity.ok("삭제 성공");
+            return ResponseEntity.ok("회원탈퇴 성공");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("삭제할 유저 없음");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("회원탈퇴 실패");
         }
     }
 
