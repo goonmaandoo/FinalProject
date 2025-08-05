@@ -1,9 +1,7 @@
 package com.example.start01.dao;
 
 import com.example.start01.dto.RoomDto;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +12,10 @@ public interface RoomDao {
     List<RoomDto> RoomAll();
     List<RoomDto> RoomSelectRecruit();
 
-    int RoomInsert(RoomDto room);
+    @Insert("INSERT INTO room (store_id, room_name, room_address, max_people, users, leader_id, status, room_address_detail, created_at) " +
+            "VALUES (#{storeId}, #{roomName}, #{roomAddress}, #{maxPeople}, #{users}, #{leaderId}, #{status}, #{roomAddressDetail}, SYSDATE)")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    int insertRoom(RoomDto roomDto);
 
     List<RoomDto> SelectById(@Param("storeId") int storeId);
 

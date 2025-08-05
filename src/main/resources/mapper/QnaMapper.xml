@@ -20,13 +20,19 @@
         DELETE FROM qna WHERE id = #{qnaId}
     </delete>
     <!-- 관리자 -->
+    <!-- 답변 전체 보기-->
+    <select id="selectAll" resultType="QnaDto">
+        SELECT * FROM qna
+    </select>
+    <!-- 답변 없는 것 보기-->
     <select id="selectAllQna" resultType="QnaDto">
         SELECT * FROM qna WHERE Q_ANSWER IS NULL
     </select>
-    <!-- 답변 있는 것 전체 보기-->
+    <!-- 답변 있는 것 보기-->
     <select id="selectAllAnswer" resultType="QnaDto">
         SELECT * FROM qna WHERE Q_ANSWER IS NOT NULL
     </select>
+
     <update id="updateAnswer" parameterType="QnaDto">
         UPDATE qna SET q_answer = #{qAnswer} where id = #{id}
     </update>

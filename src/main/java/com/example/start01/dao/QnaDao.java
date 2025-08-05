@@ -19,6 +19,7 @@ public interface QnaDao {
     void deleteByQnaId(@Param("qnaId") Integer qnaId);
 
     // 관리자
+    ArrayList<QnaDto> selectAll();
     ArrayList<QnaDto> selectAllQna();
 
     ArrayList<QnaDto> selectAllAnswer();

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/api/room")
 public class RoomController {
     @Autowired
     private RoomDao roomDao;
@@ -43,4 +43,11 @@ public class RoomController {
         System.out.println("dto:"+ dto);
         return dto;
     }
+    @PostMapping("/create")
+    public RoomDto createRoom(@RequestBody RoomDto roomDto) {
+        roomDao.insertRoom(roomDto);
+        // insertRoom 수행 후 roomDto.id에 자동 생성된 값이 들어옴
+        return roomDto;
+    }
 }
+
