@@ -1,5 +1,6 @@
 package com.example.start01.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,8 +13,14 @@ import java.time.LocalDateTime;
 public class ChatReportDto {
     private Integer id;
     private Integer chatId;
-    private Integer userId;
+
+//    @JsonProperty("usersId")
+    private Integer usersId;
+
     private String reason;
+
+//    @JsonProperty("reportedBy")
     private Integer reportedBy;
+
     private LocalDateTime createdAt;
 }

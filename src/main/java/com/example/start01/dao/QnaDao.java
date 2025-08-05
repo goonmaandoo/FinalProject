@@ -10,9 +10,18 @@ import java.util.ArrayList;
 public interface QnaDao {
     ArrayList<QnaDto> selectByUserId(@Param("userId") Integer userId);
 
+    //생성
+    void insertQna(QnaDto qnaDto);
 
     QnaDto selectByQnaId(@Param("qnaId") Integer qnaId);
     void updateQna(QnaDto qnaDto);
 
     void deleteByQnaId(@Param("qnaId") Integer qnaId);
+
+    // 관리자
+    ArrayList<QnaDto> selectAll();
+    ArrayList<QnaDto> selectAllQna();
+
+    ArrayList<QnaDto> selectAllAnswer();
+    void updateAnswer(QnaDto qnaDto);
 }

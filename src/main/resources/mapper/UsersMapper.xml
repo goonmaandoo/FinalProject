@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.start01.dao.UsersDao">
+    <insert id="UsersInsert" parameterType="UsersDto">
+        INSERT INTO users
+        (email, password, nickname, phone_num, role)
+        VALUES (#{email},#{password},#{nickname}, #{phoneNum}, #{role})
+    </insert>
+    <select id="NicknameSelect" resultType="int" parameterType="String">
+        SELECT COUNT(*) FROM users
+        WHERE nickname = #{nickname}
+    </select>
+    <select id="findByEmail" resultType="UsersDto" parameterType="String">
+        SELECT * FROM USERS
+        WHERE email = #{email}
+    </select>
+    <select id="getUserAddress" resultType="UsersDto" parameterType="Integer">
+        select address, address_detail from users where id = #{userId}
+    </select>
+    <update id="updateAddress" parameterType="UsersDto">
+        UPDATE USERS SET address = #{address} WHERE id = #{id}
+    </update>
+    <select id="selectAll" resultType="UsersDto">
+        SELECT * FROM USERS
+    </select>
+
+    <update id="updatePassword"  parameterType="UsersDto">
+        UPDATE USERS SET password = #{password}, nickname = #{nickname}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateAddressAndDetail" parameterType="UsersDto">
+        UPDATE USERS SET address = #{address}, address_detail = #{addressDetail} WHERE id = #{id}
+
+    </update>
+
+    <delete id="deleteUsers" parameterType="int">
+        DELETE FROM USERS
+        WHERE id = #{id}
+    </delete>
+</mapper>

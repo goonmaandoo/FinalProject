@@ -23,17 +23,20 @@ public class RoomController {
         return roomDao.RoomSelectRecruit();
     }
 
-//    @PostMapping("/insert")
-//    public int RoomInsert(@RequestBody RoomDto room) {
-//        return roomDao.RoomInsert(room);
-//    }
+    @GetMapping("/storeid/{storeId}")
+    public List<RoomDto> SelectById(@PathVariable("storeId") int storeId){
+        return roomDao.SelectById(storeId);
+    }
 
     @GetMapping("/allWithCount")
     public List<RoomDto> RoomsWithJoinCount() {
-        System.out.println("roomDao 호출 전");
-        List<RoomDto> rooms = roomDao.RoomsWithJoinCount();
-        System.out.println("roomDao 결과: " + rooms);
-        return rooms;
-//        return roomDao.RoomsWithJoinCount();
+        return roomDao.RoomsWithJoinCount();
+    }
+
+    @GetMapping("/allRoomSelect")
+    public List<RoomDto> AllroomSelect() {
+        List<RoomDto> dto = roomDao.AllRoomSelect();
+        System.out.println("dto:"+ dto);
+        return dto;
     }
 }

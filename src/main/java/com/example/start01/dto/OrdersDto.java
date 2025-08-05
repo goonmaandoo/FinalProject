@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class OrdersDto {
     private Integer orderId;
     private Integer roomId;
-    private Integer userId; // ← String → Integer로 수정
+    private Integer userId;
     private Integer storeId;
     private JsonNode roomOrder; // JSON 타입 문제 없음
     private Integer totalPrice;
