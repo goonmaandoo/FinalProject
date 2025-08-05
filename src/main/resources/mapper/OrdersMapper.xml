@@ -42,4 +42,11 @@
     <delete id="deleteByOrderId" parameterType="int">
         DELETE FROM orders WHERE order_id = #{orderId}
     </delete>
+
+    <select id="selectOrdersByRoomId" resultType="com.example.start01.dto.OrdersDto">
+        SELECT *
+        FROM orders
+        WHERE room_id = #{roomId}
+    </select>
+
 </mapper>

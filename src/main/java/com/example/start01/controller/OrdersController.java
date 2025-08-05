@@ -1,12 +1,14 @@
 package com.example.start01.controller;
 
 
+import com.example.start01.dao.OrdersDao;
 import com.example.start01.dto.OrdersDto;
 import com.example.start01.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/order")
@@ -49,6 +51,16 @@ public class OrdersController {
         ordersService.deleteByOrderId(orderId);
 
     }
+
+    // 공구완료 페이지용: roomId로 전체 주문 조회
+    @Autowired
+    private OrdersDao ordersDao;
+
+    @GetMapping("/getOrderListByRoom")
+    public List<OrdersDto> getOrderListByRoom(@RequestParam("roomId") Integer roomId) {
+        return ordersDao.selectOrdersByRoomId(roomId);
+    }
+
 
 }
 

@@ -20,4 +20,10 @@ public interface OrdersDao {
 
     // 삭제
     void deleteByOrderId(@Param("orderId") Integer orderId);
+
+    // roomId로 전체 주문 가져오기 (공구완료용)
+    ArrayList<OrdersDto> selectOrdersByRoomId(@Param("roomId") Integer roomId);
+
+
+
 }
