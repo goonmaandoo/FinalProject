@@ -73,9 +73,14 @@ public class UsersService {
         return result > 0 ;
     }
 
+    // 비밀번호 재설정
+    public boolean resetPassword(UsersDto usersDto){
+        return usersDao.resetPassword(usersDto) > 0 ;
+    }
+
     // 회원 삭제
-    public boolean deleteUsers(int id){
-        int result = usersDao.deleteUsers(id);
+    public boolean unactiveUsers(int id){
+        int result = usersDao.unactiveUsers(id);
         return result > 0;
     }
 }

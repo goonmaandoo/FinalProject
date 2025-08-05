@@ -27,5 +27,9 @@
         SELECT m.id, m.store_id, m.image_id, m.menu_name, m.menu_price, i.folder, i.filename
         FROM menu m LEFT JOIN image i ON m.image_id = i.id WHERE m.store_id = #{storeId}
     </select>
-
+    <select id="SelectByKeyword" parameterType="String" resultType="MenuDto">
+        SELECT m.id, m.store_id, m.image_id, m.menu_name, m.menu_price, i.folder, i.filename, s.store_name
+        FROM menu m LEFT JOIN image i ON m.image_id = i.id JOIN store s ON m.store_id = s.id
+        WHERE m.menu_name LIKE '%' || #{keyword} || '%'
+    </select>
 </mapper>

@@ -37,8 +37,13 @@
         ORDER BY r.created_at DESC
     </select>
 
+
     <select id="SelectByIdOnly" parameterType="int" resultType="com.example.start01.dto.RoomDto">
         SELECT * FROM room WHERE id=#{id}
+
+    </select>
+    <select id="SelectByKeyword" parameterType="String" resultType="RoomDto">
+        SELECT * FROM room WHERE room_name LIKE '%' || #{keyword} || '%'
     </select>
 
     <insert id="RoomInsert" parameterType="com.example.start01.dto.RoomDto" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
@@ -65,4 +70,6 @@
         )
     </insert>
 
+
 </mapper>
+

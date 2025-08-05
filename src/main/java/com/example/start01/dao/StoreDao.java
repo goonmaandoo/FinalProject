@@ -1,5 +1,6 @@
 package com.example.start01.dao;
 
+import com.example.start01.dto.MenuDto;
 import com.example.start01.dto.StoreDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,4 +16,6 @@ public interface StoreDao {
     List<StoreDto> StoreById(@Param("menuCategoryId") int menuCategoryId);
 
     StoreDto StoreDetail(int id);
+
+    List<StoreDto> SelectByKeyword(@Param("keyword") String keyword);
 }
