@@ -19,7 +19,7 @@ public class RoomDto {
     private String roomAddress;
     private Integer maxPeople;
     private String users;
-    private UUID leaderId;
+    private Integer leaderId;
     private String status;
     private LocalDateTime createdAt;
     private String roomAddressDetail;
