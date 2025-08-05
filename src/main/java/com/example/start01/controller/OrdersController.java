@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/order")
 public class OrdersController {
     @Autowired
     private OrdersService ordersService;
@@ -23,6 +23,7 @@ public class OrdersController {
         dtos.forEach(System.out::println);
         return dtos;
     }
+
 
     // 주문 상세
     @GetMapping("/getTheOrder/{orderId}")
@@ -46,6 +47,8 @@ public class OrdersController {
     public void delete(@PathVariable Integer orderId) {
         System.out.println("삭제 요청: " + orderId);
         ordersService.deleteByOrderId(orderId);
+
     }
 
 }
+

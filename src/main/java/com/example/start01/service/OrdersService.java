@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 
+
 @Service
 public class OrdersService {
+
 
     @Autowired
     private OrdersDao ordersDao;
@@ -32,5 +34,6 @@ public class OrdersService {
     // delete
     public void deleteByOrderId(Integer orderId) {
         ordersDao.deleteByOrderId(orderId);
+
     }
 }
