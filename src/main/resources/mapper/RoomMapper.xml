@@ -39,4 +39,33 @@
     <select id="SelectByIdOnly" parameterType="int" resultType="RoomDto">
         SELECT * FROM room WHERE id=#{storeId}
     </select>
+
+    <insert id="RoomInsert" parameterType="com.example.start01.dto.RoomDto" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO room (
+        store_id,
+        room_name,
+        room_address,
+        max_people,
+        users,
+        leader_id,
+        status,
+        room_address_detail,
+        created_at
+        ) VALUES (
+        #{storeId},
+        #{roomName},
+        #{roomAddress},
+        #{maxPeople},
+        #{users},
+        #{leaderId},
+        #{status},
+        #{roomAddressDetail},
+        SYSDATE
+        )
+    </insert>
+
+
+
+
+
 </mapper>
