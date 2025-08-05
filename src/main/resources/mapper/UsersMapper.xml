@@ -31,6 +31,12 @@
         WHERE id = #{id}
     </update>
 
+    <update id="resetPassword"  parameterType="UsersDto">
+        UPDATE USERS SET password = #{password}
+        WHERE email = #{email} AND
+        role = #{role}
+    </update>
+
     <update id="updateAddressAndDetail" parameterType="UsersDto">
         UPDATE USERS SET address = #{address}, address_detail = #{addressDetail} WHERE id = #{id}
 

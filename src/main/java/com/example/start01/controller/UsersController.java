@@ -111,6 +111,13 @@ public class UsersController {
         return updated ? "success" : "fail";
     }
 
+    // 비밀번호 재설정
+    @PostMapping("/resetPassword")
+    public String resetPassword(@RequestBody UsersDto usersDto){
+        boolean updated = usersService.resetPassword(usersDto);
+        return updated ? "success" : "fail";
+    }
+
     // 회원삭제
     @PostMapping("/delete")
     public ResponseEntity<String> deleteUserByPost(@RequestBody Map<String, Integer> body) {
