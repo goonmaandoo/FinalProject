@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/order")
@@ -25,7 +26,15 @@ public class OrdersController {
         dtos.forEach(System.out::println);
         return dtos;
     }
-
+    //페이지네이션
+    @GetMapping(value = "/getOrderList", params = {"page", "size"})
+    public Map<String, Object> getOrderListPaging(
+            @RequestParam Integer userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        return ordersService.selectByUserIdPaging(userId, page, size);
+    }
 
     // 주문 상세
     @GetMapping("/getTheOrder/{orderId}")
