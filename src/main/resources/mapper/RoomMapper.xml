@@ -35,8 +35,10 @@
         GROUP BY r.id, r.store_id, r.room_name, r.room_address, r.max_people, r.status, r.created_at, r.room_address_detail
         ORDER BY r.created_at DESC
     </select>
-
     <select id="SelectByIdOnly" parameterType="int" resultType="RoomDto">
         SELECT * FROM room WHERE id=#{storeId}
+    </select>
+    <select id="SelectByKeyword" parameterType="String" resultType="RoomDto">
+        SELECT * FROM room WHERE room_name LIKE '%' || #{keyword} || '%'
     </select>
 </mapper>
