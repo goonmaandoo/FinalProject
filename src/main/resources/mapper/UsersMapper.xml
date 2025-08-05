@@ -42,8 +42,8 @@
 
     </update>
 
-    <delete id="deleteUsers" parameterType="int">
-        DELETE FROM USERS
+    <update id="unactiveUsers" parameterType="int">
+        UPDATE USERS SET status = 'unactive'
         WHERE id = #{id}
-    </delete>
+    </update>
 </mapper>
