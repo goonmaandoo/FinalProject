@@ -27,6 +27,10 @@ public class RoomController {
     public List<RoomDto> SelectById(@PathVariable("storeId") int storeId){
         return roomDao.SelectById(storeId);
     }
+    @GetMapping("/keyword/{keyword}")
+    public List<RoomDto> SelectByKeyword(@PathVariable("keyword") String keyword){
+        return roomDao.SelectByKeyword(keyword);
+    }
 
     @GetMapping("/allWithCount")
     public List<RoomDto> RoomsWithJoinCount() {

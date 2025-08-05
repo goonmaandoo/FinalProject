@@ -2,6 +2,7 @@ package com.example.start01.controller;
 
 import com.example.start01.dao.MenuDao;
 import com.example.start01.dto.MenuDto;
+import com.example.start01.dto.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,4 +26,8 @@ public class MenuController {
         return menuDao.StoreMenuImage(storeId);
     }
 
+    @GetMapping ("/keyword/{keyword}")
+    public List<MenuDto> SelectByKeyword(@PathVariable("keyword") String keyword){
+        return menuDao.SelectByKeyword(keyword);
+    }
 }
