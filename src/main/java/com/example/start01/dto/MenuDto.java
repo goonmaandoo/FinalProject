@@ -17,4 +17,5 @@ public class MenuDto {
     private String folder;
     private String filename;
     private String storeName;
+    private String ownerId;
 }
