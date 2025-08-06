@@ -32,4 +32,10 @@ public class StoreController {
     public List<StoreDto> SelectByKeyword(@PathVariable("keyword") String keyword){
         return storeDao.SelectByKeyword(keyword);
     }
+
+    @PostMapping("/storeInsert")
+    public String registerStore(@RequestBody StoreDto storeDto) {
+        storeDao.StoreInsert(storeDto);
+        return "Store registered successfully!";
+    }
 }
