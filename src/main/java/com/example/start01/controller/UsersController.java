@@ -129,6 +129,11 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("회원탈퇴 실패");
         }
     }
+    //총 사용자
+    @GetMapping("/totalCount")
+    public int totalCount() {
+        return usersDao.TotalCount();
+    }
 
 
 }

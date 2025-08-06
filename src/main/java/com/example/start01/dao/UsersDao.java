@@ -32,4 +32,5 @@ public interface UsersDao {
     // 회원 삭제
     int unactiveUsers(int id);
 
+    int TotalCount();
 }
