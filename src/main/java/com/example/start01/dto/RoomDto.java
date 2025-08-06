@@ -24,4 +24,8 @@ public class RoomDto {
     private LocalDateTime createdAt;
     private String roomAddressDetail;
     private Integer joinCount;
+    private Integer joinIngCount;
+    private Integer ingCount;
+    private Integer endCount;
+    private Integer totalCount;
 }
