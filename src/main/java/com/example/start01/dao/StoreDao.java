@@ -18,4 +18,6 @@ public interface StoreDao {
     StoreDto StoreDetail(int id);
 
     List<StoreDto> SelectByKeyword(@Param("keyword") String keyword);
+
+    void StoreInsert(StoreDto storeDto);
 }
