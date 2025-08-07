@@ -2,6 +2,7 @@ package com.example.start01.dao;
 
 import com.example.start01.dto.MenuDto;
 import com.example.start01.dto.StoreDto;
+import org.apache.catalina.Store;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -24,4 +25,6 @@ public interface StoreDao {
     List<StoreDto> StoreByOwnerId(@Param("ownerId") int ownerId);
 
     int StoreDeleteById(int id);
+
+    void StoreUpdate(StoreDto storeDto);
 }

@@ -18,7 +18,7 @@
     </insert>
     <update id="StoreUpdate" parameterType="StoreDto">
         UPDATE store SET store_name=#{storeName},store_address=#{storeAddress},
-        min_price=#{minPrice},tel=#{tel}, delivery_fee=#{deliveryFee}WHERE id=#{id}
+        min_price=#{minPrice},tel=#{tel} WHERE id=#{id}
     </update>
     <delete id="StoreDelete" parameterType="StoreDto">
         DELETE FROM store WHERE id=#{id}
