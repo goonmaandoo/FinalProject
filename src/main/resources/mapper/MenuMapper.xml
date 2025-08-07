@@ -92,5 +92,7 @@
         WHERE s.owner_id = #{ownerId}
 
     </select>
-
+<!--    <select id="selectByStore" parameterType="int" resultType="com.example.start01.dto.MenuDto">-->
+<!--        SELECT * FROM menu WHERE store_id = #{storeId}-->
+<!--    </select>-->
 </mapper>
