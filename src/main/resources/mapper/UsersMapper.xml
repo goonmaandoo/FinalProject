@@ -63,4 +63,14 @@
         UPDATE USERS SET status = 'unactive'
         WHERE id = #{id}
     </update>
+<!--    <select id="userSearch" resultType="StoreDto" parameterType="map">-->
+<!--        SELECT s.*, u.nickname AS nickName-->
+<!--        FROM store s-->
+<!--        JOIN users u ON s.owner_id = u.id-->
+<!--                Where u.nickname LIKE '%' || #{keyword} || '%' -->
+<!--                    <when test="type == 'user'"> u.nickname LIKE '%' || #{keyword} || '%' </when>-->
+<!--                    <when test="type == 'storeName'"> s.store_name LIKE '%' || #{keyword} || '%' </when>-->
+<!--                    <when test="type == 'storeAddress'"> s.store_address LIKE '%' || #{keyword} || '%' </when>-->
+<!--                    <when test="type == 'tel'"> s.tel LIKE '%' || #{keyword} || '%' </when>-->
+<!--    </select>-->
 </mapper>
