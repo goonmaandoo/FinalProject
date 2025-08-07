@@ -18,7 +18,8 @@
     </select>
 
     <select id="RoomsWithJoinCount" resultType="RoomDto">
-        SELECT r.id, r.store_id, r.room_name, r.room_address, r.max_people,
+        SELECT
+        r.id, r.store_id, r.room_name, r.room_address, r.max_people,
         COUNT(rj.id) AS joinCount
         FROM room r
         LEFT JOIN room_join rj ON r.id = rj.room_id
@@ -29,12 +30,15 @@
     <select id="TotalCount" resultType="int">
         SELECT count(*) AS totalCount FROM room
     </select>
+
     <select id="JoinIngCount" resultType="int">
         SELECT count(*) AS joinIngCount FROM room WHERE status='모집중'
     </select>
+
     <select id="IngCount" resultType="int">
         SELECT COUNT(*) as ingCount FROM room WHERE status IN ('진행중', '조리중', '배송중', '픽업대기중')
     </select>
+
     <select id="EndCount" resultType="int">
         SELECT count(*) as endCount FROM room WHERE status IN ('삭제', '종료')
     </select>
@@ -50,21 +54,9 @@
         ORDER BY r.created_at DESC
     </select>
 
-
     <select id="SelectByIdOnly" parameterType="int" resultType="RoomDto">
         SELECT * FROM room WHERE id=#{id}
-
     </select>
-
-
-    <!-- 룸/챗 -->
-    <select id="selectRoom" parameterType="RoomDto" resultType="RoomDto">
-        SELECT
-        id,
-        store_id,
-        room_name,
-        room_address,
-        room_address_detail,
 
     <select id="SelectByKeyword" parameterType="String" resultType="RoomDto">
         SELECT * FROM room WHERE room_name LIKE '%' || #{keyword} || '%'
@@ -75,14 +67,33 @@
         store_id,
         room_name,
         room_address,
-
+        room_address_detail,
         max_people,
         users,
         leader_id,
         status,
+        created_at
+        ) VALUES (
+        #{storeId},
+        #{roomName},
+        #{roomAddress},
+        #{roomAddressDetail},
+        #{maxPeople},
+        #{users},
+        #{leaderId},
+        #{status},
+        SYSDATE
+        )
+    </insert>
 
-        created_at,
-        join_count
+    <select id="selectRoom" parameterType="com.example.start01.dto.RoomDto" resultType="RoomDto">
+        SELECT
+        id,
+        store_id,
+        room_name,
+        room_address,
+        room_address_detail,
+        created_at
         FROM room
         <where>
             <if test="id != null">AND id = #{id}</if>
@@ -96,40 +107,25 @@
             <if test="status != null">AND status = #{status}</if>
         </where>
     </select>
-    <select id="selectAllRoom" parameterType="RoomDto" resultType="RoomDto">
-        SELECT * FROM room where id = #{id}
+
+    <select id="selectAllRoom" parameterType="com.example.start01.dto.RoomDto" resultType="RoomDto">
+        SELECT * FROM room WHERE id = #{id}
     </select>
+
     <select id="selectReadyPeople" parameterType="map" resultType="Integer">
-        SELECT ready_people from room WHERE id = #{roomId}
+        SELECT ready_people FROM room WHERE id = #{roomId}
     </select>
-    <update id="updateRoomUsers" parameterType="RoomDto">
+
+    <update id="updateRoomUsers" parameterType="com.example.start01.dto.RoomDto">
         UPDATE room
         SET users = #{users, jdbcType=VARCHAR}
         WHERE id = #{id}
     </update>
-    <update id="updateReadyCount" parameterType="map" >
+
+    <update id="updateReadyCount" parameterType="map">
         UPDATE room
         SET ready_people = ready_people + #{delta}
         WHERE id = #{roomId}
     </update>
-</mapper>
-
-        room_address_detail,
-        created_at
-        ) VALUES (
-        #{storeId},
-        #{roomName},
-        #{roomAddress},
-        #{maxPeople},
-        #{users},
-        #{leaderId},
-        #{status},
-        #{roomAddressDetail},
-        SYSDATE
-        )
-    </insert>
-
 
 </mapper>
-
-

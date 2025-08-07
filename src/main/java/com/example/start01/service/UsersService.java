@@ -83,10 +83,10 @@ public class UsersService {
     // 룸/챗
     public boolean updateUser(UsersDto usersDto) {
         int affectedRows = usersDao.updateUser(usersDto);
-        System.out.println("usersDto:"+usersDto);
+        System.out.println("usersDto:" + usersDto);
         return affectedRows > 0;  // 1 이상이면 성공
 
-
+    }
     // 비밀번호 재설정
     public boolean resetPassword(UsersDto usersDto){
         return usersDao.resetPassword(usersDto) > 0 ;

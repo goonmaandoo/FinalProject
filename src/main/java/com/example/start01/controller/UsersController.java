@@ -197,28 +197,5 @@ public class UsersController {
     }
 
 
-    // 비밀번호 재설정
-    @PostMapping("/resetPassword")
-    public String resetPassword(@RequestBody UsersDto usersDto){
-        boolean updated = usersService.resetPassword(usersDto);
-        return updated ? "success" : "fail";
-    }
-
-    // 회원삭제
-    @PostMapping("/delete")
-    public ResponseEntity<String> deleteUserByPost(@RequestBody Map<String, Integer> body) {
-        int id = body.get("id");
-        boolean deleted = usersService.unactiveUsers(id);
-        if (deleted) {
-            return ResponseEntity.ok("회원탈퇴 성공");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("회원탈퇴 실패");
-        }
-    }
-    //총 사용자
-    @GetMapping("/totalCount")
-    public int totalCount() {
-        return usersDao.TotalCount();
-    }
 
 }
