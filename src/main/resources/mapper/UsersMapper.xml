@@ -25,11 +25,22 @@
     <select id="selectAll" resultType="UsersDto">
         SELECT * FROM USERS
     </select>
+    <select id="TotalCount" resultType="int">
+        SELECT count(*) AS totalCount FROM USERS
+    </select>
 
     <update id="updatePassword"  parameterType="UsersDto">
         UPDATE USERS SET password = #{password}, nickname = #{nickname}
         WHERE id = #{id}
     </update>
+
+
+    <update id="resetPassword"  parameterType="UsersDto">
+        UPDATE USERS SET password = #{password}
+        WHERE email = #{email} AND
+        role = #{role}
+    </update>
+
     <update id="updateAddressAndDetail" parameterType="UsersDto">
         UPDATE USERS SET address = #{address}, address_detail = #{addressDetail} WHERE id = #{id}
     </update>
@@ -46,5 +57,10 @@
             <if test="cash != null">CASH = #{cash},</if>
         </set>
         WHERE ID = #{id}
+    </update>
+
+    <update id="unactiveUsers" parameterType="int">
+        UPDATE USERS SET status = 'unactive'
+        WHERE id = #{id}
     </update>
 </mapper>

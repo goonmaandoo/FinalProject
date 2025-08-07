@@ -1,12 +1,10 @@
 package com.example.start01.controller;
 
 import com.example.start01.dao.StoreDao;
+import com.example.start01.dto.RoomDto;
 import com.example.start01.dto.StoreDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,15 +16,55 @@ public class StoreController {
 
     @GetMapping("/categoryId/{menuCategoryId}")
     public List<StoreDto> StoreById(@PathVariable int menuCategoryId) {
-
         return storeDao.StoreById(menuCategoryId);
     }
     @GetMapping ("/all")
     public List<StoreDto> StoreAll() {
         return storeDao.StoreAll();
     }
+
+    @GetMapping ("/userAll")
+    public List<StoreDto> StoreUserAll() {
+        return storeDao.StoreUserAll();
+    }
+
     @GetMapping("/storeDetail/{id}")
     public StoreDto StoreDetail(@PathVariable int id) {
         return storeDao.StoreDetail(id);
     }
+
+    @GetMapping("/keyword/{keyword}")
+    public List<StoreDto> SelectByKeyword(@PathVariable("keyword") String keyword){
+        return storeDao.SelectByKeyword(keyword);
+    }
+
+    @PostMapping("/storeInsert")
+    public String registerStore(@RequestBody StoreDto storeDto) {
+        storeDao.StoreInsert(storeDto);
+        return "가게 등록 완료!";
+    }
+    @GetMapping("/storeCount")
+    public int StoreCount() {
+        return storeDao.StoreCount();
+    }
+
+    @GetMapping("/storeByOwnerId/{id}")
+    public List<StoreDto> StoreByOwnerId(@PathVariable("id") int ownerId) {
+
+        return storeDao.StoreByOwnerId(ownerId);
+    }
+
+    @GetMapping("/storeDelete/{id}")
+    public int StoreDeleteById(@PathVariable int id) {
+
+        return storeDao.StoreDeleteById(id);
+    }
+
+    @PutMapping("/storeUpdate")
+    public String updateStore(@RequestBody StoreDto storeDto) {
+        storeDao.StoreUpdate(storeDto);
+        return "가게 수정 완료!";
+    }
+
+
 }

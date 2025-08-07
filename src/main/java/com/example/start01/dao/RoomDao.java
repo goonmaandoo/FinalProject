@@ -1,29 +1,26 @@
 package com.example.start01.dao;
 
 import com.example.start01.dto.RoomDto;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface RoomDao {
     List<RoomDto> RoomAll();
     List<RoomDto> RoomSelectRecruit();
 
-    int RoomInsert(RoomDto room);
+    // insert 메서드명과 XML id를 일치시킴
+    int RoomInsert(RoomDto roomDto);
 
     List<RoomDto> SelectById(@Param("storeId") int storeId);
 
     List<RoomDto> RoomsWithJoinCount();
 
-    @Select("SELECT * FROM room WHERE status=#{status}")
     RoomDto RoomSelect(String status);
 
     List<RoomDto> AllRoomSelect();
+
 
     List<RoomDto> SelectByIdOnly(@Param("storeId") int id);
 
@@ -38,3 +35,20 @@ public interface RoomDao {
     // 준비인원
     Integer selectReadyPeople(@Param("roomId") Integer roomId);
 }
+
+    RoomDto SelectByIdRoom(@Param("id") int id);
+
+    List<RoomDto> SelectByIdOnly(@Param("storeId") int id);
+
+    List<RoomDto> SelectByKeyword(@Param("keyword") String keyword);
+
+    int JoinIngCount ();
+
+    int IngCount ();
+
+    int EndCount ();
+
+    int TotalCount();
+
+}
+

@@ -72,6 +72,7 @@ public class UsersService {
         int result = usersDao.updatePassword(usersDto);
         return result > 0 ;
     }
+
     // 프로필
     public void updateProfile(UsersDto usersDto){
         usersDao.updateProfile(usersDto);
@@ -84,5 +85,17 @@ public class UsersService {
         int affectedRows = usersDao.updateUser(usersDto);
         System.out.println("usersDto:"+usersDto);
         return affectedRows > 0;  // 1 이상이면 성공
+
+
+    // 비밀번호 재설정
+    public boolean resetPassword(UsersDto usersDto){
+        return usersDao.resetPassword(usersDto) > 0 ;
+    }
+
+    // 회원 삭제
+    public boolean unactiveUsers(int id){
+        int result = usersDao.unactiveUsers(id);
+        return result > 0;
+
     }
 }

@@ -27,6 +27,7 @@
         SELECT m.id, m.store_id, m.image_id, m.menu_name, m.menu_price, i.folder, i.filename
         FROM menu m LEFT JOIN image i ON m.image_id = i.id WHERE m.store_id = #{storeId}
     </select>
+
     <!-- 룸/챗 -->
     <select id="selectMenu" parameterType="MenuDto" resultType="MenuDto">
         SELECT
@@ -60,4 +61,36 @@
     <select id="selectByStore" resultType="MenuDto" parameterType="Integer">
         SELECT * FROM MENU WHERE store_id = #{storeId} order by id
     </select>
+
+    <select id="SelectByKeyword" parameterType="String" resultType="MenuDto">
+        SELECT m.id, m.store_id, m.image_id, m.menu_name, m.menu_price, i.folder, i.filename, s.store_name
+        FROM menu m LEFT JOIN image i ON m.image_id = i.id JOIN store s ON m.store_id = s.id
+        WHERE m.menu_name LIKE '%' || #{keyword} || '%'
+    </select>
+
+    <select id="findMenuByOwnerId" resultType="MenuDto">
+        SELECT menu.*
+        FROM menu, store
+        where store.id = menu.store_id
+        and store.owner_id = #{ownerId}
+    </select>
+
+    <select id="findMenuWithImageByOwnerId" parameterType="int" resultType="MenuDto">
+        SELECT
+        m.id,
+        m.store_id,
+        s.store_name,
+        s.owner_id,
+        m.image_id,
+        m.menu_name,
+        m.menu_price,
+        i.folder,
+        i.filename
+        FROM menu m
+        LEFT JOIN image i ON m.image_id = i.id
+        LEFT JOIN store s ON m.store_id = s.id
+        WHERE s.owner_id = #{ownerId}
+
+    </select>
+
 </mapper>

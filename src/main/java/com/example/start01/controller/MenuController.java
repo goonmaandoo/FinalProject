@@ -25,4 +25,20 @@ public class MenuController {
         return menuDao.StoreMenuImage(storeId);
     }
 
+    @GetMapping ("/keyword/{keyword}")
+    public List<MenuDto> SelectByKeyword(@PathVariable("keyword") String keyword){
+        return menuDao.SelectByKeyword(keyword);
+    }
+
+    @GetMapping("/owner/{ownerId}")
+    public List<MenuDto> getMenuByOwnerId(@PathVariable("ownerId") int ownerId) {
+        return menuDao.findMenuByOwnerId(ownerId);
+    }
+
+    @GetMapping("/ownerWithImage/{ownerId}")
+    public List<MenuDto> getMenuWithImage(@PathVariable int ownerId) {
+        return menuDao.findMenuWithImageByOwnerId(ownerId);
+    }
+
+
 }

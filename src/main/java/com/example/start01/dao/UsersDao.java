@@ -26,6 +26,9 @@ public interface UsersDao {
     // 비밀번호 업데이트
     int updatePassword(UsersDto usersDto);
 
+    // 비밀번호 재설정
+    int resetPassword(UsersDto usersDto);
+
     void updateAddressAndDetail(UsersDto usersDto);
     // 프로필
     void updateProfile(UsersDto usersDto);
@@ -34,4 +37,10 @@ public interface UsersDao {
 
     // 룸 챗
     int updateUser(UsersDto usersDto);
+
+    // 회원 삭제
+    int unactiveUsers(int id);
+
+    int TotalCount();
+
 }

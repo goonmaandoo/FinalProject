@@ -1,15 +1,18 @@
 package com.example.start01.controller;
 
 
+import com.example.start01.dao.OrdersDao;
 import com.example.start01.dto.OrdersDto;
 import com.example.start01.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/order")
 public class OrdersController {
     @Autowired
     private OrdersService ordersService;
@@ -22,6 +25,15 @@ public class OrdersController {
         System.out.println("dots.size(): " + dtos.size());
         dtos.forEach(System.out::println);
         return dtos;
+    }
+    //페이지네이션
+    @GetMapping(value = "/getOrderList", params = {"page", "size"})
+    public Map<String, Object> getOrderListPaging(
+            @RequestParam Integer userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        return ordersService.selectByUserIdPaging(userId, page, size);
     }
 
     // 주문 상세
@@ -46,6 +58,18 @@ public class OrdersController {
     public void delete(@PathVariable Integer orderId) {
         System.out.println("삭제 요청: " + orderId);
         ordersService.deleteByOrderId(orderId);
+
     }
 
+    // 공구완료 페이지용: roomId로 전체 주문 조회
+    @Autowired
+    private OrdersDao ordersDao;
+
+    @GetMapping("/getOrderListByRoom")
+    public List<OrdersDto> getOrderListByRoom(@RequestParam("roomId") Integer roomId) {
+        return ordersDao.selectOrdersByRoomId(roomId);
+    }
+
+
 }
+
