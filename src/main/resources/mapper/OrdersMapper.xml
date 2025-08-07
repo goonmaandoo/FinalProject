@@ -64,6 +64,32 @@
         DELETE FROM orders WHERE order_id = #{orderId}
     </delete>
 
+<!--    &lt;!&ndash; 작성 가능한 리뷰 &ndash;&gt;-->
+<!--    <select id="selectCanReviewByUserId" resultType="com.example.start01.dto.OrdersDto">-->
+<!--        SELECT-->
+<!--        o.order_id AS orderId,-->
+<!--        o.room_id AS roomId,-->
+<!--        o.user_id AS userId,-->
+<!--        o.store_id AS storeId,-->
+<!--        o.room_order AS roomOrder,-->
+<!--        o.total_price AS totalPrice,-->
+<!--        o.created_at AS createdAt-->
+<!--        FROM orders o-->
+<!--        LEFT JOIN review r ON o.order_id = r.order_id AND r.user_id = #{userId}-->
+<!--        WHERE o.user_id = #{userId}-->
+<!--        AND r.id IS NULL-->
+<!--        ORDER BY o.created_at DESC-->
+<!--        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash; 중복체크용 count &ndash;&gt;-->
+<!--    <select id="countCanReviewByUserId" resultType="int">-->
+<!--        SELECT COUNT(1) FROM orders o-->
+<!--        LEFT JOIN review r ON o.order_id = r.order_id AND o.user_id = r.user_id-->
+<!--        WHERE o.user_id = #{userId}-->
+<!--            AND r.id IS NULL-->
+<!--    </select>-->
+
     <select id="selectOrdersByRoomId" resultType="com.example.start01.dto.OrdersDto">
         SELECT *
         FROM orders

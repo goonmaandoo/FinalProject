@@ -35,5 +35,14 @@ public interface OrdersDao {
     ArrayList<OrdersDto> selectOrdersByRoomId(@Param("roomId") Integer roomId);
 
 
-
+//    //작성 가능 리뷰
+//    List<OrdersDto> selectCanReviewByUserId(
+//            @Param("userId") int userId,
+//            @Param("offset") int offset,
+//            @Param("size") int size);
+//
+//    //중복 체크
+//    int countByUserIdAndOrderId(@Param("userId") int userId, @Param("orderId") int orderId);
+//
+//    int countCanReviewByUserId(@Param("userId") int userId);
 }

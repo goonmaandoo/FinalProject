@@ -17,7 +17,7 @@ public class OrdersController {
     @Autowired
     private OrdersService ordersService;
 
-    // 내 주문 목록
+    // 내 주문 목록 (파라미터 : userId 만 있을때)
     @GetMapping("/getOrderList")
     public ArrayList<OrdersDto> getOrderList(@RequestParam Integer userId) {
         System.out.println("userId: " + userId);
@@ -26,7 +26,7 @@ public class OrdersController {
         dtos.forEach(System.out::println);
         return dtos;
     }
-    //페이지네이션
+    //페이지네이션 (파라미터 : userId, page, size)
     @GetMapping(value = "/getOrderList", params = {"page", "size"})
     public Map<String, Object> getOrderListPaging(
             @RequestParam Integer userId,
@@ -60,6 +60,17 @@ public class OrdersController {
         ordersService.deleteByOrderId(orderId);
 
     }
+
+//    //작성 가능한 리뷰 주문
+//    @GetMapping("/canWrite")
+//    public Map<String, Object> getCanReviewList(
+//            @RequestParam int userId,
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "10") int size
+//    ) {
+//        int offset = page * size;
+//        return ordersService.getCanReviewList(userId, offset, size);
+//    }
 
     // 공구완료 페이지용: roomId로 전체 주문 조회
     @Autowired
