@@ -20,4 +20,8 @@ public interface StoreDao {
     List<StoreDto> SelectByKeyword(@Param("keyword") String keyword);
 
     void StoreInsert(StoreDto storeDto);
+
+    List<StoreDto> StoreByOwnerId(@Param("ownerId") int ownerId);
+
+    int StoreDeleteById(int id);
 }

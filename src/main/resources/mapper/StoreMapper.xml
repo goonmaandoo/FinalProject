@@ -26,4 +26,12 @@
     <select id="SelectByKeyword" parameterType="String" resultType="StoreDto">
         SELECT * FROM store WHERE store_name LIKE '%' || #{keyword} || '%'
     </select>
+
+    <select id="StoreByOwnerId" parameterType="int" resultType="StoreDto">
+        SELECT * FROM store WHERE owner_id = #{ownerId}
+    </select>
+
+    <delete id="StoreDeleteById" parameterType="int">
+        DELETE FROM store WHERE id = #{id}
+    </delete>
 </mapper>
