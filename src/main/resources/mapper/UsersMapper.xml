@@ -29,9 +29,22 @@
     <update id="updatePassword"  parameterType="UsersDto">
         UPDATE USERS SET password = #{password}, nickname = #{nickname}
         WHERE id = #{id}
-
+    </update>
     <update id="updateAddressAndDetail" parameterType="UsersDto">
         UPDATE USERS SET address = #{address}, address_detail = #{addressDetail} WHERE id = #{id}
+    </update>
+    <update id="updateProfileUrl" parameterType="map">
+        UPDATE USERS SET profile_url = #{profileUrl} WHERE id = #{userId}
+    </update>
 
+    <!-- 룸/챗-->
+    <update id="updateUser" parameterType="UsersDto">
+        UPDATE USERS
+        <set>
+            <if test="nickname != null">NICKNAME = #{nickname},</if>
+            <if test="userRating != null">USER_RATING = #{userRating},</if>
+            <if test="cash != null">CASH = #{cash},</if>
+        </set>
+        WHERE ID = #{id}
     </update>
 </mapper>

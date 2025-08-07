@@ -27,5 +27,37 @@
         SELECT m.id, m.store_id, m.image_id, m.menu_name, m.menu_price, i.folder, i.filename
         FROM menu m LEFT JOIN image i ON m.image_id = i.id WHERE m.store_id = #{storeId}
     </select>
-
+    <!-- 룸/챗 -->
+    <select id="selectMenu" parameterType="MenuDto" resultType="MenuDto">
+        SELECT
+        id,
+        menu_category_id,
+        store_id,
+        image_id,
+        menu_name,
+        menu_price,
+        folder,
+        filename
+        FROM menu
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="storeId != null">
+                AND store_id = #{storeId}
+            </if>
+            <if test="menuName != null">
+                AND menu_name = #{menuName}
+            </if>
+            <if test="menuNameLike != null">
+                AND LOWER(menu_name) LIKE CONCAT('%', LOWER(#{menuNameLike}), '%')
+            </if>
+            <if test="menuCategoryId != null">
+                AND menu_category_id = #{menuCategoryId}
+            </if>
+        </where>
+    </select>
+    <select id="selectByStore" resultType="MenuDto" parameterType="Integer">
+        SELECT * FROM MENU WHERE store_id = #{storeId} order by id
+    </select>
 </mapper>

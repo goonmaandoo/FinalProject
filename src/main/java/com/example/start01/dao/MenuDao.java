@@ -11,4 +11,8 @@ public interface MenuDao {
     List<MenuDto> StoreMenuList(@Param("storeId") int storeId);
 
     List<MenuDto> StoreMenuImage(@Param("storeId") int storeId);
+
+    // 룸챗
+    List<MenuDto> selectMenu(MenuDto menuDto);
+    List<MenuDto> selectByStore(Integer storeId);
 }

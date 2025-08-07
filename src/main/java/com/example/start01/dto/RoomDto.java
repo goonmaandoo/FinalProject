@@ -19,9 +19,13 @@ public class RoomDto {
     private String roomAddress;
     private Integer maxPeople;
     private String users;
-    private UUID leaderId;
+    private Integer leaderId;
     private String status;
     private LocalDateTime createdAt;
     private String roomAddressDetail;
     private Integer joinCount;
+    // 검색용 (LIKE)
+    private String storeNameLike;
+    // 준비인원 체크용
+    private Integer readyPeople;
 }

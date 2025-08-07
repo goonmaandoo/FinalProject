@@ -27,7 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // 프론트는 react라 삭제할수도
 	implementation 'org.springframework.boot:spring-boot-starter-web' // 기본웹기능
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4' // mybatis
-	implementation 'org.springframework.boot:spring-boot-starter-webflux' // 추가
+	//implementation 'org.springframework.boot:spring-boot-starter-webflux' // 추가
 	compileOnly 'org.projectlombok:lombok' // 롬복
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql' // 추가
@@ -41,6 +41,10 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly('io.jsonwebtoken:jjwt-jackson:0.11.5') // JSON 파싱용
+	implementation 'commons-io:commons-io:2.11.0'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.webjars:sockjs-client:1.5.1'
+	implementation 'org.webjars:stomp-websocket:2.3.4'
 }
 
 tasks.named('test') {

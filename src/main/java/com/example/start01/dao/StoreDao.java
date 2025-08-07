@@ -15,4 +15,7 @@ public interface StoreDao {
     List<StoreDto> StoreById(@Param("menuCategoryId") int menuCategoryId);
 
     StoreDto StoreDetail(int id);
+
+    // 룸/챗
+    List<StoreDto> selectStore(StoreDto storeDto);
 }

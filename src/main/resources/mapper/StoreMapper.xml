@@ -23,4 +23,29 @@
     <delete id="StoreDelete" parameterType="StoreDto">
         DELETE FROM store WHERE id=#{id}
     </delete>
+
+    <!-- 룸/챗-->
+    <select id="selectStore" parameterType="StoreDto" resultType="StoreDto">
+        SELECT
+        id,
+        menu_category_id AS menuCategoryId,
+        store_name AS storeName,
+        store_address AS storeAddress,
+        min_price AS minPrice,
+        tel,
+        owner_id AS ownerId
+        FROM store
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="menuCategoryId != null">
+                AND menu_category_id = #{menuCategoryId}
+            </if>
+            <if test="storeNameLike != null and storeNameLike != ''">
+                AND LOWER(store_name) LIKE CONCAT('%', LOWER(#{storeNameLike}), '%')
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
 </mapper>

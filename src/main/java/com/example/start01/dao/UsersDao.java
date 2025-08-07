@@ -2,6 +2,8 @@ package com.example.start01.dao;
 
 import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 @Mapper
@@ -25,5 +27,11 @@ public interface UsersDao {
     int updatePassword(UsersDto usersDto);
 
     void updateAddressAndDetail(UsersDto usersDto);
+    // 프로필
+    void updateProfile(UsersDto usersDto);
 
+    void updateProfileUrl(@Param("userId") Integer userId, @Param("profileUrl") String profileUrl);
+
+    // 룸 챗
+    int updateUser(UsersDto usersDto);
 }

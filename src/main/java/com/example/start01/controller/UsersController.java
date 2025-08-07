@@ -7,11 +7,16 @@ import com.example.start01.dto.QnaDto;
 import com.example.start01.dto.UsersDto;
 import com.example.start01.service.UsersService;
 import com.example.start01.utils.JwtTokenProvider;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,5 +115,53 @@ public class UsersController {
         boolean updated = usersService.updatePassword(usersDto);
         return updated ? "success" : "fail";
     }
+    @PutMapping("/updateProfile")
+    public void updateProfile(@RequestBody UsersDto usersDto) {
+        usersService.updateProfile(usersDto);
+    }
+    @PostMapping("/uploadProfileImage")
+    public ResponseEntity<Map<String, Object>> uploadProfileImage(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("userId") Integer userId
+    ) {
+        try {
+            // 1. 확장자 추출
+            String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+            String fileName = userId + "." + ext;
 
+            // 2. 저장 경로 지정
+            String uploadDir = "C:/upload/profileimg/";
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            // 3. 저장
+            Path filePath = uploadPath.resolve(fileName);
+            file.transferTo(filePath.toFile());
+
+            // 4. DB 저장할 상대 경로
+            String dbPath = "/image/profileimg/" + fileName;
+            usersService.updateProfileUrl(userId, dbPath);
+            System.out.println("Updated profileUrl in DB: " + dbPath);
+            // 5. 클라이언트에 전달
+            Map<String, Object> response = new HashMap<>();
+            response.put("profileUrl", dbPath);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    // 룸 / 챗
+    @PutMapping("/updateUser")
+    public ResponseEntity<?> updateUser(@RequestBody UsersDto usersDto) {
+        boolean updated = usersService.updateUser(usersDto);
+        if (updated) {
+            return ResponseEntity.ok("User updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found or no changes made");
+        }
+    }
 }

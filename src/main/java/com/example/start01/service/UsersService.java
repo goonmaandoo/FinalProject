@@ -72,4 +72,17 @@ public class UsersService {
         int result = usersDao.updatePassword(usersDto);
         return result > 0 ;
     }
+    // 프로필
+    public void updateProfile(UsersDto usersDto){
+        usersDao.updateProfile(usersDto);
+    };
+    public void updateProfileUrl(Integer userId, String profileUrl) {
+        usersDao.updateProfileUrl(userId, profileUrl);
+    }
+    // 룸/챗
+    public boolean updateUser(UsersDto usersDto) {
+        int affectedRows = usersDao.updateUser(usersDto);
+        System.out.println("usersDto:"+usersDto);
+        return affectedRows > 0;  // 1 이상이면 성공
+    }
 }
