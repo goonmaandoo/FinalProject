@@ -6,7 +6,9 @@ import com.example.start01.dto.StoreDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/store")
@@ -36,6 +38,13 @@ public class StoreController {
     @GetMapping("/keyword/{keyword}")
     public List<StoreDto> SelectByKeyword(@PathVariable("keyword") String keyword){
         return storeDao.SelectByKeyword(keyword);
+    }
+    @GetMapping("/search")
+    public List<StoreDto> storeSearch(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return storeDao.storeSearch(param);
     }
 
     @PostMapping("/storeInsert")

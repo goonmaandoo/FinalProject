@@ -28,4 +28,6 @@ public interface StoreDao {
     List<StoreDto> StoreByOwnerId(@Param("ownerId") int ownerId);
 
     int StoreDeleteById(int id);
+
+    List<StoreDto> storeSearch(Map<String, String> param);
 }

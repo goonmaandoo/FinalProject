@@ -40,4 +40,20 @@
     <delete id="StoreDeleteById" parameterType="int">
         DELETE FROM store WHERE id = #{id}
     </delete>
+
+    <select id="storeSearch" resultType="StoreDto" parameterType="map">
+        SELECT s.*, u.nickname AS nickName
+        FROM store s
+        JOIN users u ON s.owner_id = u.id
+        <where>
+            <if test="type != null and keyword != null and type != 'all'">
+                <choose>
+                    <when test="type == 'user'"> u.nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'storeName'"> s.store_name LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'storeAddress'"> s.store_address LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'tel'"> s.tel LIKE '%' || #{keyword} || '%' </when>
+                </choose>
+            </if>
+        </where>
+    </select>
 </mapper>
