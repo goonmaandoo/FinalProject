@@ -6,6 +6,12 @@
     <select id="StoreAll" resultType="StoreDto">
         SELECT * FROM store
     </select>
+    <select id="StoreUserAll" resultType="StoreDto">
+        SELECT s.*, u.nickName FROM store s LEFT JOIN users u on s.owner_id = u.id
+    </select>
+    <select id="StoreCount" resultType="int">
+        SELECT count(*) as storeCount FROM store
+    </select>
     <select id="StoreById" resultType="StoreDto">
         SELECT * FROM store WHERE menu_category_id = #{menuCategoryId}
     </select>

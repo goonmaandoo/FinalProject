@@ -16,13 +16,18 @@ public class StoreController {
 
     @GetMapping("/categoryId/{menuCategoryId}")
     public List<StoreDto> StoreById(@PathVariable int menuCategoryId) {
-
         return storeDao.StoreById(menuCategoryId);
     }
     @GetMapping ("/all")
     public List<StoreDto> StoreAll() {
         return storeDao.StoreAll();
     }
+
+    @GetMapping ("/userAll")
+    public List<StoreDto> StoreUserAll() {
+        return storeDao.StoreUserAll();
+    }
+
     @GetMapping("/storeDetail/{id}")
     public StoreDto StoreDetail(@PathVariable int id) {
         return storeDao.StoreDetail(id);
@@ -38,6 +43,10 @@ public class StoreController {
         storeDao.StoreInsert(storeDto);
         return "Store registered successfully!";
     }
+    @GetMapping("/storeCount")
+    public int StoreCount() {
+        return storeDao.StoreCount();
+    }
 
     @GetMapping("/storeByOwnerId/{id}")
     public List<StoreDto> StoreByOwnerId(@PathVariable("id") int ownerId) {
@@ -50,5 +59,4 @@ public class StoreController {
 
         return storeDao.StoreDeleteById(id);
     }
-
 }
