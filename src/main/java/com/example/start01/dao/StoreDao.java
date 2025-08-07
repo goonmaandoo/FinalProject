@@ -34,6 +34,8 @@ public interface StoreDao {
 
     int StoreDeleteById(int id);
 
+    List<StoreDto> storeSearch(Map<String, String> param);
+
     void StoreUpdate(StoreDto storeDto);
 
 }
