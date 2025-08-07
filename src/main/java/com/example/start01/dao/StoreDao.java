@@ -20,6 +20,10 @@ public interface StoreDao {
 
     StoreDto StoreDetail(int id);
 
+
+    // 룸/챗
+    List<StoreDto> selectStore(StoreDto storeDto);
+
     List<StoreDto> SelectByKeyword(@Param("keyword") String keyword);
 
     void StoreInsert(StoreDto storeDto);
@@ -31,4 +35,5 @@ public interface StoreDao {
     int StoreDeleteById(int id);
 
     void StoreUpdate(StoreDto storeDto);
+
 }

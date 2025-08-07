@@ -55,6 +55,17 @@
         SELECT * FROM room WHERE id=#{id}
 
     </select>
+
+
+    <!-- 룸/챗 -->
+    <select id="selectRoom" parameterType="RoomDto" resultType="RoomDto">
+        SELECT
+        id,
+        store_id,
+        room_name,
+        room_address,
+        room_address_detail,
+
     <select id="SelectByKeyword" parameterType="String" resultType="RoomDto">
         SELECT * FROM room WHERE room_name LIKE '%' || #{keyword} || '%'
     </select>
@@ -64,10 +75,45 @@
         store_id,
         room_name,
         room_address,
+
         max_people,
         users,
         leader_id,
         status,
+
+        created_at,
+        join_count
+        FROM room
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="storeId != null">AND store_id = #{storeId}</if>
+            <if test="roomName != null">AND room_name = #{roomName}</if>
+            <if test="roomNameLike != null">AND room_name LIKE CONCAT('%', #{roomNameLike}, '%')</if>
+            <if test="roomAddress != null">AND room_address = #{roomAddress}</if>
+            <if test="roomAddressDetail != null">AND room_address_detail = #{roomAddressDetail}</if>
+            <if test="maxPeople != null">AND max_people = #{maxPeople}</if>
+            <if test="leaderId != null">AND leader_id = #{leaderId}</if>
+            <if test="status != null">AND status = #{status}</if>
+        </where>
+    </select>
+    <select id="selectAllRoom" parameterType="RoomDto" resultType="RoomDto">
+        SELECT * FROM room where id = #{id}
+    </select>
+    <select id="selectReadyPeople" parameterType="map" resultType="Integer">
+        SELECT ready_people from room WHERE id = #{roomId}
+    </select>
+    <update id="updateRoomUsers" parameterType="RoomDto">
+        UPDATE room
+        SET users = #{users, jdbcType=VARCHAR}
+        WHERE id = #{id}
+    </update>
+    <update id="updateReadyCount" parameterType="map" >
+        UPDATE room
+        SET ready_people = ready_people + #{delta}
+        WHERE id = #{roomId}
+    </update>
+</mapper>
+
         room_address_detail,
         created_at
         ) VALUES (
@@ -85,4 +131,5 @@
 
 
 </mapper>
+
 

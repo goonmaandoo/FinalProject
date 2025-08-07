@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.start01.dao.ChatDao">
+<!--    <select id="getChatList" parameterType="Integer" resultType="ChatDto">-->
+<!--        SELECT ROOM_ID, CHAT, USER_ID, CREATED_AT-->
+<!--        FROM CHAT-->
+<!--        WHERE ROOM_ID = #{roomId}-->
+<!--        ORDER BY CREATED_AT ASC-->
+<!--    </select>-->
+    <select id="selectChatWithUserList" parameterType="Integer" resultType="ChatWithUserDto">
+        SELECT
+        c.ROOM_ID as roomId,
+        c.USER_ID as userId,
+        u.NICKNAME as nickname,
+        u.PROFILE_URL as profileUrl,
+        c.CHAT as chat,
+        c.CREATED_AT as createdAt
+        FROM CHAT c
+        INNER JOIN USERS u ON c.USER_ID = u.ID
+        WHERE c.ROOM_ID = #{roomId}
+        ORDER BY c.CREATED_AT ASC
+    </select>
+    <insert id="inputChat" parameterType="ChatDto">
+        INSERT INTO CHAT (ROOM_ID, CHAT, USER_ID, CREATED_AT)
+        VALUES (#{roomId}, #{chat}, #{userId}, #{createdAt})
+    </insert>
+</mapper>

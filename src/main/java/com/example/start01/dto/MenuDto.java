@@ -16,6 +16,11 @@ public class MenuDto {
     private Integer menuPrice;
     private String folder;
     private String filename;
+
+    //조건 검색
+    private String menuNameLike;
+
     private String storeName;
     private String ownerId;
+
 }
