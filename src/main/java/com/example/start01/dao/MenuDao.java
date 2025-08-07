@@ -13,10 +13,16 @@ public interface MenuDao {
 
     List<MenuDto> StoreMenuImage(@Param("storeId") int storeId);
 
+
+    // 룸챗
+    List<MenuDto> selectMenu(MenuDto menuDto);
+    List<MenuDto> selectByStore(Integer storeId);
+
     List<MenuDto> SelectByKeyword(@Param("keyword") String keyword);
 
     List<MenuDto> findMenuByOwnerId(@Param("ownerId") int ownerId);
 
     List<MenuDto> findMenuWithImageByOwnerId(@Param("ownerId") int ownerId);
+
 
 }

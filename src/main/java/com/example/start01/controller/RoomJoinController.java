@@ -4,10 +4,9 @@ package com.example.start01.controller;
 import com.example.start01.dto.RoomJoinDto;
 import com.example.start01.service.RoomJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/roomJoin")
@@ -22,5 +21,16 @@ public class RoomJoinController {
         RoomJoinDto joinDto = joinService.statusCheck(userId, roomId);
         return joinDto;
 
+    }
+    //  룸 / 챗
+    @PostMapping("/selectRoomJoin")
+    public List<RoomJoinDto> selectRommJoin(@RequestBody RoomJoinDto roomJoinDto) {
+        System.out.println("룸조인dto:"+roomJoinDto);
+        return joinService.selectRoomJoin(roomJoinDto);
+    }
+    @PostMapping("/insertRoom")
+    public void insertRoom(@RequestBody RoomJoinDto roomJoinDto) {
+        System.out.println("joindto / insert:"+ roomJoinDto);
+        joinService.insertRoomJoin(roomJoinDto);
     }
 }

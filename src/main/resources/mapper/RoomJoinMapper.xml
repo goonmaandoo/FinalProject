@@ -6,4 +6,23 @@
     <select id="statusCheck" resultType="RoomJoinDto">
         SELECT * from room_join where ROOM_ID = #{roomId} AND USERS_ID = #{userId}
     </select>
+    <!-- 룸/ 채팅 -->
+    <select id="selectRoomJoin" parameterType="RoomJoinDto" resultType="RoomJoinDto">
+        SELECT * FROM room_join
+        <where>
+            <if test="roomId != null">
+                AND room_id = #{roomId}
+            </if>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+    </select>
+    <insert id="insertRoomJoin" parameterType="RoomJoinDto">
+        INSERT INTO room_join (room_id, users_id, status, joined_at)
+        VALUES (#{roomId}, #{usersId}, #{status}, SYSDATE)
+    </insert>
 </mapper>
