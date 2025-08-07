@@ -3,7 +3,6 @@ package com.example.start01.controller;
 import com.example.start01.dao.UsersDao;
 import com.example.start01.dto.LoginRequest;
 import com.example.start01.dto.NicknameCheckDto;
-import com.example.start01.dto.QnaDto;
 import com.example.start01.dto.UsersDto;
 import com.example.start01.service.UsersService;
 import com.example.start01.utils.JwtTokenProvider;
@@ -24,6 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/users")
 public class UsersController {
+
     @Autowired
     private UsersService usersService;
 
@@ -72,19 +72,20 @@ public class UsersController {
     @PutMapping("/addressUpdate")
     public void updateAddress(@RequestBody UsersDto usersDto) {
         usersService.updateAddress(usersDto);
-        System.out.println("---업데이트된 usersDto---:" +usersDto);
+        System.out.println("---업데이트된 usersDto---:" + usersDto);
     }
+
     // 주소 업데이트 + 상세주소
     @PostMapping("/addressUpdateDetail")
     public void updateAddressAndDetail(@RequestBody UsersDto usersDto) {
         usersDao.updateAddressAndDetail(usersDto);
     }
+
     // 주소 불러오기
     @GetMapping("/getUserAddress/{userId}")
     public UsersDto getUserAddress(@PathVariable Integer userId) {
         return usersService.getUserAddress(userId);
     }
-
 
     // 토큰으로 유저 정보 조회 (이메일 기반)
     @GetMapping("/me")
@@ -120,6 +121,8 @@ public class UsersController {
     public void updateProfile(@RequestBody UsersDto usersDto) {
         usersService.updateProfile(usersDto);
     }
+
+    // 프로필 이미지 업로드
     @PostMapping("/uploadProfileImage")
     public ResponseEntity<Map<String, Object>> uploadProfileImage(
             @RequestParam("file") MultipartFile file,
@@ -145,6 +148,7 @@ public class UsersController {
             String dbPath = "/image/profileimg/" + fileName;
             usersService.updateProfileUrl(userId, dbPath);
             System.out.println("Updated profileUrl in DB: " + dbPath);
+
             // 5. 클라이언트에 전달
             Map<String, Object> response = new HashMap<>();
             response.put("profileUrl", dbPath);
@@ -155,7 +159,33 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    // 룸 / 챗
+
+    // 비밀번호 재설정
+    @PostMapping("/resetPassword")
+    public String resetPassword(@RequestBody UsersDto usersDto){
+        boolean updated = usersService.resetPassword(usersDto);
+        return updated ? "success" : "fail";
+    }
+
+    // 회원 탈퇴 (비활성화)
+    @PostMapping("/delete")
+    public ResponseEntity<String> deleteUserByPost(@RequestBody Map<String, Integer> body) {
+        int id = body.get("id");
+        boolean deleted = usersService.unactiveUsers(id);
+        if (deleted) {
+            return ResponseEntity.ok("회원탈퇴 성공");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("회원탈퇴 실패");
+        }
+    }
+
+    // 총 사용자 수
+    @GetMapping("/totalCount")
+    public int totalCount() {
+        return usersDao.TotalCount();
+    }
+
+    // 룸 / 챗 관련 유저 정보 업데이트
     @PutMapping("/updateUser")
     public ResponseEntity<?> updateUser(@RequestBody UsersDto usersDto) {
         boolean updated = usersService.updateUser(usersDto);

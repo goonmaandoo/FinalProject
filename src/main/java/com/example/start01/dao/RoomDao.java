@@ -21,8 +21,19 @@ public interface RoomDao {
 
     List<RoomDto> AllRoomSelect();
 
+    RoomDto SelectByIdRoom(@Param("id") int id);
 
     List<RoomDto> SelectByIdOnly(@Param("storeId") int id);
+
+    List<RoomDto> SelectByKeyword(@Param("keyword") String keyword);
+
+    int JoinIngCount();
+
+    int IngCount();
+
+    int EndCount();
+
+    int TotalCount();
 
     List<RoomDto> selectRoom(RoomDto roomDto);
 
@@ -35,20 +46,3 @@ public interface RoomDao {
     // 준비인원
     Integer selectReadyPeople(@Param("roomId") Integer roomId);
 }
-
-    RoomDto SelectByIdRoom(@Param("id") int id);
-
-    List<RoomDto> SelectByIdOnly(@Param("storeId") int id);
-
-    List<RoomDto> SelectByKeyword(@Param("keyword") String keyword);
-
-    int JoinIngCount ();
-
-    int IngCount ();
-
-    int EndCount ();
-
-    int TotalCount();
-
-}
-
