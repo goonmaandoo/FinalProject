@@ -47,4 +47,16 @@ public class StoreController {
     public int StoreCount() {
         return storeDao.StoreCount();
     }
+
+    @GetMapping("/storeByOwnerId/{id}")
+    public List<StoreDto> StoreByOwnerId(@PathVariable("id") int ownerId) {
+
+        return storeDao.StoreByOwnerId(ownerId);
+    }
+
+    @GetMapping("/storeDelete/{id}")
+    public int StoreDeleteById(@PathVariable int id) {
+
+        return storeDao.StoreDeleteById(id);
+    }
 }

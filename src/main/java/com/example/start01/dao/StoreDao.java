@@ -24,4 +24,8 @@ public interface StoreDao {
     void StoreInsert(StoreDto storeDto);
 
     int StoreCount ();
+
+    List<StoreDto> StoreByOwnerId(@Param("ownerId") int ownerId);
+
+    int StoreDeleteById(int id);
 }
