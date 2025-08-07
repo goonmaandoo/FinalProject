@@ -14,6 +14,8 @@ import java.util.Map;
 public interface StoreDao {
     List<StoreDto> StoreAll();
 
+    List<StoreDto> StoreUserAll();
+
     List<StoreDto> StoreById(@Param("menuCategoryId") int menuCategoryId);
 
     StoreDto StoreDetail(int id);
@@ -21,6 +23,8 @@ public interface StoreDao {
     List<StoreDto> SelectByKeyword(@Param("keyword") String keyword);
 
     void StoreInsert(StoreDto storeDto);
+
+    int StoreCount ();
 
     List<StoreDto> StoreByOwnerId(@Param("ownerId") int ownerId);
 
