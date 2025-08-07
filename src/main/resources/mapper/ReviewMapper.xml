@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/schema/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.start01.dao.ReviewDao">
+    <!-- 리뷰 작성 -->
+    <insert id="insertReview" parameterType="com.example.start01.dto.ReviewDto">
+        INSERT INTO review (user_id, score, order_id, store_id, comments)
+        VALUES (
+            #{userId},
+            #{score},
+            #{orderId},
+            #{storeId},
+            #{comments}
+        )
+    </insert>
+
+    <!-- 특정 유저 리뷰 전체 조회 -->
+    <select id="selectByUserId" resultType="com.example.start01.dto.ReviewDto">
+        SELECT
+            id,
+            user_id AS userId,
+            score,
+            order_id AS orderId,
+            store_id AS storeId,
+            comments,
+            created_at AS createdAt
+        FROM review
+        WHERE user_id = #{userId}
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 내가 쓴 리뷰 리스트 + 메뉴 정보 (페이지네이션) -->
+    <select id="selectReviewByUserIdPaging" resultType="com.example.start01.dto.ReviewDto">
+        SELECT
+            r.id,
+            r.user_id AS userId,
+            r.score,
+            r.order_id AS orderId,
+            r.store_id AS storeId,
+            r.comments,
+            r.created_at AS createdAt,
+            o.room_order AS roomOrder
+        FROM review r
+        JOIN orders o ON r.order_id = o.order_id
+        WHERE r.user_id = #{userId}
+        ORDER BY r.created_at DESC
+        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
+    </select>
+
+    <!-- 총 개수(특정 유저 리뷰 전체) -->
+    <select id="countReviewByUserId" resultType="int">
+        SELECT COUNT(*)
+        FROM review
+        WHERE user_id = #{userId}
+    </select>
+    <!-- 중복체크용 count -->
+    <select id="countByUserIdAndOrderId" resultType="int">
+        SELECT COUNT(*) FROM review WHERE user_id = #{userId} AND order_id = #{orderId}
+    </select>
+
+
+
+    <!-- 작성 가능한 리뷰 -->
+    <select id="selectCanReviewByUserId" resultType="com.example.start01.dto.OrdersDto">
+        SELECT
+            o.order_id AS orderId,
+            o.room_id AS roomId,
+            o.user_id AS userId,
+            o.store_id AS storeId,
+            o.room_order AS roomOrder,
+            o.total_price AS totalPrice,
+            o.created_at AS createdAt
+        FROM orders o
+        LEFT JOIN review r ON o.order_id = r.order_id AND r.user_id = #{userId}
+        WHERE o.user_id = #{userId}
+            AND r.id IS NULL
+        ORDER BY o.created_at DESC
+        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
+    </select>
+
+<!--    작성 가능 전체 갯수 카운트 -->
+    <select id="countCanReviewByUserId" resultType="int">
+        SELECT COUNT(*) FROM orders o
+        LEFT JOIN review r ON o.order_id = r.order_id AND r.user_id = #{userId}
+        WHERE o.user_id = #{userId} AND r.id IS NULL
+    </select>
+
+    <!-- 리뷰 수정 -->
+    <update id="updateReview" parameterType="com.example.start01.dto.ReviewDto">
+        UPDATE review
+        SET score = #{score},
+            comments = #{comments}
+        WHERE id = #{id}
+    </update>
+    <!-- 리뷰 삭제 -->
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM review
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 관리자용 전체 조회 -->
+    <select id="selectAll" resultType="com.example.start01.dto.ReviewDto">
+        SELECT
+            id,
+            user_id AS userId,
+            score,
+            order_id AS orderId,
+            store_id AS storeId,
+            comments,
+            created_at AS createdAt
+        FROM review
+        ORDER BY created_at DESC
+    </select>
+
+</mapper>
