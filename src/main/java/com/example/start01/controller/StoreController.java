@@ -38,4 +38,17 @@ public class StoreController {
         storeDao.StoreInsert(storeDto);
         return "Store registered successfully!";
     }
+
+    @GetMapping("/storeByOwnerId/{id}")
+    public List<StoreDto> StoreByOwnerId(@PathVariable("id") int ownerId) {
+
+        return storeDao.StoreByOwnerId(ownerId);
+    }
+
+    @GetMapping("/storeDelete/{id}")
+    public int StoreDeleteById(@PathVariable int id) {
+
+        return storeDao.StoreDeleteById(id);
+    }
+
 }
