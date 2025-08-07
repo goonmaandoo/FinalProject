@@ -41,7 +41,7 @@ public class StoreController {
     @PostMapping("/storeInsert")
     public String registerStore(@RequestBody StoreDto storeDto) {
         storeDao.StoreInsert(storeDto);
-        return "Store registered successfully!";
+        return "가게 등록 완료!";
     }
     @GetMapping("/storeCount")
     public int StoreCount() {
@@ -59,4 +59,12 @@ public class StoreController {
 
         return storeDao.StoreDeleteById(id);
     }
+
+    @PutMapping("/storeUpdate")
+    public String updateStore(@RequestBody StoreDto storeDto) {
+        storeDao.StoreUpdate(storeDto);
+        return "가게 수정 완료!";
+    }
+
+
 }
