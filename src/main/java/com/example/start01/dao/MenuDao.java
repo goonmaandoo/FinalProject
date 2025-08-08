@@ -2,6 +2,7 @@ package com.example.start01.dao;
 
 import com.example.start01.dto.MenuDto;
 import com.example.start01.dto.RoomDto;
+import com.example.start01.dto.StoreDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,5 +25,6 @@ public interface MenuDao {
 
     List<MenuDto> findMenuWithImageByOwnerId(@Param("ownerId") int ownerId);
 
+    void MenuUpdateByOwner(MenuDto menuDto);
 
 }
