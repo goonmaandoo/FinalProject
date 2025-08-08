@@ -37,11 +37,11 @@
         ORDER BY r.created_at DESC
     </select>
 
-
-    <select id="SelectByIdOnly" parameterType="int" resultType="com.example.start01.dto.RoomDto">
+    <!-- 단일 방 조회 -->
+    <select id="SelectByIdRoom" parameterType="int" resultType="com.example.start01.dto.RoomDto">
         SELECT * FROM room WHERE id=#{id}
-
     </select>
+
     <select id="SelectByKeyword" parameterType="String" resultType="RoomDto">
         SELECT * FROM room WHERE room_name LIKE '%' || #{keyword} || '%'
     </select>

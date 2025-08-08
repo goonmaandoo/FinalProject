@@ -6,4 +6,37 @@
     <select id="statusCheck" resultType="RoomJoinDto">
         SELECT * from room_join where ROOM_ID = #{roomId} AND USERS_ID = #{userId}
     </select>
+
+    <insert id="insertRoomJoin" parameterType="com.example.start01.dto.RoomJoinDto">
+        INSERT INTO room_join (room_id, users_id, joined_at, status)
+        VALUES (#{roomId}, #{usersId}, CURRENT_TIMESTAMP, #{status})
+    </insert>
+
+    <select id="findByRoomId" parameterType="int" resultType="com.example.start01.dto.RoomJoinDto">
+        SELECT * FROM room_join rj
+        WHERE rj.room_id = #{roomId}
+        AND rj.status IN ('참여완료', '준비중') -- ❗필요 시 조건 추가
+    </select>
+
+    <select id="getUsersByRoomId" parameterType="int" resultType="com.example.start01.dto.UsersDto">
+        SELECT
+        u.id,
+        u.nickname,
+        u.user_rating AS userRating,
+        u.cash,
+        u.created_at AS createdAt,
+        u.address,
+        u.profile_url AS profileUrl,
+        u.address_detail AS addressDetail,
+        u.role,
+        u.status,
+        u.email,
+        u.password,
+        u.phone_num AS phoneNum
+        FROM room_join rj
+        JOIN users u ON rj.users_id = u.id
+        WHERE rj.room_id = #{roomId}
+        AND rj.status IN ('준비중', '참여완료')
+    </select>
+
 </mapper>

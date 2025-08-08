@@ -2,6 +2,8 @@ package com.example.start01.dao;
 
 import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 @Mapper
@@ -32,4 +34,14 @@ public interface UsersDao {
     // 회원 삭제
     int unactiveUsers(int id);
 
+    List<UsersDto> findUsersByIds(List<Integer> userIds);
+
+    // ⭐ user_rating 업데이트용 추가
+    void updateUserRating(@Param("id") Integer id, @Param("userRating") double userRating);
+
+    UsersDto findById(Integer id);
+
 }
+
+
+
