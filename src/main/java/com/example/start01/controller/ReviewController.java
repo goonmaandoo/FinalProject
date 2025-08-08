@@ -18,6 +18,7 @@ public class ReviewController {
     //리뷰 작성
     @PostMapping
     public void insertReview(@RequestBody ReviewDto reviewDto) {
+        System.out.println("리뷰 등록 요청 받음: " + reviewDto);
         reviewService.insertReview(reviewDto);
     }
 
