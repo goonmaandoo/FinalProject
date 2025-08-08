@@ -72,4 +72,9 @@ public class ReviewService {
     public List<ReviewDto> getAllReview() {
         return reviewDao.selectAll();
     }
+
+    // 사장님 리뷰 조회
+    public List<ReviewDto> getReviewByOwnerId(int ownerId){
+        return reviewDao.selectReviewByOwnerId(ownerId);
+    }
 }

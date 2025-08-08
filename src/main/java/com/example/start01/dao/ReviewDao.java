@@ -46,4 +46,7 @@ public interface ReviewDao {
 
     //리뷰 삭제
     void deleteReview(@Param("id") Integer id);
+
+    // 사장님 리뷰 조회
+    List<ReviewDto> selectReviewByOwnerId(@Param("ownerId") int ownerId);
 }
