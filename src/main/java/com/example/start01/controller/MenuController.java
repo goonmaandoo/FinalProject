@@ -2,11 +2,9 @@ package com.example.start01.controller;
 
 import com.example.start01.dao.MenuDao;
 import com.example.start01.dto.MenuDto;
+import com.example.start01.dto.StoreDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,6 +36,12 @@ public class MenuController {
     @GetMapping("/ownerWithImage/{ownerId}")
     public List<MenuDto> getMenuWithImage(@PathVariable int ownerId) {
         return menuDao.findMenuWithImageByOwnerId(ownerId);
+    }
+
+    @PutMapping("/menuUpdateByOwner")
+    public String MenuUpdateByOwner(@RequestBody MenuDto menuDto) {
+        menuDao.MenuUpdateByOwner(menuDto);
+        return "메뉴 수정 완료!";
     }
 
 
