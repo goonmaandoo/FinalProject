@@ -44,5 +44,16 @@ public class MenuController {
         return "메뉴 수정 완료!";
     }
 
+    @GetMapping("/menuDeleteByOwner/{id}")
+    public int MenuDeleteByOwner(@PathVariable int id) {
+
+        return menuDao.MenuDeleteByOwner(id);
+    }
+
+    @PostMapping("/menuInsertByOwner")
+    public String MenuInsertByOwner(@RequestBody MenuDto menuDto) {
+        menuDao.MenuInsertByOwner(menuDto);
+        return "메뉴 등록 완료!";
+    }
 
 }

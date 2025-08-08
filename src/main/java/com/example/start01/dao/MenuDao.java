@@ -27,4 +27,8 @@ public interface MenuDao {
 
     void MenuUpdateByOwner(MenuDto menuDto);
 
+    int MenuDeleteByOwner(int id);
+
+    void MenuInsertByOwner(MenuDto menuDto);
+
 }

@@ -99,4 +99,11 @@
         UPDATE menu SET menu_name=#{menuName}, menu_price=#{menuPrice}, status=#{status}
         WHERE id=#{id}
     </update>
+    <delete id="MenuDeleteByOwner" parameterType="MenuDto">
+        DELETE FROM menu WHERE id=#{id}
+    </delete>
+    <insert id="MenuInsertByOwner" parameterType="MenuDto">
+        INSERT INTO menu (store_id, menu_name, menu_price)
+        VALUES (#{storeId},#{menuName},#{menuPrice})
+    </insert>
 </mapper>
