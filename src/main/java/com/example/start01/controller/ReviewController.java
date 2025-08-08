@@ -76,4 +76,10 @@ public class ReviewController {
     ) {
         return reviewService.getCanReviewListPaged(userId, page, size);
     }
+
+    // 사장님 리뷰 조회
+    @GetMapping("/selectReviewByOwner")
+    public List<ReviewDto> selectReviewByOwnerId(@PathVariable int ownerId){
+        return reviewService.getReviewByOwnerId(ownerId);
+    }
 }

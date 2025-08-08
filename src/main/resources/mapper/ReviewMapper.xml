@@ -114,4 +114,12 @@
         ORDER BY created_at DESC
     </select>
 
+    <select id="selectReviewByOwner" parameterType="int" resultType="ReviewDto">
+        SELECT users.nickname, review.score, review.comments, review.created_at
+        FROM users, review, store
+        WHERE users.id = review.user_id
+        AND store.id = review.store_id
+        AND store.owner_id = #{ownerId}
+    </select>
+
 </mapper>
