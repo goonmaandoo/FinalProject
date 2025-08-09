@@ -51,6 +51,9 @@
     <select id="userBtnCount" resultType="UsersDto" parameterType="String">
         SELECT * FROM users WHERE role = #{role}
     </select>
+    <select id="userBtnCountRole" resultType="int" parameterType="String">
+        SELECT count(*) FROM users WHERE role = #{role}
+    </select>
 <!--    아이디로 회원정보 업데이트-->
     <update id="updatePassword"  parameterType="UsersDto">
         UPDATE USERS SET password = #{password}, nickname = #{nickname}

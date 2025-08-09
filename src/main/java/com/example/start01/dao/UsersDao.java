@@ -48,6 +48,8 @@ public interface UsersDao {
 
     int banCount();
 
+    int userBtnCountRole(@Param("role") String role);
+
     List<UsersDto> userBtnCount(@Param("role") String role);
 
     List<UsersDto> selectAllAdmin();
