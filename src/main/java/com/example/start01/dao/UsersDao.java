@@ -65,4 +65,10 @@ public interface UsersDao {
 
     List<UsersDto> userSearchActive(Map<String, String> param);
 
+    List<UsersDto> userSearch(Map<String, String> param);
+
+    List<UsersDto> userOwnerSearch(Map<String, String> param);
+
+    List<UsersDto> userSearchAdmin(Map<String, String> param);
+
 }
