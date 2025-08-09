@@ -199,6 +199,10 @@ public class UsersController {
     public List<UsersDto> selectAllAdmin() {
         return usersDao.selectAllAdmin();
     }
+    @GetMapping("/selectAllActive")
+    public List<UsersDto> selectAllActive() {
+        return usersDao.selectAllActive();
+    }
 
     // 룸 / 챗 관련 유저 정보 업데이트
     @PutMapping("/updateUser")
@@ -218,6 +222,11 @@ public class UsersController {
     @GetMapping("/userBtnCount/{role}")
     public List<UsersDto> userBtnCount(@PathVariable String role) {
         return usersDao.userBtnCount(role);
+    }
+
+    @GetMapping("/unactiveBan/{status}")
+    public List<UsersDto> unactiveBan(@PathVariable String status) {
+        return usersDao.unactiveBan(status);
     }
 
 

@@ -54,4 +54,8 @@ public interface UsersDao {
 
     List<UsersDto> selectAllAdmin();
 
+    List<UsersDto> selectAllActive();
+
+    List<UsersDto> unactiveBan(@Param("status") String status);
+
 }
