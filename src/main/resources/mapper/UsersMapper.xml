@@ -97,4 +97,47 @@
         WHERE id = #{id}
     </update>
 
+    <select id="userBanSearch" resultType="UsersDto" parameterType="map">
+        SELECT *
+        FROM users
+        <where>
+            status = 'ban'
+            <if test="type != null and keyword != null and keyword != ''">
+                AND
+                <choose>
+                    <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'tel'"> tel LIKE '%' || #{keyword} || '%' </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+    <select id="userUnactiveSearch" resultType="UsersDto" parameterType="map">
+        SELECT *
+        FROM users
+        <where>
+            status = 'unactive'
+            <if test="type != null and keyword != null and keyword != ''">
+                AND
+                <choose>
+                    <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'tel'"> tel LIKE '%' || #{keyword} || '%' </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+    <select id="userSearchActive" resultType="UsersDto" parameterType="map">
+        SELECT *
+        FROM users
+        <where>
+            status != 'active'
+            <if test="type != null and keyword != null and keyword != ''">
+                AND
+                <choose>
+                    <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'tel'"> tel LIKE '%' || #{keyword} || '%' </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+
 </mapper>
