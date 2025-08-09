@@ -96,48 +96,79 @@
         UPDATE USERS SET status = 'unactive'
         WHERE id = #{id}
     </update>
-
+<!--탈퇴/정지회원관리 검색-->
     <select id="userBanSearch" resultType="UsersDto" parameterType="map">
-        SELECT *
-        FROM users
-        <where>
-            status = 'ban'
+        SELECT * FROM users
+        <where> status = 'ban'
             <if test="type != null and keyword != null and keyword != ''">
                 AND
                 <choose>
                     <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
-                    <when test="type == 'tel'"> tel LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'phoneNum'"> phone_num LIKE '%' || #{keyword} || '%' </when>
                 </choose>
             </if>
         </where>
     </select>
     <select id="userUnactiveSearch" resultType="UsersDto" parameterType="map">
-        SELECT *
-        FROM users
-        <where>
-            status = 'unactive'
+        SELECT * FROM users
+        <where> status = 'unactive'
             <if test="type != null and keyword != null and keyword != ''">
                 AND
                 <choose>
                     <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
-                    <when test="type == 'tel'"> tel LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'phoneNum'"> phone_num LIKE '%' || #{keyword} || '%' </when>
                 </choose>
             </if>
         </where>
     </select>
     <select id="userSearchActive" resultType="UsersDto" parameterType="map">
-        SELECT *
-        FROM users
-        <where>
-            status != 'active'
+        SELECT * FROM users
+        <where> status != 'active'
             <if test="type != null and keyword != null and keyword != ''">
                 AND
                 <choose>
                     <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
-                    <when test="type == 'tel'"> tel LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'phoneNum'"> phone_num LIKE '%' || #{keyword} || '%' </when>
                 </choose>
             </if>
         </where>
     </select>
-
+<!--회원관리검색-->
+    <select id="userSearch" resultType="UsersDto" parameterType="map">
+        SELECT * FROM users
+        WHERE role = 'user'
+            <if test="type != null and keyword != null and keyword != ''">
+                AND
+                <choose>
+                    <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'phoneNum'"> phone_num LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'email'"> email LIKE '%' || #{keyword} || '%' </when>
+                </choose>
+            </if>
+    </select>
+    <select id="userOwnerSearch" resultType="UsersDto" parameterType="map">
+        SELECT * FROM users
+        WHERE role = 'owner'
+            <if test="type != null and keyword != null and keyword != ''">
+                AND
+                <choose>
+                    <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'phoneNum'"> phone_num LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'email'"> email LIKE '%' || #{keyword} || '%' </when>
+                </choose>
+            </if>
+    </select>
+    <select id="userSearchAdmin" resultType="UsersDto" parameterType="map">
+        SELECT * FROM users
+        WHERE role != 'admin'
+            <if test="type != null and keyword != null and keyword != ''">
+                AND
+                <choose>
+                    <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'phoneNum'"> phone_num LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'email'"> email LIKE '%' || #{keyword} || '%' </when>
+                    <otherwise> 1=1 </otherwise>
+                </choose>
+            </if>
+    </select>
 </mapper>

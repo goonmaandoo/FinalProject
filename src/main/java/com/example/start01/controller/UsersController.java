@@ -251,4 +251,26 @@ public class UsersController {
         return usersDao.userSearchActive(param);
     }
 
+    @GetMapping("/userSearch")
+    public List<UsersDto> userSearch(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return usersDao.userSearch(param);
+    }
+    @GetMapping("/userOwnerSearch")
+    public List<UsersDto> userOwnerSearch(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return usersDao.userOwnerSearch(param);
+    }
+    @GetMapping("/userSearchAdmin")
+    public List<UsersDto> userSearchAdmin(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return usersDao.userSearchAdmin(param);
+    }
+
 }
