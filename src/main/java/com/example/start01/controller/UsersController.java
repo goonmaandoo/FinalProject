@@ -3,6 +3,7 @@ package com.example.start01.controller;
 import com.example.start01.dao.UsersDao;
 import com.example.start01.dto.LoginRequest;
 import com.example.start01.dto.NicknameCheckDto;
+import com.example.start01.dto.StoreDto;
 import com.example.start01.dto.UsersDto;
 import com.example.start01.service.UsersService;
 import com.example.start01.utils.JwtTokenProvider;
@@ -228,6 +229,26 @@ public class UsersController {
     public List<UsersDto> unactiveBan(@PathVariable String status) {
         return usersDao.unactiveBan(status);
     }
-
+    @GetMapping("/userBanSearch")
+    public List<UsersDto> userBanSearch(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return usersDao.userBanSearch(param);
+    }
+    @GetMapping("/userUnactiveSearch")
+    public List<UsersDto> userUnactiveSearch(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return usersDao.userUnactiveSearch(param);
+    }
+    @GetMapping("/userSearchActive")
+    public List<UsersDto> userSearchActive(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return usersDao.userSearchActive(param);
+    }
 
 }

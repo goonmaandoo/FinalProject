@@ -1,5 +1,6 @@
 package com.example.start01.dao;
 
+import com.example.start01.dto.StoreDto;
 import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -57,5 +58,11 @@ public interface UsersDao {
     List<UsersDto> selectAllActive();
 
     List<UsersDto> unactiveBan(@Param("status") String status);
+
+    List<UsersDto> userBanSearch(Map<String, String> param);
+
+    List<UsersDto> userUnactiveSearch(Map<String, String> param);
+
+    List<UsersDto> userSearchActive(Map<String, String> param);
 
 }
