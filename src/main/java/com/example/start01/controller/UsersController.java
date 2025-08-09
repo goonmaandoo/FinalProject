@@ -211,9 +211,14 @@ public class UsersController {
         }
     }
 
+    @GetMapping("/userBtnCountRole/{role}")
+    public int userBtnCountRole(@PathVariable String role) {
+        return usersDao.userBtnCountRole(role);
+    }
     @GetMapping("/userBtnCount/{role}")
     public List<UsersDto> userBtnCount(@PathVariable String role) {
         return usersDao.userBtnCount(role);
     }
+
 
 }
