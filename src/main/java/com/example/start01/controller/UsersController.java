@@ -181,8 +181,23 @@ public class UsersController {
 
     // 총 사용자 수
     @GetMapping("/totalCount")
-    public int totalCount() {
+    public int TotalCount() {
         return usersDao.TotalCount();
+    }
+
+    @GetMapping("/unactiveCount")
+    public int unactiveCount() {
+        return usersDao.unactiveCount();
+    }
+
+    @GetMapping("/banCount")
+    public int banCount() {
+        return usersDao.banCount();
+    }
+
+    @GetMapping("/selectAllAdmin")
+    public List<UsersDto> selectAllAdmin() {
+        return usersDao.selectAllAdmin();
     }
 
     // 룸 / 챗 관련 유저 정보 업데이트
@@ -194,6 +209,11 @@ public class UsersController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found or no changes made");
         }
+    }
+
+    @GetMapping("/userBtnCount/{role}")
+    public List<UsersDto> userBtnCount(@PathVariable String role) {
+        return usersDao.userBtnCount(role);
     }
 
 }

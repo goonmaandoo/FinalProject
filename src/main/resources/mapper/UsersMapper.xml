@@ -3,44 +3,66 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.start01.dao.UsersDao">
+<!--    삽입구문-->
     <insert id="UsersInsert" parameterType="UsersDto">
         INSERT INTO users
         (email, password, nickname, phone_num, role)
         VALUES (#{email},#{password},#{nickname}, #{phoneNum}, #{role})
     </insert>
+<!--    닉네임 갯수-->
     <select id="NicknameSelect" resultType="int" parameterType="String">
         SELECT COUNT(*) FROM users
         WHERE nickname = #{nickname}
     </select>
+<!--    해당 이메일 사용자-->
     <select id="findByEmail" resultType="UsersDto" parameterType="String">
         SELECT * FROM USERS
         WHERE email = #{email}
     </select>
+<!--    해당 사용자 주소 상세정보-->
     <select id="getUserAddress" resultType="UsersDto" parameterType="Integer">
         select address, address_detail from users where id = #{userId}
     </select>
+<!--    아이디로 주소 업데이트-->
     <update id="updateAddress" parameterType="UsersDto">
         UPDATE USERS SET address = #{address} WHERE id = #{id}
     </update>
+<!--    전체 사용자-->
     <select id="selectAll" resultType="UsersDto">
         SELECT * FROM USERS
     </select>
-    <select id="TotalCount" resultType="int">
-        SELECT count(*) AS totalCount FROM USERS
+<!--    전체 사용자(관리자 제외)-->
+    <select id="selectAllAdmin" resultType="UsersDto">
+        <![CDATA[ SELECT * FROM USERS WHERE role <> 'admin' ]]>
     </select>
-
+<!--    총사용자-->
+    <select id="TotalCount" resultType="int">
+        SELECT COUNT(*) FROM users
+    </select>
+<!--    탈퇴회원수-->
+    <select id="unactiveCount" resultType="int">
+        SELECT COUNT(*) FROM users WHERE STATUS = 'unactive'
+    </select>
+<!--    정지회원수-->
+    <select id="banCount" resultType="int">
+        SELECT COUNT(*) FROM users WHERE STATUS = 'ban'
+    </select>
+<!--    사용자/사장님 정보-->
+    <select id="userBtnCount" resultType="UsersDto" parameterType="String">
+        SELECT * FROM users WHERE role = #{role}
+    </select>
+<!--    아이디로 회원정보 업데이트-->
     <update id="updatePassword"  parameterType="UsersDto">
         UPDATE USERS SET password = #{password}, nickname = #{nickname}
         WHERE id = #{id}
     </update>
-
 
     <update id="resetPassword"  parameterType="UsersDto">
         UPDATE USERS SET password = #{password}
         WHERE email = #{email} AND
         role = #{role}
     </update>
-
+<!--    주소업데이트-->
     <update id="updateAddressAndDetail" parameterType="UsersDto">
         UPDATE USERS SET address = #{address}, address_detail = #{addressDetail} WHERE id = #{id}
     </update>
@@ -59,18 +81,10 @@
         WHERE ID = #{id}
     </update>
 
+<!--    탈퇴회원 조건 id-->
     <update id="unactiveUsers" parameterType="int">
         UPDATE USERS SET status = 'unactive'
         WHERE id = #{id}
     </update>
-<!--    <select id="userSearch" resultType="StoreDto" parameterType="map">-->
-<!--        SELECT s.*, u.nickname AS nickName-->
-<!--        FROM store s-->
-<!--        JOIN users u ON s.owner_id = u.id-->
-<!--                Where u.nickname LIKE '%' || #{keyword} || '%' -->
-<!--                    <when test="type == 'user'"> u.nickname LIKE '%' || #{keyword} || '%' </when>-->
-<!--                    <when test="type == 'storeName'"> s.store_name LIKE '%' || #{keyword} || '%' </when>-->
-<!--                    <when test="type == 'storeAddress'"> s.store_address LIKE '%' || #{keyword} || '%' </when>-->
-<!--                    <when test="type == 'tel'"> s.tel LIKE '%' || #{keyword} || '%' </when>-->
-<!--    </select>-->
+
 </mapper>

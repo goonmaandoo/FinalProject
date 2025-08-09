@@ -23,5 +23,5 @@ public class UsersDto {
     private String email;
     private String password;
     private String phoneNum;
-    private Integer totalCount;
+    private Integer userBtnCount;
 }

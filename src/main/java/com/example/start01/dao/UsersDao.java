@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UsersDao {
@@ -42,5 +43,13 @@ public interface UsersDao {
     int unactiveUsers(int id);
 
     int TotalCount();
+
+    int unactiveCount();
+
+    int banCount();
+
+    List<UsersDto> userBtnCount(@Param("role") String role);
+
+    List<UsersDto> selectAllAdmin();
 
 }
