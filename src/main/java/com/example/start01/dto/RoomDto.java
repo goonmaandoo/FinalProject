@@ -34,5 +34,8 @@ public class RoomDto {
     private Integer ingCount;
     private Integer endCount;
     private Integer totalCount;
+    private Integer userId;
+    private String roomJoinStatus;
+    private String storeName;
 
 }

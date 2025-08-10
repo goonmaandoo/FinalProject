@@ -66,5 +66,14 @@ public class RoomController {
         // insert 후 roomDto.id 에 자동 생성된 id가 들어감
         return roomDto;
     }
+
+    @GetMapping("/adminSelectRoom")
+    public List<RoomDto> AdminSelectRoom() {
+        return roomDao.AdminSelectRoom();
+    }
+    @GetMapping("/adminSelectRoomUser/{id}")
+    public List<RoomDto> AdminSelectRoomUser(@PathVariable("id") Integer id){
+        return roomDao.AdminSelectRoomUser(id);
+    }
 }
 
