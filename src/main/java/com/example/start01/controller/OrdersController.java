@@ -3,11 +3,13 @@ package com.example.start01.controller;
 
 import com.example.start01.dao.OrdersDao;
 import com.example.start01.dto.OrdersDto;
+import com.example.start01.dto.UsersDto;
 import com.example.start01.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,6 +81,19 @@ public class OrdersController {
     @GetMapping("/getOrderListByRoom")
     public List<OrdersDto> getOrderListByRoom(@RequestParam("roomId") Integer roomId) {
         return ordersDao.selectOrdersByRoomId(roomId);
+    }
+
+    @GetMapping("/orderList")
+    public List<OrdersDto> orderList() {
+        return ordersDao.orderList();
+    }
+
+    @GetMapping("/orderSearch")
+    public List<OrdersDto> orderSearch(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return ordersDao.orderSearch(param);
     }
 
 
