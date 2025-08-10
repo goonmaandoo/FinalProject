@@ -45,4 +45,8 @@ public interface RoomDao {
     void updateReadyCount(@Param("roomId") Integer roomId, @Param("delta") Integer delta);
     // 준비인원
     Integer selectReadyPeople(@Param("roomId") Integer roomId);
+
+    List<RoomDto> AdminSelectRoom();
+
+    List<RoomDto> AdminSelectRoomUser(@Param("id") Integer id);
 }

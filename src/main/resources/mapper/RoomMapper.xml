@@ -127,5 +127,15 @@
         SET ready_people = ready_people + #{delta}
         WHERE id = #{roomId}
     </update>
+    <select id="AdminSelectRoom" resultType="RoomDto">
+        SELECT r.*, s.store_name as storeName
+        FROM room r
+        LEFT Join store s ON r.store_id = s.id
+    </select>
+    <select id="AdminSelectRoomUser" resultType="RoomDto">
+        SELECT r.*, rj.users_id as userId, rj.status as roomJoinStatus
+        FROM room r
+        LEFT Join room_join rj ON r.id = rj.room_id WHERE r.id = #{id}
+    </select>
 
 </mapper>
