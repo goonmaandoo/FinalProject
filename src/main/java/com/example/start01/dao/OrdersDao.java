@@ -1,11 +1,13 @@
 package com.example.start01.dao;
 
 import com.example.start01.dto.OrdersDto;
+import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -34,7 +36,9 @@ public interface OrdersDao {
     // roomId로 전체 주문 가져오기 (공구완료용)
     ArrayList<OrdersDto> selectOrdersByRoomId(@Param("roomId") Integer roomId);
 
+    List<OrdersDto> orderList();
 
+    List<OrdersDto> orderSearch(Map<String, String> param);
 //    //작성 가능 리뷰
 //    List<OrdersDto> selectCanReviewByUserId(
 //            @Param("userId") int userId,
