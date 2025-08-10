@@ -103,16 +103,16 @@
         WHERE room_id = #{roomId}
     </select>
 <!--회원관리검색-->
-    <select id="orderSearch" resultType="UsersDto" parameterType="map">
-        SELECT o.order_id as id, o.room_id, o.user_id, o.store_id, o.total_price, o.created_at, s.store_name, u.nickname FROM orders o
+    <select id="orderSearch" resultType="OrdersDto" parameterType="map">
+        SELECT o.*, s.store_name, u.nickname FROM orders o
         Join store s on o.store_id = s.id Join users u on o.user_id = u.id
         <if test="type != null and keyword != null and keyword != ''">
             WHERE
             <choose>
-                <when test="type == 'orderId'"> TO_CHAR(order_id) LIKE '%' || #{keyword} || '%' </when>
-                <when test="type == 'roomId'"> TO_CHAR(room_id) LIKE '%' || #{keyword} || '%' </when>
-                <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
-                <when test="type == 'storeName'"> store_name LIKE '%' || #{keyword} || '%' </when>
+                <when test="type == 'orderId'"> TO_CHAR(o.order_id) LIKE '%' || #{keyword} || '%' </when>
+                <when test="type == 'roomId'"> TO_CHAR(o.room_id) LIKE '%' || #{keyword} || '%' </when>
+                <when test="type == 'nickname'"> u.nickname LIKE '%' || #{keyword} || '%' </when>
+                <when test="type == 'storeName'"> s.store_name LIKE '%' || #{keyword} || '%' </when>
             </choose>
         </if>
     </select>
