@@ -54,7 +54,12 @@
         ORDER BY r.created_at DESC
     </select>
 
+
+    <!-- 단일 방 조회 -->
+    <select id="SelectByIdRoom" parameterType="int" resultType="com.example.start01.dto.RoomDto">
+
     <select id="SelectByIdOnly" parameterType="int" resultType="RoomDto">
+
         SELECT * FROM room WHERE id=#{id}
     </select>
 
@@ -87,14 +92,7 @@
     </insert>
 
     <select id="selectRoom" parameterType="com.example.start01.dto.RoomDto" resultType="RoomDto">
-        SELECT
-        id,
-        store_id,
-        room_name,
-        room_address,
-        room_address_detail,
-        created_at
-        FROM room
+        SELECT id, store_id, room_name, room_address, room_address_detail, created_at FROM room
         <where>
             <if test="id != null">AND id = #{id}</if>
             <if test="storeId != null">AND store_id = #{storeId}</if>
@@ -129,13 +127,20 @@
     </update>
     <select id="AdminSelectRoom" resultType="RoomDto">
         SELECT r.*, s.store_name as storeName
-        FROM room r
-        LEFT Join store s ON r.store_id = s.id
+        FROM room r Join store s ON r.store_id = s.id
     </select>
-    <select id="AdminSelectRoomUser" resultType="RoomDto">
-        SELECT r.*, rj.users_id as userId, rj.status as roomJoinStatus
-        FROM room r
-        LEFT Join room_join rj ON r.id = rj.room_id WHERE r.id = #{id}
+    <select id="selectUsersByRoomId" parameterType="int" resultMap="UsersWithJoinResultMap">
+        SELECT u.id AS user_id, u.nickname, rj.id AS room_join_id, rj.status AS join_status
+        FROM room_join rj
+        JOIN users u ON rj.users_id = u.id
+        WHERE rj.room_id = #{roomId}
     </select>
+
+    <resultMap id="UsersWithJoinResultMap" type="UsersDto">
+        <id property="id" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="joinStatus" column="join_status"/>
+        <result property="roomJoinId" column="room_join_id"/>
+    </resultMap>
 
 </mapper>

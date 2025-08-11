@@ -1,6 +1,7 @@
 package com.example.start01.dao;
 
 import com.example.start01.dto.RoomDto;
+import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -21,11 +22,20 @@ public interface RoomDao {
 
     List<RoomDto> AllRoomSelect();
 
-    RoomDto SelectByIdRoom(@Param("id") int id);
 
-    List<RoomDto> SelectByIdOnly(@Param("storeId") int id);
 
     List<RoomDto> SelectByKeyword(@Param("keyword") String keyword);
+
+    RoomDto SelectByIdRoom(@Param("id") int id);
+
+
+    // 참여자 목록 조회 (roomId 기준)
+    List<UsersDto> getParticipantsByRoomId(@Param("roomId") int roomId);
+
+
+
+}
+
 
     int JoinIngCount();
 
@@ -48,5 +58,7 @@ public interface RoomDao {
 
     List<RoomDto> AdminSelectRoom();
 
-    List<RoomDto> AdminSelectRoomUser(@Param("id") Integer id);
+    List<UsersDto> selectUsersByRoomId(int roomId);
+
 }
+

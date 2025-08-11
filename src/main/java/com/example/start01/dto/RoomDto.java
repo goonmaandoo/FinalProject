@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -18,7 +19,7 @@ public class RoomDto {
     private String roomName;
     private String roomAddress;
     private Integer maxPeople;
-    private String users;
+//    private String users;
     private Integer leaderId;
     private String status;
     private LocalDateTime createdAt;
@@ -37,5 +38,7 @@ public class RoomDto {
     private Integer userId;
     private String roomJoinStatus;
     private String storeName;
+
+    private List<UsersDto> usersInfo;
 
 }
