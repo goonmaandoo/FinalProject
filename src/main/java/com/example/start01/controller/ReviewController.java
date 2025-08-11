@@ -78,8 +78,8 @@ public class ReviewController {
     }
 
     // 사장님 리뷰 조회
-    @GetMapping("/selectReviewByOwner")
+    @GetMapping("/selectReviewByOwner/{ownerId}")
     public List<ReviewDto> selectReviewByOwnerId(@PathVariable int ownerId){
-        return reviewService.getReviewByOwnerId(ownerId);
+        return reviewService.selectReviewByOwnerId(ownerId);
     }
 }
