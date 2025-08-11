@@ -58,4 +58,22 @@ public class CashChargeController {
         //캐쉬 반환
         return user.getCash() != null ? user.getCash() : 0;
     }
+
+    //결제 (캐쉬 차감)
+    @PostMapping("/pay")
+    public void pay(
+            @RequestBody CashChargeDto dto,
+            @RequestHeader("Authorization") String authorizationHeader) {
+
+        String token = authorizationHeader.startsWith("Bearer ")
+                ? authorizationHeader.substring(7)
+                : authorizationHeader;
+        String email = jwtTokenProvider.getEmail(token);
+
+        UsersDto user = usersDao.findByEmail(email);
+        if (user == null) throw new IllegalArgumentException("존재하지 않는 회원입니다.");
+
+        Integer userId = user.getId();
+        cashChargeService.payCash(userId, dto.getCash());
+    }
 }

@@ -12,4 +12,7 @@ public interface CashChargeDao {
 
     //현재 캐쉬 조회
     Integer selectCash(@Param("userId") Integer userId);
+
+    //결제(감소)
+    int payCash(@Param("userId") Integer userId, @Param("amount") Integer amount);
 }

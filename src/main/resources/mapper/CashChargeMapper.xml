@@ -11,9 +11,16 @@
     </update>
 
 <!--    캐쉬 조회-->
-    <select id="sleectCash" resultType="int">
+    <select id="selectCash" resultType="int">
         SELECT cash FROM users WHERE id = #{userId}
     </select>
+
+<!--    결제 차감 update : 잔액이 충분할 때 -->
+    <update id="payCash">
+        UPDATE users SET cash = cash - #{amount}
+        WHERE id = #{userId}
+            AND cash >= #{amount}
+    </update>
 
 </mapper>
 
