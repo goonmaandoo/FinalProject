@@ -82,4 +82,11 @@ public class ReviewController {
     public List<ReviewDto> selectReviewByOwnerId(@PathVariable int ownerId){
         return reviewService.selectReviewByOwnerId(ownerId);
     }
+
+    // 사장님 리뷰상태 업데이트
+    @PutMapping("/updateReviewByOwner/{id}")
+    public void updateReviewByOwner(@PathVariable Integer id, @RequestBody ReviewDto reviewDto) {
+        reviewDto.setId(id);
+        reviewService.updateReviewByOwner(reviewDto);
+    }
 }

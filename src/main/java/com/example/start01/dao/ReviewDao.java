@@ -49,4 +49,7 @@ public interface ReviewDao {
 
     // 사장님 리뷰 조회
     List<ReviewDto> selectReviewByOwnerId(@Param("ownerId") int ownerId);
+
+    // 사장님 리뷰 업데이트
+    void updateReviewByOwner(ReviewDto reviewDto);
 }

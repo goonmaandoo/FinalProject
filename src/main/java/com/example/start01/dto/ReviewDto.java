@@ -20,4 +20,5 @@ public class ReviewDto {
     private LocalDateTime createdAt;
     private String roomOrder;
     private String nickname;
+    private String status;
 }
