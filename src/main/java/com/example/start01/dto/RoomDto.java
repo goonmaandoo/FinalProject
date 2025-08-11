@@ -38,6 +38,7 @@ public class RoomDto {
     private Integer userId;
     private String roomJoinStatus;
     private String storeName;
+
     private List<UsersDto> usersInfo;
 
 }

@@ -1,6 +1,7 @@
 package com.example.start01.dao;
 
 import com.example.start01.dto.RoomDto;
+import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -48,7 +49,6 @@ public interface RoomDao {
 
     List<RoomDto> AdminSelectRoom();
 
-    List<RoomDto> AdminSelectRoomUser(@Param("id") Integer id);
+    List<UsersDto> selectUsersByRoomId(int roomId);
 
-    List<RoomDto> selectRoomWithUsers();
 }

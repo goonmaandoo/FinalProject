@@ -25,8 +25,4 @@
         INSERT INTO room_join (room_id, users_id, status, joined_at)
         VALUES (#{roomId}, #{usersId}, #{status}, SYSDATE)
     </insert>
-    <select id="roomJoinUser" resultType="RoomJoinDto">
-        select rj.*, u.nickname, r.room_id as roomId FROM room_join rj
-        LEFT JOIN user u on rf.users_id = u.id
-    </select>
 </mapper>
