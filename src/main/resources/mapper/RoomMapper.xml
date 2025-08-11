@@ -54,7 +54,12 @@
         ORDER BY r.created_at DESC
     </select>
 
+
+    <!-- 단일 방 조회 -->
+    <select id="SelectByIdRoom" parameterType="int" resultType="com.example.start01.dto.RoomDto">
+
     <select id="SelectByIdOnly" parameterType="int" resultType="RoomDto">
+
         SELECT * FROM room WHERE id=#{id}
     </select>
 

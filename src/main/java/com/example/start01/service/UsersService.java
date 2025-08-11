@@ -53,6 +53,7 @@ public class UsersService {
         System.out.println("확인할 유저 아이디:" + userId);
         UsersDto dto = usersDao.getUserAddress(userId);
         System.out.println("불러온 유저 주소:" + dto);
+
         return dto;
     }
 
@@ -102,6 +103,18 @@ public class UsersService {
         int result = usersDao.unactiveUsers(id);
         return result > 0;
 
+    }
+    public List<UsersDto> findUsersByIds(List<Integer> userIds) {
+        return usersDao.findUsersByIds(userIds);
+    }
+
+    // ⭐ user_rating 업데이트
+    public void rateUser(Integer userId, double newRating) {
+        usersDao.updateUserRating(userId, newRating);
+    }
+
+    public UsersDto findById(Integer userId) {
+        return usersDao.findById(userId);
     }
 }
 

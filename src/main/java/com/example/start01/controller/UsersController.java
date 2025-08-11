@@ -179,6 +179,44 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("회원탈퇴 실패");
         }
     }
+    // 여러 userId로 사용자 정보 조회
+    @PostMapping("/findUsersByIds")
+    public ResponseEntity<List<UsersDto>> findUsersByIds(@RequestBody List<Integer> userIds) {
+        List<UsersDto> users = usersService.findUsersByIds(userIds);
+        return ResponseEntity.ok(users);
+    }
+
+    @PostMapping("/rating")
+    public ResponseEntity<String> rateUser(@RequestBody Map<String, Object> body) {
+        try {
+            Integer userId = (Integer) body.get("userId");
+            Integer score = (Integer) body.get("score");
+
+            if (userId == null || score == null || score < 1 || score > 5) {
+                return ResponseEntity.badRequest().body("잘못된 요청 데이터입니다.");
+            }
+
+            // 기존 userRating 조회 후 계산 처리
+            UsersDto user = usersService.findById(userId);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자를 찾을 수 없습니다.");
+            }
+
+
+            double currentRating = user.getUserRating();
+            double adjusted = score - 3; // -2 ~ +2
+            double newRating = currentRating + adjusted;
+            newRating = Math.max(0, Math.min(100, newRating));
+
+            // 업데이트 호출
+            usersService.rateUser(userId, newRating);
+
+            return ResponseEntity.ok("별점이 성공적으로 저장되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 에러가 발생했습니다.");
+        }
+    }
 
     // 총 사용자 수
     @GetMapping("/totalCount")
@@ -272,5 +310,6 @@ public class UsersController {
         param.put("keyword", keyword);
         return usersDao.userSearchAdmin(param);
     }
+
 
 }

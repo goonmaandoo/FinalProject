@@ -96,6 +96,29 @@
         UPDATE USERS SET status = 'unactive'
         WHERE id = #{id}
     </update>
+
+
+    <select id="findUsersByIds" resultType="UsersDto" parameterType="list">
+        SELECT id, nickname
+        FROM users
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <update id="updateUserRating" parameterType="map">
+        UPDATE USERS
+        SET user_rating = #{userRating}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findById" resultType="UsersDto" parameterType="int">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+
+
+
 <!--탈퇴/정지회원관리 검색-->
     <select id="userBanSearch" resultType="UsersDto" parameterType="map">
         SELECT * FROM users
@@ -171,4 +194,5 @@
                 </choose>
             </if>
     </select>
+
 </mapper>
