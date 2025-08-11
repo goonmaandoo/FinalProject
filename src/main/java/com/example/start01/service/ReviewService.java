@@ -77,4 +77,10 @@ public class ReviewService {
     public List<ReviewDto> selectReviewByOwnerId(int ownerId){
         return reviewDao.selectReviewByOwnerId(ownerId);
     }
+
+    // 사장님 리뷰상태 업데이트
+    public void updateReviewByOwner(ReviewDto reviewDto) {
+
+        reviewDao.updateReviewByOwner(reviewDto);
+    }
 }

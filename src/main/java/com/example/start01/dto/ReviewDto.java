@@ -18,5 +18,10 @@ public class ReviewDto {
     private Integer orderId;
     private String comments;
     private LocalDateTime createdAt;
+
+    private String roomOrder;
+    private String nickname;
+    private String status;
+
 }
 

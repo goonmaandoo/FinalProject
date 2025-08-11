@@ -115,11 +115,18 @@
     </select>
 
     <select id="selectReviewByOwnerId" parameterType="int" resultType="ReviewDto">
-        SELECT users.nickname, review.score, review.comments, review.created_at
+        SELECT review.id, users.nickname, review.score, review.comments, review.status, review.created_at
         FROM users, review, store
         WHERE users.id = review.user_id
         AND store.id = review.store_id
         AND store.owner_id = #{ownerId}
     </select>
+
+    <!-- 사장님 리뷰상태 업데이트 -->
+    <update id="updateReviewByOwner" parameterType="ReviewDto">
+        UPDATE review
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
 
 </mapper>
