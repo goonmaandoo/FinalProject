@@ -19,4 +19,5 @@ public class ReviewDto {
     private String comments;
     private LocalDateTime createdAt;
     private String roomOrder;
+    private String nickname;
 }
