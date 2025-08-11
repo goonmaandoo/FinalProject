@@ -14,7 +14,9 @@ public class ReviewDto {
     private Integer id;
     private Integer userId;
     private Integer score;
+    private Integer storeId;
     private Integer orderId;
     private String comments;
     private LocalDateTime createdAt;
 }
+

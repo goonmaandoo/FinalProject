@@ -1,10 +1,12 @@
 package com.example.start01.dao;
 
+import com.example.start01.dto.StoreDto;
 import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UsersDao {
@@ -30,9 +32,17 @@ public interface UsersDao {
     int resetPassword(UsersDto usersDto);
 
     void updateAddressAndDetail(UsersDto usersDto);
+    // 프로필
+    void updateProfile(UsersDto usersDto);
+
+    void updateProfileUrl(@Param("userId") Integer userId, @Param("profileUrl") String profileUrl);
+
+    // 룸 챗
+    int updateUser(UsersDto usersDto);
 
     // 회원 삭제
     int unactiveUsers(int id);
+
 
     List<UsersDto> findUsersByIds(List<Integer> userIds);
 
@@ -40,6 +50,35 @@ public interface UsersDao {
     void updateUserRating(@Param("id") Integer id, @Param("userRating") double userRating);
 
     UsersDto findById(Integer id);
+
+    int TotalCount();
+
+    int unactiveCount();
+
+    int banCount();
+
+    int userBtnCountRole(@Param("role") String role);
+
+    List<UsersDto> userBtnCount(@Param("role") String role);
+
+    List<UsersDto> selectAllAdmin();
+
+    List<UsersDto> selectAllActive();
+
+    List<UsersDto> unactiveBan(@Param("status") String status);
+
+    List<UsersDto> userBanSearch(Map<String, String> param);
+
+    List<UsersDto> userUnactiveSearch(Map<String, String> param);
+
+    List<UsersDto> userSearchActive(Map<String, String> param);
+
+    List<UsersDto> userSearch(Map<String, String> param);
+
+    List<UsersDto> userOwnerSearch(Map<String, String> param);
+
+    List<UsersDto> userSearchAdmin(Map<String, String> param);
+
 
 }
 

@@ -23,4 +23,8 @@ public class UsersDto {
     private String email;
     private String password;
     private String phoneNum;
+    private Integer userBtnCount;
+    private String joinStatus;
+    private Integer roomJoinId;
+
 }

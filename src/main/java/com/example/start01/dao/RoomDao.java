@@ -22,14 +22,43 @@ public interface RoomDao {
 
     List<RoomDto> AllRoomSelect();
 
-    RoomDto SelectByIdRoom(@Param("id") int id);  // 단일 방 조회 (id 기준)
+
 
     List<RoomDto> SelectByKeyword(@Param("keyword") String keyword);
+
+    RoomDto SelectByIdRoom(@Param("id") int id);
+
 
     // 참여자 목록 조회 (roomId 기준)
     List<UsersDto> getParticipantsByRoomId(@Param("roomId") int roomId);
 
 
+
 }
 
+
+    int JoinIngCount();
+
+    int IngCount();
+
+    int EndCount();
+
+    int TotalCount();
+
+    List<RoomDto> selectRoom(RoomDto roomDto);
+
+    List<RoomDto> selectAllRoom(RoomDto roomDto);
+
+    void updateRoomUsers(RoomDto roomDto);
+
+    // 카운팅
+    void updateReadyCount(@Param("roomId") Integer roomId, @Param("delta") Integer delta);
+    // 준비인원
+    Integer selectReadyPeople(@Param("roomId") Integer roomId);
+
+    List<RoomDto> AdminSelectRoom();
+
+    List<UsersDto> selectUsersByRoomId(int roomId);
+
+}
 

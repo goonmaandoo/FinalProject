@@ -17,7 +17,16 @@ public class RoomJoinService {
         return joinDao.statusCheck(roomId, userId);
     }
 
+
     public List<UsersDto> getUsersByRoomId(Integer roomId) {
         return joinDao.getUsersByRoomId(roomId);
+
+    //룸 / 챗
+    public List<RoomJoinDto> selectRoomJoin(RoomJoinDto roomJoinDto) {
+        return joinDao.selectRoomJoin(roomJoinDto);
+    }
+    public void insertRoomJoin(RoomJoinDto roomJoinDto) {
+        joinDao.insertRoomJoin(roomJoinDto);
+
     }
 }

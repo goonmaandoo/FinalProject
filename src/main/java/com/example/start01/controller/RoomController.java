@@ -7,6 +7,7 @@ import com.example.start01.dto.RoomJoinDto;
 import com.example.start01.dto.UsersDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.start01.dto.UsersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,23 @@ public class RoomController {
     @GetMapping("/allWithCount")
     public List<RoomDto> RoomsWithJoinCount() {
         return roomDao.RoomsWithJoinCount();
+    }
+
+    @GetMapping("/totalCount")
+    public int totalCount() {
+        return roomDao.TotalCount();
+    }
+    @GetMapping("/joinIngCount")
+    public int joinIngCount() {
+        return roomDao.JoinIngCount();
+    }
+    @GetMapping("/ingCount")
+    public int ingCount() {
+        return roomDao.IngCount();
+    }
+    @GetMapping("/endCount")
+    public int endCount() {
+        return roomDao.EndCount();
     }
 
     @GetMapping("/allRoomSelect")
@@ -83,6 +101,24 @@ public class RoomController {
     public RoomDto getRoomById(@PathVariable("roomId") int roomId) {
         return roomDao.SelectByIdRoom(roomId);
     }
+
+
+    @GetMapping("/adminSelectRoom")
+    public List<RoomDto> AdminSelectRoom() {
+        return roomDao.AdminSelectRoom();
+    }
+
+    @GetMapping("/getAllRoomsWithUsers")
+    public List<RoomDto> getAllRoomsWithUsers() {
+        List<RoomDto> rooms = roomDao.AdminSelectRoom();
+
+        for (RoomDto room : rooms) {
+            List<UsersDto> users = roomDao.selectUsersByRoomId(room.getId());
+            room.setUsersInfo(users);
+        }
+        return rooms;
+    }
+
 
 }
 

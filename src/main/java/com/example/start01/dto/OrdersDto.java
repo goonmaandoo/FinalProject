@@ -18,4 +18,7 @@ public class OrdersDto {
     private JsonNode roomOrder; // JSON 타입 문제 없음
     private Integer totalPrice;
     private LocalDateTime createdAt;
+    private String storeName;
+    private String nickname;
+    private Integer id;
 }

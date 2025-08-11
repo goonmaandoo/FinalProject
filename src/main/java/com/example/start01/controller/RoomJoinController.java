@@ -5,10 +5,9 @@ import com.example.start01.dto.RoomJoinDto;
 import com.example.start01.dto.UsersDto;
 import com.example.start01.service.RoomJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import java.util.List;
 
@@ -27,10 +26,23 @@ public class RoomJoinController {
 
     }
 
+
     @GetMapping("/participants")
     public List<UsersDto> getParticipants(@RequestParam Integer roomId) {
         System.out.println("📥 참여자 목록 조회 - roomId: " + roomId);
         return joinService.getUsersByRoomId(roomId);  // UsersDto 리스트 반환
+    }
+
+    //  룸 / 챗
+    @PostMapping("/selectRoomJoin")
+    public List<RoomJoinDto> selectRommJoin(@RequestBody RoomJoinDto roomJoinDto) {
+        System.out.println("룸조인dto:"+roomJoinDto);
+        return joinService.selectRoomJoin(roomJoinDto);
+    }
+    @PostMapping("/insertRoom")
+    public void insertRoom(@RequestBody RoomJoinDto roomJoinDto) {
+        System.out.println("joindto / insert:"+ roomJoinDto);
+        joinService.insertRoomJoin(roomJoinDto);
     }
 
 }
