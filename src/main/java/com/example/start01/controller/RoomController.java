@@ -71,9 +71,15 @@ public class RoomController {
     public List<RoomDto> AdminSelectRoom() {
         return roomDao.AdminSelectRoom();
     }
+
     @GetMapping("/adminSelectRoomUser/{id}")
     public List<RoomDto> AdminSelectRoomUser(@PathVariable("id") Integer id){
         return roomDao.AdminSelectRoomUser(id);
+    }
+
+    @GetMapping("/selectRoomWithUsers")
+    public List<RoomDto> selectRoomWithUsers(){
+        return roomDao.selectRoomWithUsers();
     }
 }
 

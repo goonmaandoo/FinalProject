@@ -49,4 +49,6 @@ public interface RoomDao {
     List<RoomDto> AdminSelectRoom();
 
     List<RoomDto> AdminSelectRoomUser(@Param("id") Integer id);
+
+    List<RoomDto> selectRoomWithUsers();
 }
