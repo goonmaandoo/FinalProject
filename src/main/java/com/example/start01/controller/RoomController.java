@@ -2,6 +2,7 @@ package com.example.start01.controller;
 
 import com.example.start01.dao.RoomDao;
 import com.example.start01.dto.RoomDto;
+import com.example.start01.dto.UsersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,14 +73,17 @@ public class RoomController {
         return roomDao.AdminSelectRoom();
     }
 
-    @GetMapping("/adminSelectRoomUser/{id}")
-    public List<RoomDto> AdminSelectRoomUser(@PathVariable("id") Integer id){
-        return roomDao.AdminSelectRoomUser(id);
+    @GetMapping("/getAllRoomsWithUsers")
+    public List<RoomDto> getAllRoomsWithUsers() {
+        List<RoomDto> rooms = roomDao.AdminSelectRoom();
+
+        for (RoomDto room : rooms) {
+            List<UsersDto> users = roomDao.selectUsersByRoomId(room.getId());
+            room.setUsersInfo(users);
+        }
+        return rooms;
     }
 
-    @GetMapping("/selectRoomWithUsers")
-    public List<RoomDto> selectRoomWithUsers(){
-        return roomDao.selectRoomWithUsers();
-    }
+
 }
 

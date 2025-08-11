@@ -122,27 +122,20 @@
     </update>
     <select id="AdminSelectRoom" resultType="RoomDto">
         SELECT r.*, s.store_name as storeName
-        FROM room r
-        LEFT Join store s ON r.store_id = s.id
+        FROM room r Join store s ON r.store_id = s.id
     </select>
-    <select id="selectRoomWithUsers" resultMap="RoomWithUsersResultMap">
-        SELECT r.id AS room_id, r.room_name, s.store_name, r.max_people, r.status AS room_status,
-        u.id AS user_id, u.nickname, rj.id AS room_join_id, rj.status AS join_status FROM room r JOIN store s ON r.store_id = s.id
-        LEFT JOIN room_join rj ON r.id = rj.room_id LEFT JOIN users u ON rj.users_id = u.id
+    <select id="selectUsersByRoomId" parameterType="int" resultMap="UsersWithJoinResultMap">
+        SELECT u.id AS user_id, u.nickname, rj.id AS room_join_id, rj.status AS join_status
+        FROM room_join rj
+        JOIN users u ON rj.users_id = u.id
+        WHERE rj.room_id = #{roomId}
     </select>
-    <resultMap id="RoomWithUsersResultMap" type="RoomDto">
-        <id property="id" column="room_id"/>
-        <result property="roomName" column="room_name"/>
-        <result property="storeName" column="store_name"/>
-        <result property="maxPeople" column="max_people"/>
-        <result property="status" column="room_status"/>
 
-        <collection property="usersInfo" ofType="UsersDto">
-            <id property="id" column="user_id"/>
-            <result property="nickname" column="nickname"/>
-            <result property="joinStatus" column="join_status"/>
-            <result property="roomJoinId" column="room_join_id"/>
-        </collection>
+    <resultMap id="UsersWithJoinResultMap" type="UsersDto">
+        <id property="id" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="joinStatus" column="join_status"/>
+        <result property="roomJoinId" column="room_join_id"/>
     </resultMap>
 
 </mapper>

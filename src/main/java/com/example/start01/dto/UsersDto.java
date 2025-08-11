@@ -26,4 +26,5 @@ public class UsersDto {
     private Integer userBtnCount;
     private String joinStatus;
     private Integer roomJoinId;
+
 }
