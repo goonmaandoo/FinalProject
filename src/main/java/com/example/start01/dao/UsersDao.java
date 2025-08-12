@@ -5,6 +5,7 @@ import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -70,5 +71,11 @@ public interface UsersDao {
     List<UsersDto> userOwnerSearch(Map<String, String> param);
 
     List<UsersDto> userSearchAdmin(Map<String, String> param);
+
+    UsersDto UserInfo(@Param("id") Integer Id);
+
+    int updateStatusBan(@Param("status") String status, @Param("id") Integer id, @Param("LocalDateTime") LocalDateTime activeAt);
+
+    int updateStatus(@Param("status") String status, @Param("id") Integer id);
 
 }
