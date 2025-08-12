@@ -23,10 +23,10 @@ public class ReviewController {
     }
 
     //특정 유저 리뷰 전체 조회 (파라미터: userId)
-    @GetMapping(value = "/getMyReview", params = {"userId"})
-    public List<ReviewDto> GetMyReview(@RequestParam Integer userId) {
-        return reviewService.getMyReview(userId);
-    }
+//    @GetMapping(value = "/getMyReview", params = {"userId"})
+//    public List<ReviewDto> GetMyReview(@RequestParam Integer userId) {
+//        return reviewService.getMyReview(userId);
+//    }
 
     //페이지네이션 (파라미터: userId, page, size)
     @GetMapping(value = "/getMyReview", params = {"userId", "page", "size"})
