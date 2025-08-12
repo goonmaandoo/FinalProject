@@ -116,4 +116,10 @@
             </choose>
         </if>
     </select>
+    <select id="ordersCount" parameterType="int">
+        SELECT COUNT(*) FROM ORDERS
+    </select>
+    <select id="ordersTodayCount" resultType="int" parameterType="map">
+        SELECT COUNT(*) FROM orders WHERE created_at BETWEEN #{startDay} AND #{endDay}
+    </select>
 </mapper>

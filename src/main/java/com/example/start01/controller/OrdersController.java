@@ -8,6 +8,8 @@ import com.example.start01.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -94,6 +96,19 @@ public class OrdersController {
         param.put("type", type);
         param.put("keyword", keyword);
         return ordersDao.orderSearch(param);
+    }
+
+    @GetMapping("/ordersCount")
+    public int ordersCount() {
+        return ordersDao.ordersCount();
+    }
+
+    @GetMapping("/orderTodayCount")
+    public int orderTodayCount() {
+        LocalDateTime startDay = LocalDate.now().atStartOfDay();
+        LocalDateTime endDay = LocalDate.now().atTime(23, 59, 59);
+
+        return ordersDao.ordersTodayCount(startDay, endDay);
     }
 
 
