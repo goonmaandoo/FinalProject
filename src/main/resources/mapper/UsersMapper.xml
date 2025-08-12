@@ -123,9 +123,8 @@
     </select>
     <select id="userSearchActive" resultType="UsersDto" parameterType="map">
         SELECT * FROM users
-        <where> status != 'active'
+        <where>
             <if test="type != null and keyword != null and keyword != ''">
-                AND
                 <choose>
                     <when test="type == 'nickname'"> nickname LIKE '%' || #{keyword} || '%' </when>
                     <when test="type == 'phoneNum'"> phone_num LIKE '%' || #{keyword} || '%' </when>
@@ -171,4 +170,13 @@
                 </choose>
             </if>
     </select>
+    <select id="UserInfo" resultType="UsersDto" parameterType="Integer">
+        select * from users where id = #{id}
+    </select>
+    <update id="updateStatus" parameterType="map">
+        UPDATE USERS SET status = #{status} WHERE id = #{id}
+    </update>
+    <update id="updateStatusBan" parameterType="map">
+        UPDATE USERS SET status = #{status}, active_at = #{activeAt} WHERE id = #{id}
+    </update>
 </mapper>

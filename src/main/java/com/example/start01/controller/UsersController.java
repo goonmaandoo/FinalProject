@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -271,6 +272,34 @@ public class UsersController {
         param.put("type", type);
         param.put("keyword", keyword);
         return usersDao.userSearchAdmin(param);
+    }
+
+    @GetMapping("/UserInfo/{id}")
+    public UsersDto UserInfo(@PathVariable Integer id){
+        return usersDao.UserInfo(id);
+    }
+
+    @PostMapping("/updateStatusBan")
+    public UsersDto updateStatusBan(@RequestParam("status") String status, @RequestParam("id") Integer id, @RequestParam("LocalDateTime")LocalDateTime activeAt){
+        int rowsAffected = usersDao.updateStatusBan(status, id, activeAt);
+
+        if (rowsAffected > 0) {
+            // Return the updated user data
+            return usersDao.UserInfo(id);
+        } else {
+            throw new RuntimeException("Failed to update user status");
+        }
+    }
+    @PostMapping("/updateStatus")
+    public UsersDto updateStatus(@RequestParam("status") String status, @RequestParam("id") Integer id){
+        int rowsAffected = usersDao.updateStatus(status, id);
+
+        if (rowsAffected > 0) {
+            // Return the updated user data
+            return usersDao.UserInfo(id);
+        } else {
+            throw new RuntimeException("Failed to update user status");
+        }
     }
 
 }
