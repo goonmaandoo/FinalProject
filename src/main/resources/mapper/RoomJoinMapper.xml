@@ -56,9 +56,6 @@
             </if>
         </where>
     </select>
-    <insert id="insertRoomJoin" parameterType="RoomJoinDto">
-        INSERT INTO room_join (room_id, users_id, status, joined_at)
-        VALUES (#{roomId}, #{usersId}, #{status}, SYSDATE)
-    </insert>
+
 
 </mapper>

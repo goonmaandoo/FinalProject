@@ -22,20 +22,11 @@ public interface RoomDao {
 
     List<RoomDto> AllRoomSelect();
 
-
-
-    List<RoomDto> SelectByKeyword(@Param("keyword") String keyword);
-
     RoomDto SelectByIdRoom(@Param("id") int id);
 
+    List<RoomDto> SelectByIdOnly(@Param("storeId") int id);
 
-    // 참여자 목록 조회 (roomId 기준)
-    List<UsersDto> getParticipantsByRoomId(@Param("roomId") int roomId);
-
-
-
-}
-
+    List<RoomDto> SelectByKeyword(@Param("keyword") String keyword);
 
     int JoinIngCount();
 
@@ -61,4 +52,3 @@ public interface RoomDao {
     List<UsersDto> selectUsersByRoomId(int roomId);
 
 }
-

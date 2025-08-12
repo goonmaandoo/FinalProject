@@ -1,12 +1,7 @@
 package com.example.start01.controller;
 
 import com.example.start01.dao.RoomDao;
-import com.example.start01.dao.RoomJoinDao;
 import com.example.start01.dto.RoomDto;
-import com.example.start01.dto.RoomJoinDto;
-import com.example.start01.dto.UsersDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.start01.dto.UsersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +13,6 @@ import java.util.List;
 public class RoomController {
     @Autowired
     private RoomDao roomDao;
-
-    @Autowired
-    private RoomJoinDao roomJoinDao;
 
     @GetMapping("/all")
     public List<RoomDto> RoomAll() {
@@ -71,37 +63,10 @@ public class RoomController {
     }
     @PostMapping("/create")
     public RoomDto createRoom(@RequestBody RoomDto roomDto) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            String usersJson = mapper.writeValueAsString(roomDto.getUsers()); // List<Integer> -> JSON 문자열
-            roomDto.setUsers(usersJson);
-
-            roomDao.RoomInsert(roomDto);
-
-            Integer createdRoomId = roomDto.getId();
-            Integer creatorId = roomDto.getLeaderId();
-
-            RoomJoinDto joinDto = new RoomJoinDto();
-            joinDto.setRoomId(createdRoomId);
-            joinDto.setUsersId(creatorId);
-            joinDto.setStatus("준비중");
-
-            roomJoinDao.insertRoomJoin(joinDto);
-
-            return roomDto;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
+        roomDao.RoomInsert(roomDto);
+        // insert 후 roomDto.id 에 자동 생성된 id가 들어감
+        return roomDto;
     }
-
-
-
-    @GetMapping("/{roomId}")
-    public RoomDto getRoomById(@PathVariable("roomId") int roomId) {
-        return roomDao.SelectByIdRoom(roomId);
-    }
-
 
     @GetMapping("/adminSelectRoom")
     public List<RoomDto> AdminSelectRoom() {

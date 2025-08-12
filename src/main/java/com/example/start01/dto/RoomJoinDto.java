@@ -16,9 +16,4 @@ public class RoomJoinDto {
     private Integer usersId;
     private LocalDateTime joinedAt;
     private String status;
-
-    // users 테이블에서 JOIN해서 가져올 필드 추가
-    private String nickname;
-    private String profileUrl;
-
 }
