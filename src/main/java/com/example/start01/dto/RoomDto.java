@@ -25,7 +25,7 @@ public class RoomDto {
     private LocalDateTime createdAt;
     private String roomAddressDetail;
     private Integer joinCount;
-
+    private Integer kickId;
     // 검색용 (LIKE)
     private String storeNameLike;
     // 준비인원 체크용

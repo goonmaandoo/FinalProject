@@ -30,4 +30,8 @@ public interface RoomJoinDao {
     void insertRoomJoin(RoomJoinDto roomJoinDto);
 
 
+    void roomOut(RoomJoinDto roomJoinDto);
+
+    Integer joinCount(@Param("roomId") Integer roomId);
 }
+

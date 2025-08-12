@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class ChatWithUserDto {
     private Integer roomId;
     private Integer userId;
+    private Integer chatId;
     private String nickname;
     private String profileUrl;
     private String chat;

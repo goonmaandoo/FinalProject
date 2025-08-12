@@ -114,7 +114,7 @@
 
     <update id="updateRoomUsers" parameterType="com.example.start01.dto.RoomDto">
         UPDATE room
-        SET users = #{users, jdbcType=VARCHAR}
+        SET users = #{users, jdbcType=VARCHAR},  kick_id = #{kickId}
         WHERE id = #{id}
     </update>
 
@@ -140,5 +140,13 @@
         <result property="joinStatus" column="join_status"/>
         <result property="roomJoinId" column="room_join_id"/>
     </resultMap>
+
+
+    <update id="updateRoomStatus" parameterType="map">
+        UPDATE room SET status = #{status} WHERE id = #{roomId}
+    </update>
+    <delete id="blowUpRoom" parameterType="int">
+        DELETE FROM room WHERE id = #{roomId}
+    </delete>
 
 </mapper>
