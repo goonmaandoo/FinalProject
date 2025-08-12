@@ -33,9 +33,19 @@ public class InRoomController {
         System.out.println("counting"+roomId);
         roomService.readyCount(roomId, delta);
     }
+    @PutMapping("/{roomId}/roomStatus")
+    public void updateRoomStatus(@PathVariable Integer roomId, @RequestParam String status) {
+        System.out.println("room status update");
+        roomService.updateRoomStatus(roomId, status);
+    }
     @GetMapping("/{roomId}/readyStatus")
     public Integer getReadyPeople(@PathVariable("roomId") Integer roomId) {
         System.out.println("getReadyPeople");
         return roomService.getReadyPeople(roomId);
+    }
+    @DeleteMapping("/{roomId}/blowUpRoom")
+    public void blowUpRoom(@PathVariable("roomId") Integer roomId) {
+        System.out.println("delete room");
+        roomService.blowUpRoom(roomId);
     }
 }

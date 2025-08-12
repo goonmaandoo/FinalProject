@@ -33,4 +33,14 @@ public class RoomJoinController {
         System.out.println("joindto / insert:"+ roomJoinDto);
         joinService.insertRoomJoin(roomJoinDto);
     }
+    @DeleteMapping("/deleteRoomJoin")
+    public void deleteRoomJoin(@RequestBody RoomJoinDto roomJoinDto) {
+        System.out.println("deleteroomJoinDto");
+        joinService.roomOut(roomJoinDto);
+    }
+    @GetMapping("/countingJoin")
+    public Integer countingJoin(@RequestParam Integer roomId) {
+        System.out.println("countingJoin");
+        return joinService.countingRoomJoin(roomId);
+    }
 }

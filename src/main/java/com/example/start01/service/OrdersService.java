@@ -20,8 +20,9 @@ public class OrdersService {
 
 
     // insert
-    public void insertOrder(OrdersDto dto) {
+    public int insertOrder(OrdersDto dto) {
         ordersDao.insertOrder(dto);
+        return dto.getOrderId();
     }
 
     // selectByUserId

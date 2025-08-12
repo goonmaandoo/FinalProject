@@ -51,8 +51,8 @@ public class OrdersController {
     @PostMapping("/insertOrder")
     public Integer insertOrder(@RequestBody OrdersDto dto) {
         System.out.println("insert: " + dto);
-        ordersService.insertOrder(dto);
-        return dto.getOrderId();
+        int orderId = ordersService.insertOrder(dto);
+        return orderId;
     }
 
     //삭제

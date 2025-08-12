@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.start01.dao.CashChargeDao">
+
+<!-- 캐쉬 업데이트-->
+    <update id="updateCash">
+        UPDATE users SET cash = cash + #{amount}
+        WHERE id = #{userId}
+    </update>
+
+<!--    캐쉬 조회-->
+    <select id="selectCash" resultType="int">
+        SELECT cash FROM users WHERE id = #{userId}
+    </select>
+
+<!--    결제 차감 update : 잔액이 충분할 때 -->
+    <update id="payCash">
+        UPDATE users SET cash = cash - #{amount}
+        WHERE id = #{userId}
+            AND cash >= #{amount}
+    </update>
+
+</mapper>
+

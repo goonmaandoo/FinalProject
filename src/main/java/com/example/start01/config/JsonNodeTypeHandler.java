@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.type.*;
 import java.sql.*;
 
-@MappedTypes(com.fasterxml.jackson.databind.JsonNode.class)
-@MappedJdbcTypes(org.apache.ibatis.type.JdbcType.VARCHAR)
+@MappedTypes(JsonNode.class)
+@MappedJdbcTypes(JdbcType.VARCHAR)
 public class JsonNodeTypeHandler extends BaseTypeHandler<JsonNode> {
     private static final ObjectMapper OM = new ObjectMapper();
     @Override public void setNonNullParameter(PreparedStatement ps, int i, JsonNode parameter, JdbcType jdbcType) throws SQLException {

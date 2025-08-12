@@ -28,7 +28,7 @@ public interface OrdersDao {
     OrdersDto selectByOrderId(@Param("orderId") Integer orderId);
 
     // 생성
-    void insertOrder(OrdersDto ordersDto);
+    int insertOrder(OrdersDto ordersDto);
 
     // 삭제
     void deleteByOrderId(@Param("orderId") Integer orderId);

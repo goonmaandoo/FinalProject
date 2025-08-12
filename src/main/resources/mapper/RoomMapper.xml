@@ -54,9 +54,12 @@
         ORDER BY r.created_at DESC
     </select>
 
-    <select id="SelectByIdOnly" parameterType="int" resultType="RoomDto">
-        SELECT * FROM room WHERE id=#{id}
+
+    <!-- 단일 방 조회 -->
+    <select id="SelectByIdRoom" parameterType="int" resultType="com.example.start01.dto.RoomDto">
+            SELECT * FROM room WHERE id=#{id}
     </select>
+
 
     <select id="SelectByKeyword" parameterType="String" resultType="RoomDto">
         SELECT * FROM room WHERE room_name LIKE '%' || #{keyword} || '%'
@@ -111,7 +114,7 @@
 
     <update id="updateRoomUsers" parameterType="com.example.start01.dto.RoomDto">
         UPDATE room
-        SET users = #{users, jdbcType=VARCHAR}
+        SET users = #{users, jdbcType=VARCHAR},  kick_id = #{kickId}
         WHERE id = #{id}
     </update>
 
@@ -137,5 +140,13 @@
         <result property="joinStatus" column="join_status"/>
         <result property="roomJoinId" column="room_join_id"/>
     </resultMap>
+
+
+    <update id="updateRoomStatus" parameterType="map">
+        UPDATE room SET status = #{status} WHERE id = #{roomId}
+    </update>
+    <delete id="blowUpRoom" parameterType="int">
+        DELETE FROM room WHERE id = #{roomId}
+    </delete>
 
 </mapper>
