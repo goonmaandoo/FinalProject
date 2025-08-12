@@ -43,14 +43,6 @@ public interface UsersDao {
     // 회원 삭제
     int unactiveUsers(int id);
 
-
-    List<UsersDto> findUsersByIds(List<Integer> userIds);
-
-    // ⭐ user_rating 업데이트용 추가
-    void updateUserRating(@Param("id") Integer id, @Param("userRating") double userRating);
-
-    UsersDto findById(Integer id);
-
     int TotalCount();
 
     int unactiveCount();
@@ -79,8 +71,4 @@ public interface UsersDao {
 
     List<UsersDto> userSearchAdmin(Map<String, String> param);
 
-
 }
-
-
-

@@ -57,6 +57,7 @@
 
     <!-- 단일 방 조회 -->
     <select id="SelectByIdRoom" parameterType="int" resultType="com.example.start01.dto.RoomDto">
+    </select>
 
     <select id="SelectByIdOnly" parameterType="int" resultType="RoomDto">
 

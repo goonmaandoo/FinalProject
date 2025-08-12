@@ -17,7 +17,6 @@ public interface RoomJoinDao {
 
     RoomJoinDto statusCheck(@Param("roomId") Integer roomId, @Param("userId") Integer userId);
 
-    void insertRoomJoin(RoomJoinDto dto);  // ✅ 새로 추가
 
     // ✅ 새로 추가할 메서드
     List<UsersDto> getParticipantsByRoomId(@Param("roomId") Integer roomId);
