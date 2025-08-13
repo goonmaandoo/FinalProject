@@ -41,8 +41,36 @@ public class ChatReportController {
     public List<ChatReportDto> getAllReports() {
         return chatReportService.selectAll();
     }
+    @GetMapping("/{id}")
+    public ChatReportDto getOne(@PathVariable Integer id) {
+        return chatReportService.get(id);
+    }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         chatReportService.delete(id);
+    }
+
+    // 상태 전환
+    //처리중
+    @PatchMapping("/{id}/in-progress")
+    public void inProgress(@PathVariable Integer id, @RequestParam Integer adminId) {
+        chatReportService.markInProgress(id, adminId);
+    }
+    //처리완료
+    @PatchMapping("/{id}/resolve")
+    public void resolve(@PathVariable Integer id, @RequestParam Integer adminId) {
+        chatReportService.resolve(id, adminId);
+    }
+    //기각
+    @PatchMapping("/{id}/reject")
+    public void reject(@PathVariable Integer id, @RequestParam Integer adminId) {
+        chatReportService.reject(id, adminId);
+    }
+    //임의 상태 업데이트(선택)
+    @PatchMapping("/{id}/status")
+    public void updateStatus(@PathVariable Integer id,
+                             @RequestParam String status,
+                             @RequestParam Integer adminId) {
+        chatReportService.updateStatus(id, status, adminId);
     }
 }

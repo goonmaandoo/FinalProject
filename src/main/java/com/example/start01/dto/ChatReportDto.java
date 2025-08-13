@@ -23,4 +23,7 @@ public class ChatReportDto {
     private Integer reportedBy;
 
     private LocalDateTime createdAt;
+    private String responseStatus;
+    private LocalDateTime respondedAt;
+    private Integer adminId;
 }
