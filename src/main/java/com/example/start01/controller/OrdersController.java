@@ -110,6 +110,15 @@ public class OrdersController {
 
         return ordersDao.ordersTodayCount(startDay, endDay);
     }
+    @GetMapping("/getAllOrders")
+    public List<OrdersDto> getAllOrders() {
+        List<OrdersDto> dtos = ordersService.selectAllOrders();
+        System.out.println("전체 주문 수: " + dtos.size());
+        dtos.forEach(System.out::println);
+        return dtos;
+    }
+
+
 
 
 }

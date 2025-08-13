@@ -98,14 +98,16 @@
     </update>
 
 
-    <select id="findUsersByIds" resultType="UsersDto" parameterType="list">
-        SELECT id, nickname
+    <select id="findUsersByIds" resultType="UsersDto" parameterType="map">
+        SELECT id, nickname, address, address_detail AS addressDetail
         FROM users
         WHERE id IN
-        <foreach item="id" collection="list" open="(" separator="," close=")">
+        <foreach item="id" collection="userIds" open="(" separator="," close=")">
             #{id}
         </foreach>
     </select>
+
+
 
     <update id="updateUserRating" parameterType="map">
         UPDATE USERS
@@ -202,4 +204,7 @@
     <update id="updateStatusBan" parameterType="map">
         UPDATE USERS SET status = #{status}, active_at = #{activeAt} WHERE id = #{id}
     </update>
+
+
+
 </mapper>

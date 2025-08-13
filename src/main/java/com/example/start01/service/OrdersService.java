@@ -51,6 +51,10 @@ public class OrdersService {
         ordersDao.deleteByOrderId(orderId);
     }
 
+    public List<OrdersDto> selectAllOrders() {
+        return ordersDao.selectAllOrders();
+    }
+
 //    //작성 가능한 리뷰 주문
 //    public Map<String, Object> getCanReviewList(int userId, int offset, int size) {
 //        List<OrdersDto> list = ordersDao.selectCanReviewByUserId(userId, offset, size);

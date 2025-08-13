@@ -122,4 +122,11 @@
     <select id="ordersTodayCount" resultType="int" parameterType="map">
         SELECT COUNT(*) FROM orders WHERE created_at BETWEEN #{startDay} AND #{endDay}
     </select>
+
+    <select id="selectAllOrders" resultType="com.example.start01.dto.OrdersDto">
+        SELECT order_id, room_id, user_id, store_id, room_order AS roomOrder, total_price, created_at
+        FROM orders
+        ORDER BY created_at DESC
+    </select>
+
 </mapper>
