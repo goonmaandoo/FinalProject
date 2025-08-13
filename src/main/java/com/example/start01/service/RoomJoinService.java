@@ -2,6 +2,7 @@ package com.example.start01.service;
 
 import com.example.start01.dao.RoomJoinDao;
 import com.example.start01.dto.RoomJoinDto;
+import com.example.start01.dto.UsersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,9 @@ public class RoomJoinService {
     }
     public Integer countingRoomJoin(Integer roomId) {
         return joinDao.joinCount(roomId);
+    }
+
+    public List<UsersDto> getUsersByRoomId(Integer roomId) {
+        return joinDao.getUsersByRoomId(roomId);
     }
 }

@@ -78,4 +78,11 @@ public interface UsersDao {
 
     int updateStatus(@Param("status") String status, @Param("id") Integer id);
 
+    List<UsersDto> findUsersByIds(@Param("userIds") List<Integer> userIds);
+
+    // ⭐ user_rating 업데이트용 추가
+    void updateUserRating(@Param("id") Integer id, @Param("userRating") double userRating);
+
+    UsersDto findById(Integer id);
+
 }

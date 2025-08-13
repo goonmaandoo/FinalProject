@@ -2,17 +2,23 @@ package com.example.start01.controller;
 
 import com.example.start01.dao.RoomDao;
 import com.example.start01.dto.RoomDto;
+import com.example.start01.dto.RoomOrdersDto;
 import com.example.start01.dto.UsersDto;
+import com.example.start01.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/room")
 public class RoomController {
     @Autowired
     private RoomDao roomDao;
+
+    @Autowired
+    private RoomService roomService;
 
     @GetMapping("/all")
     public List<RoomDto> RoomAll() {
@@ -84,6 +90,21 @@ public class RoomController {
         return rooms;
     }
 
+    @GetMapping("/ownerDeliverySelect")
+    public  List<RoomOrdersDto> ownerDeliverySelect(@RequestParam String ownerId){
+        return roomDao.ownerDeliverySelect(ownerId);
+    }
+
+    @PutMapping("/ownerDeliveryUpdate")
+    public Map<String, Object> updateStatus(@RequestBody RoomOrdersDto roomOrdersDto) {
+        boolean success = roomService.ownerDeliveryUpdate(roomOrdersDto);  // service 호출
+
+        if (success) {
+            return Map.of("result", "success");
+        } else {
+            return Map.of("result", "fail");
+        }
+    }
 
 }
 

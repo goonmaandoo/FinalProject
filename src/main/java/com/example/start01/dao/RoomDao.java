@@ -1,6 +1,7 @@
 package com.example.start01.dao;
 
 import com.example.start01.dto.RoomDto;
+import com.example.start01.dto.RoomOrdersDto;
 import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.*;
 
@@ -42,6 +43,8 @@ public interface RoomDao {
 
     void updateRoomUsers(RoomDto roomDto);
 
+    void updateKickId(RoomDto roomDto);
+
     // 카운팅
     void updateReadyCount(@Param("roomId") Integer roomId, @Param("delta") Integer delta);
     // 준비인원
@@ -52,10 +55,15 @@ public interface RoomDao {
 
     List<UsersDto> selectUsersByRoomId(int roomId);
 
+    List<RoomOrdersDto> ownerDeliverySelect(@Param("ownerId") String ownerId);
+
+    int ownerDeliveryUpdate(RoomOrdersDto roomOrdersDto);
+
 
     // 공구방 상태 업데이트
     void updateRoomStatus(@Param("roomId") Integer roomId, @Param("status") String status);
 
     void blowUpRoom(@Param("roomId") Integer roomId);
+
 
 }

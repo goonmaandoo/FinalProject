@@ -28,6 +28,11 @@ public class InRoomController {
         System.out.println("user ready method");
         roomService.updateRoomUsers(roomDto);
     }
+    @PutMapping("/updateKick")
+    public void updateKick(@RequestBody RoomDto roomDto) {
+        System.out.println("user Kick");
+        roomService.updateKickId(roomDto);
+    }
     @PutMapping("/{roomId}/readyCount")
     public void updateReadyCount(@PathVariable Integer roomId, @RequestParam Integer delta) {
         System.out.println("counting"+roomId);
