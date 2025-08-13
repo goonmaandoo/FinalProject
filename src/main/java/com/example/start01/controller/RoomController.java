@@ -105,6 +105,10 @@ public class RoomController {
             return Map.of("result", "fail");
         }
     }
+    @GetMapping("/{roomId}")
+    public RoomDto getRoomById(@PathVariable("roomId") int roomId) {
+        return roomDao.SelectByIdRoom(roomId);
+    }
 
 }
 
