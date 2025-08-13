@@ -110,5 +110,10 @@ public class RoomController {
         return roomDao.SelectByIdRoom(roomId);
     }
 
+    @GetMapping("/roomsbyId/{id}")
+    public List<RoomDto> RoomsbyId(@PathVariable Integer id){
+        return roomDao.RoomsbyId(id);
+    }
+
 }
 

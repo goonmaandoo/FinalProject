@@ -27,6 +27,16 @@
         GROUP BY r.id, r.store_id, r.room_name, r.room_address, r.max_people
     </select>
 
+    <select id="RoomsbyId" resultType="RoomDto">
+        SELECT
+        r.id, r.store_id, r.room_name, r.room_address, r.max_people, r.status,
+        COUNT(rj.id) AS joinCount
+        FROM room r
+        LEFT JOIN room_join rj ON r.id = rj.room_id
+        WHERE REGEXP_LIKE(r.users, '(^|,|\\[)' || #{id} || '(,|\\]|$)')
+        GROUP BY r.id, r.store_id, r.room_name, r.room_address, r.max_people, r.status
+    </select>
+
     <select id="TotalCount" resultType="int">
         SELECT count(*) AS totalCount FROM room
     </select>

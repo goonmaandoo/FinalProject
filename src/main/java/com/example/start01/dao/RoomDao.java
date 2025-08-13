@@ -65,5 +65,5 @@ public interface RoomDao {
 
     void blowUpRoom(@Param("roomId") Integer roomId);
 
-
+    List<RoomDto> RoomsbyId(@Param("id") Integer id);
 }
