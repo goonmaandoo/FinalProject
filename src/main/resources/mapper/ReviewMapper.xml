@@ -121,12 +121,10 @@
         AND store.id = review.store_id
         AND store.owner_id = #{ownerId}
     </select>
-
     <!-- 사장님 리뷰상태 업데이트 -->
     <update id="updateReviewByOwner" parameterType="ReviewDto">
         UPDATE review
         SET status = #{status}
         WHERE id = #{id}
     </update>
-
 </mapper>
