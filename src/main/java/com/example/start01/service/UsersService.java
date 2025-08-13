@@ -105,7 +105,17 @@ public class UsersService {
         return result > 0;
 
     }
+    public List<UsersDto> findUsersByIds(List<Integer> userIds) {
+        return usersDao.findUsersByIds(userIds);
+    }
 
+    // ⭐ user_rating 업데이트
+    public void rateUser(Integer userId, double newRating) {
+        usersDao.updateUserRating(userId, newRating);
+    }
 
+    public UsersDto findById(Integer userId) {
+        return usersDao.findById(userId);
+    }
 }
 

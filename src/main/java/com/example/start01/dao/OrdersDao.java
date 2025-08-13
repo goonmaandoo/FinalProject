@@ -54,4 +54,6 @@ public interface OrdersDao {
     int ordersCount();
 
     int ordersTodayCount(@Param("startDay") LocalDateTime startDay, @Param("endDay") LocalDateTime endDay);
+
+    List<OrdersDto> selectAllOrders();
 }
