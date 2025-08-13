@@ -18,4 +18,16 @@ public interface ChatReportDao {
     void insert(ChatReportDto dto);
 
     void deleteById(@Param("id") Integer id);
+
+    //상태 전환
+    int markInProgress(@Param("id") Integer id, @Param("adminId") Integer adminId);
+    int resolve(@Param("id") Integer id, @Param("adminId") Integer adminId);
+    int reject(@Param("id") Integer id, @Param("adminId") Integer adminId);
+
+    //임의 상태로 바꾸기(선택)
+    int updateStatus(
+            @Param("id") Integer id,
+            @Param("status") String status,
+            @Param("adminId") Integer adminId
+    );
 }
