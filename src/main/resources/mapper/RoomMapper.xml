@@ -144,4 +144,17 @@
         <result property="roomJoinId" column="room_join_id"/>
     </resultMap>
 
+    <select id="ownerDeliverySelect" resultType="RoomOrdersDto">
+        SELECT orders.room_id, owner_id, order_id, room_order, room_address, room_address_detail, status
+        FROM room, orders, store
+        WHERE orders.room_id = room.id
+        AND store.id = orders.store_id
+        AND owner_id = #{ownerId}
+    </select>
+    <update id="ownerDeliveryUpdate" parameterType="RoomOrdersDto">
+        UPDATE room
+        SET status = #{status}
+        WHERE id = #{roomId}
+    </update>
+
 </mapper>

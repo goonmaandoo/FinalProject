@@ -3,6 +3,7 @@ package com.example.start01.service;
 
 import com.example.start01.dao.RoomDao;
 import com.example.start01.dto.RoomDto;
+import com.example.start01.dto.RoomOrdersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,14 @@ public class RoomService {
     }
     public Integer getReadyPeople(Integer roomId) {
         return roomDao.selectReadyPeople(roomId);
+    }
+
+    public List<RoomOrdersDto> ownerDeliverySelect(String ownerId){
+        return roomDao.ownerDeliverySelect(ownerId);
+    }
+
+    public boolean ownerDeliveryUpdate(RoomOrdersDto roomOrdersDto) {
+        int updatedRows = roomDao.ownerDeliveryUpdate(roomOrdersDto);
+        return updatedRows > 0;
     }
 }

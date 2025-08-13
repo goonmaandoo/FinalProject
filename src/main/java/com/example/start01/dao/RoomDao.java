@@ -1,6 +1,7 @@
 package com.example.start01.dao;
 
 import com.example.start01.dto.RoomDto;
+import com.example.start01.dto.RoomOrdersDto;
 import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.*;
 
@@ -51,4 +52,7 @@ public interface RoomDao {
 
     List<UsersDto> selectUsersByRoomId(int roomId);
 
+    List<RoomOrdersDto> ownerDeliverySelect(@Param("ownerId") String ownerId);
+
+    int ownerDeliveryUpdate(RoomOrdersDto roomOrdersDto);
 }
