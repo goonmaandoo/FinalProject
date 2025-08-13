@@ -38,8 +38,7 @@ public class RoomService {
 
     public boolean ownerDeliveryUpdate(RoomOrdersDto roomOrdersDto) {
         int updatedRows = roomDao.ownerDeliveryUpdate(roomOrdersDto);
-        return updatedRows > 0;
-      
+        return updatedRows > 0;}
     public void updateRoomStatus(Integer roomId, String status) {
         roomDao.updateRoomStatus(roomId, status);
     }
