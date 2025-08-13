@@ -114,6 +114,12 @@
 
     <update id="updateRoomUsers" parameterType="com.example.start01.dto.RoomDto">
         UPDATE room
+        SET users = #{users, jdbcType=VARCHAR}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateKickId" parameterType="com.example.start01.dto.RoomDto">
+        UPDATE room
         SET users = #{users, jdbcType=VARCHAR},  kick_id = #{kickId}
         WHERE id = #{id}
     </update>

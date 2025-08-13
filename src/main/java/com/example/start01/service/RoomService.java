@@ -24,6 +24,9 @@ public class RoomService {
     public void updateRoomUsers(RoomDto roomDto) {
         roomDao.updateRoomUsers(roomDto);
     }
+    public void updateKickId(RoomDto roomDto) {
+        roomDao.updateKickId(roomDto);
+    }
     public void readyCount(Integer roomId, Integer delta) {
         roomDao.updateReadyCount(roomId, delta);
     }
