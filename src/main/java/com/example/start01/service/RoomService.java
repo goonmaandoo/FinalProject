@@ -21,6 +21,7 @@ public class RoomService {
     public List<RoomDto> selectAllRoom(RoomDto roomDto) {
         return roomDao.selectAllRoom(roomDto);
     }
+
     public void updateRoomUsers(RoomDto roomDto) {
         roomDao.updateRoomUsers(roomDto);
     }
@@ -38,5 +39,12 @@ public class RoomService {
     public boolean ownerDeliveryUpdate(RoomOrdersDto roomOrdersDto) {
         int updatedRows = roomDao.ownerDeliveryUpdate(roomOrdersDto);
         return updatedRows > 0;
+      
+    public void updateRoomStatus(Integer roomId, String status) {
+        roomDao.updateRoomStatus(roomId, status);
+    }
+    public void blowUpRoom(Integer roomId) {
+        roomDao.blowUpRoom(roomId);
+
     }
 }

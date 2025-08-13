@@ -22,4 +22,10 @@ public class RoomJoinService {
     public void insertRoomJoin(RoomJoinDto roomJoinDto) {
         joinDao.insertRoomJoin(roomJoinDto);
     }
+    public void roomOut(RoomJoinDto roomJoinDto) {
+        joinDao.roomOut(roomJoinDto);
+    }
+    public Integer countingRoomJoin(Integer roomId) {
+        return joinDao.joinCount(roomId);
+    }
 }

@@ -25,8 +25,5 @@ public class ChatController {
     public List<ChatWithUserDto> getChatList(@PathVariable Integer roomId) {
         return chatService.getChatWithUserList(roomId);
     }
-//    @GetMapping
-//    public List<ChatDto> getChatList(@PathVariable Integer roomId) {
-//        return chatService.getChatList(roomId);
-//    }
+
 }

@@ -5,6 +5,7 @@ import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public interface OrdersDao {
     OrdersDto selectByOrderId(@Param("orderId") Integer orderId);
 
     // 생성
-    void insertOrder(OrdersDto ordersDto);
+    int insertOrder(OrdersDto ordersDto);
 
     // 삭제
     void deleteByOrderId(@Param("orderId") Integer orderId);
@@ -49,4 +50,8 @@ public interface OrdersDao {
 //    int countByUserIdAndOrderId(@Param("userId") int userId, @Param("orderId") int orderId);
 //
 //    int countCanReviewByUserId(@Param("userId") int userId);
+
+    int ordersCount();
+
+    int ordersTodayCount(@Param("startDay") LocalDateTime startDay, @Param("endDay") LocalDateTime endDay);
 }

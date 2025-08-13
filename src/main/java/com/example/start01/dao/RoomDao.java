@@ -48,6 +48,7 @@ public interface RoomDao {
     // 준비인원
     Integer selectReadyPeople(@Param("roomId") Integer roomId);
 
+
     List<RoomDto> AdminSelectRoom();
 
     List<UsersDto> selectUsersByRoomId(int roomId);
@@ -55,4 +56,12 @@ public interface RoomDao {
     List<RoomOrdersDto> ownerDeliverySelect(@Param("ownerId") String ownerId);
 
     int ownerDeliveryUpdate(RoomOrdersDto roomOrdersDto);
+
+
+    // 공구방 상태 업데이트
+    void updateRoomStatus(@Param("roomId") Integer roomId, @Param("status") String status);
+
+    void blowUpRoom(@Param("roomId") Integer roomId);
+
+
 }

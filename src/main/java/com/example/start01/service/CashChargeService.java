@@ -34,7 +34,7 @@ public class CashChargeService {
     //결제 (캐쉬 사용)
     @Transactional
     public void payCash(Integer userId, Integer amount) {
-        if (amount == null || amount >= 0) {
+        if (amount == null || amount <= 0) {
             throw new IllegalArgumentException("최소 결제 금액은 0원 이상입니다.");
         }
         int updated = cashChargeDao.payCash(userId, amount);

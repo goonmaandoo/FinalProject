@@ -3,14 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.start01.dao.ChatDao">
-<!--    <select id="getChatList" parameterType="Integer" resultType="ChatDto">-->
-<!--        SELECT ROOM_ID, CHAT, USER_ID, CREATED_AT-->
-<!--        FROM CHAT-->
-<!--        WHERE ROOM_ID = #{roomId}-->
-<!--        ORDER BY CREATED_AT ASC-->
-<!--    </select>-->
     <select id="selectChatWithUserList" parameterType="Integer" resultType="ChatWithUserDto">
         SELECT
+        c.ID as chatId,
         c.ROOM_ID as roomId,
         c.USER_ID as userId,
         u.NICKNAME as nickname,
