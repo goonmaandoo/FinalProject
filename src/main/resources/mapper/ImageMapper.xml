@@ -7,4 +7,8 @@
     <select id="ImageByFolder" parameterType="int" resultType="ImageDto">
         SELECT * FROM image WHERE FOLDER=#{folder}
     </select>
+    <insert id="MenuImageInsertByOwner" parameterType="ImageDto">
+        INSERT INTO image (folder, filename)
+        values (#{folder}, #{filename})
+    </insert>
 </mapper>

@@ -31,4 +31,5 @@ public interface MenuDao {
 
     void MenuInsertByOwner(MenuDto menuDto);
 
+
 }
