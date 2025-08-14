@@ -205,6 +205,17 @@
         UPDATE USERS SET status = #{status}, active_at = #{activeAt} WHERE id = #{id}
     </update>
 
-
-
+<!--    로그인 시 밴 만료된 사용자 status 갱신 -->
+    <update id="updateExpiredBan" parameterType="int">
+        UPDATE users
+        SET status = 'active',
+            banned_until = NULL,
+            banned_at = NULL,
+            ban_reason = NULL,
+            ban_admin_id = NULL
+        WHERE id = #{id}
+            AND status = 'ban'
+            AND banned_until IS NOT NULL
+            AND banned_until &lt;= SYSTIMESTAMP
+    </update>
 </mapper>

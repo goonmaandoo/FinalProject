@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.start01.dao.ReportBanDao">
+
+<!--    임시/영구/연장 처리 -->
+    <update id="banForDays" parameterType="map">
+        UPDATE users
+            SET status = 'ban',
+                banned_at = COALESCE(banned_at, SYSTIMESTAMP),
+                banned_until =
+                    <choose>
+                        <!-- 영구 밴 -->
+                        <when test = "permanent">
+                            NULL
+                        </when>
+                        <!-- 임시 밴 : 신규 / 연장 자동처리 -->
+                        <otherwise>
+                            CASE
+                                WHEN banned_until IS NULL OR banned_until &lt;= SYSTIMESTAMP
+                                    THEN SYSTIMESTAMP + NUMTODSINTERVAL(#{days}, 'DAY') <!-- 처음 밴 or 기존 영구에서 임시로 낮출 일 X -->
+                                ELSE GREATEST(
+                                    banned_until,
+                                    SYSTIMESTAMP + NUMTODSINTERVAL(#{days}, 'DAY') <!-- 연장 -->
+                                    )
+                            END
+                        </otherwise>
+                    </choose>,
+                ban_reason = COALESCE(NULLIF(#{reason}, ''), ban_reason), <!-- 밴 사유 미기재 가능 -->
+                ban_admin_id = #{adminId}
+            WHERE id = #{userId}
+    </update>
+
+<!--    수동 해제 -->
+    <update id="liftBan" parameterType="map">
+        UPDATE users
+            SET status = 'active',
+            banned_at = NULL,
+            banned_until = NULL
+        WHERE id = #{userId} AND status = 'ban'
+    </update>
+
+</mapper>
