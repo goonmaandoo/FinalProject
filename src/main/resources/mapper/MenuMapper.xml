@@ -103,7 +103,7 @@
         DELETE FROM menu WHERE id=#{id}
     </delete>
     <insert id="MenuInsertByOwner" parameterType="MenuDto">
-        INSERT INTO menu (store_id, menu_name, menu_price)
-        VALUES (#{storeId},#{menuName},#{menuPrice})
+        INSERT INTO menu (store_id, image_id, menu_name, menu_price)
+        VALUES (#{storeId}, #{imageId}, #{menuName},#{menuPrice})
     </insert>
 </mapper>
