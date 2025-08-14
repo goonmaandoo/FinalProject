@@ -20,10 +20,7 @@
                             CASE
                                 WHEN banned_until IS NULL OR banned_until &lt;= SYSTIMESTAMP
                                     THEN SYSTIMESTAMP + NUMTODSINTERVAL(#{days}, 'DAY') <!-- 처음 밴 or 기존 영구에서 임시로 낮출 일 X -->
-                                ELSE GREATEST(
-                                    banned_until,
-                                    SYSTIMESTAMP + NUMTODSINTERVAL(#{days}, 'DAY') <!-- 연장 -->
-                                    )
+                                ELSE banned_until + NUMTODSINTERVAL(#{days}, 'DAY') <!-- 연장 -->
                             END
                         </otherwise>
                     </choose>,
