@@ -14,4 +14,5 @@ public class PaymentDto {
     private Integer userId;
     private String inout;
     private Integer amount;
+    private String comments;
 }
