@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionalEventListener;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,22 +28,26 @@ public class UsersService {
 
     // 로그인
     public UsersDto login(String email, String password) {
-        try {
-            UsersDto user = usersDao.findByEmail(email);
-            if (user == null) {
-                return null; // 이메일이 없을 때
-            }
-
-            if (user.getPassword().equals(password)) {
-                return user;
-            } else {
-                return null; // 비밀번호 틀림
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+//        try {
+        UsersDto user = usersDao.findByEmail(email);
+        if (user == null) {
+            return null; // 이메일이 없을 때
         }
-        return null; // 예외 발생 시 null 반환
+        if (!user.getPassword().equals(password)) return null; //비번 불일치
+
+        // ban 게이트
+        if ("ban".equals(user.getStatus())) {
+            // 영구밴(NULL) 또는 아직 만료 전이면 그대로 반환
+            if (user.getBannedUntil() == null || user.getBannedUntil().isAfter(LocalDateTime.now())) {
+                // 프론트는 status=='ban'이면 '정지된 계정' 메시지로 처리
+                return user;
+            }
+        }
+        // 만료된 임시밴 → 해제 후 최신 상태 반환
+        usersDao.updateExpiredBan(user.getId());
+        return usersDao.findByEmail(email);
     }
+
 
     // 주소 업데이트
     public void updateAddress(UsersDto usersDto) {
@@ -103,7 +108,6 @@ public class UsersService {
     public boolean unactiveUsers(int id) {
         int result = usersDao.unactiveUsers(id);
         return result > 0;
-
     }
     public List<UsersDto> findUsersByIds(List<Integer> userIds) {
         return usersDao.findUsersByIds(userIds);
