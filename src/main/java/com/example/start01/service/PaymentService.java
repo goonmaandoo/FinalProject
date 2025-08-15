@@ -40,6 +40,34 @@ public class PaymentService {
         paymentDto.setAmount(amount);
         paymentDto.setCash(currentCash);
 
-        paymentDao.insertCashRefund(paymentDto);
+        paymentDao.insertCash(paymentDto);
+    }
+
+    @Transactional
+    public void insertOrderCancel(Integer userId, Integer amount) {
+        if (amount == null || amount <= 0) {
+            throw new IllegalArgumentException("취소 금액은 0보다 커야 합니다.");
+        }
+
+        PaymentDto updateDto = new PaymentDto();
+        updateDto.setUserId(userId);
+        updateDto.setAmount(amount);
+
+        try {
+            paymentDao.updateUserOrder(updateDto);
+        } catch (Exception e) {
+            throw new RuntimeException("캐시 업데이트 중 오류가 발생했습니다.", e);
+        }
+
+        Integer currentCash = cashChargeDao.selectCash(userId);
+
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setUserId(userId);
+        paymentDto.setComments("order");
+        paymentDto.setInout("in");
+        paymentDto.setAmount(amount);
+        paymentDto.setCash(currentCash);
+
+        paymentDao.insertCash(paymentDto);
     }
 }

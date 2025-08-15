@@ -27,4 +27,7 @@
     <update id="updateUserCash" parameterType="PaymentDto">
         UPDATE users set cash=cash-#{amount} where id=#{userId} And cash>=#{amount}
     </update>
+    <update id="updateUserOrder" parameterType="PaymentDto">
+        UPDATE users set cash=cash+#{amount} where id=#{userId} And cash>=#{amount}
+    </update>
 </mapper>

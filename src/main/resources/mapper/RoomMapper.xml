@@ -33,7 +33,7 @@
         COUNT(rj.id) AS joinCount
         FROM room r
         LEFT JOIN room_join rj ON r.id = rj.room_id
-        WHERE REGEXP_LIKE(r.users, '(^|,|\\[)' || #{id} || '(,|\\]|$)')
+        WHERE JSON_EXISTS(r.users, '$[*]?(@.userId == ${id})')
         GROUP BY r.id, r.store_id, r.room_name, r.room_address, r.max_people, r.status
     </select>
 

@@ -39,4 +39,10 @@ public class PaymentController {
         paymentService.insertCashRefund(userId,amount);
         return "환불 처리 완료";
     }
+
+    @PostMapping("/insertOrderCancel")
+    public String insertOrderCancel(@RequestParam Integer userId, @RequestParam Integer amount){
+        paymentService.insertOrderCancel(userId,amount);
+        return "주문 취소 완료";
+    }
 }

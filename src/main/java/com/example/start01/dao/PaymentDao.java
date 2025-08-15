@@ -17,4 +17,6 @@ public interface PaymentDao {
     void updateUserCash(PaymentDto paymentDto);
 
     List<PaymentDto> allPaymentInOnly();
+
+    void updateUserOrder(PaymentDto paymentDto);
 }
