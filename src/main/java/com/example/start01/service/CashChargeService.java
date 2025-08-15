@@ -1,6 +1,8 @@
 package com.example.start01.service;
 
 import com.example.start01.dao.CashChargeDao;
+import com.example.start01.dao.PaymentDao;
+import com.example.start01.dto.PaymentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class CashChargeService {
     @Autowired
     private CashChargeDao cashChargeDao;
+
+    @Autowired
+    private PaymentDao paymentDao;
 
     //캐쉬 충전
     @Transactional
@@ -20,6 +25,13 @@ public class CashChargeService {
         if (updated == 0) {
             throw new RuntimeException("충전에 실패했습니다.");
         }
+        // 결제 기록 저장
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setUserId(userId);
+        paymentDto.setComments("cash");
+        paymentDto.setInout("in");
+        paymentDto.setAmount(cash);
+        paymentDao.insertCash(paymentDto);
     }
 
     //현재 캐쉬 조회

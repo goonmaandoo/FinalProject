@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -14,4 +15,8 @@ public class PaymentDto {
     private Integer userId;
     private String inout;
     private Integer amount;
+    private String comments;
+    private LocalDateTime createdAt;
+    private String email;
+    private String nickName;
 }

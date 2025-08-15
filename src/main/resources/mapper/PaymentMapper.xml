@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.start01.dao.PaymentDao">
+    <select id="allPayment" resultType="PaymentDto">
+        SELECT p.*, u.email, u.nickname FROM PAYMENT p Join users u ON p.user_id = u.id
+        <where>
+            <if test="comments != null and comments != '' and comments != 'all'">
+                COMMENTS = #{comments}
+            </if>
+        </where>
+    </select>
+    <insert id="insertCash" parameterType="PaymentDto">
+        INSERT INTO PAYMENT (user_id, comments, inout, amount)
+        VALUES (#{userId}, #{comments}, #{inout}, #{amount})
+    </insert>
+    <update id="updateCash" parameterType="map">
+        Update payment set comments=#{comments} where id=#{id}
+    </update>
+</mapper>
