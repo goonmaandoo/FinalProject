@@ -58,6 +58,16 @@ public class CashChargeService {
             //잔액 부족 or 사용자 없음
             throw new IllegalStateException("잔액 부족으로 결제할 수 없습니다.");
         }
+        Integer currentCash = cashChargeDao.selectCash(userId);
+
+        // 결제 기록 저장
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setUserId(userId);
+        paymentDto.setComments("order");
+        paymentDto.setInout("out");
+        paymentDto.setAmount(amount);
+        paymentDto.setCash(currentCash);
+        paymentDao.insertCash(paymentDto);
     }
 
 //    //환불
