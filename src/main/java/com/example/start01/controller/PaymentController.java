@@ -29,6 +29,11 @@ public class PaymentController {
     @GetMapping("/allPayment")
     public List<PaymentDto> allPayment(@RequestParam String comments){ return paymentDao.allPayment(comments);}
 
+    @GetMapping("/allPaymentInOnly")
+    public List <PaymentDto> allPaymentInOnly(){
+        return paymentDao.allPaymentInOnly();
+    }
+
     @PostMapping("/insertCashRefund")
     public String insertCashRefund(@RequestParam Integer userId, @RequestParam Integer amount){
         paymentService.insertCashRefund(userId,amount);

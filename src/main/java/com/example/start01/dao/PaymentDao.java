@@ -15,4 +15,6 @@ public interface PaymentDao {
     void insertCashRefund(PaymentDto paymentDto);
 
     void updateUserCash(PaymentDto paymentDto);
+
+    List<PaymentDto> allPaymentInOnly();
 }

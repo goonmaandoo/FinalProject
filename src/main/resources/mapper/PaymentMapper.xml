@@ -12,6 +12,10 @@
         </where>
         order by p.id desc
     </select>
+    <select id="allPaymentInOnly" resultType="PaymentDto">
+        SELECT p.*, u.email, u.nickname FROM PAYMENT p Join users u ON p.user_id = u.id
+        WHERE comments = 'cash' order by p.id desc
+    </select>
     <insert id="insertCash" parameterType="PaymentDto">
         INSERT INTO PAYMENT (user_id, comments, inout, amount, cash)
         VALUES (#{userId}, #{comments}, #{inout}, #{amount}, #{cash})
