@@ -19,4 +19,5 @@ public class PaymentDto {
     private LocalDateTime createdAt;
     private String email;
     private String nickName;
+    private Integer cash;
 }

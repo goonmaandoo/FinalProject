@@ -10,12 +10,17 @@
                 COMMENTS = #{comments}
             </if>
         </where>
+        order by p.id desc
     </select>
     <insert id="insertCash" parameterType="PaymentDto">
-        INSERT INTO PAYMENT (user_id, comments, inout, amount)
-        VALUES (#{userId}, #{comments}, #{inout}, #{amount})
+        INSERT INTO PAYMENT (user_id, comments, inout, amount, cash)
+        VALUES (#{userId}, #{comments}, #{inout}, #{amount}, #{cash})
     </insert>
-    <update id="updateCash" parameterType="map">
-        Update payment set comments=#{comments} where id=#{id}
+    <insert id="insertCashRefund" parameterType="PaymentDto">
+        INSERT INTO PAYMENT (user_id, comments, inout, amount, cash)
+        VALUES (#{userId}, #{comments}, #{inout}, #{amount}, #{cash})
+    </insert>
+    <update id="updateUserCash" parameterType="PaymentDto">
+        UPDATE users set cash=cash-#{amount} where id=#{userId} And cash>=#{amount}
     </update>
 </mapper>
