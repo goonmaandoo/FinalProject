@@ -4,11 +4,13 @@ import com.example.start01.dao.CashChargeDao;
 import com.example.start01.dao.PaymentDao;
 import com.example.start01.dao.UsersDao;
 import com.example.start01.dto.PaymentDto;
+import com.example.start01.dto.StoreDto;
 import com.example.start01.dto.UsersDto;
 import com.example.start01.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,4 +47,18 @@ public class PaymentController {
         paymentService.insertOrderCancel(userId,amount);
         return "주문 취소 완료";
     }
+
+    @GetMapping("/totalCountPayment")
+    public int totalCountPayment(){
+        return paymentDao.totalCountPayment();
+    }
+
+    @GetMapping("/search")
+    public List<PaymentDto> cashSearch(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return paymentDao.cashSearch(param);
+    }
+
 }

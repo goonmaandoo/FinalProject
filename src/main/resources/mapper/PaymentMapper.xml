@@ -14,13 +14,9 @@
     </select>
     <select id="allPaymentInOnly" resultType="PaymentDto">
         SELECT p.*, u.email, u.nickname FROM PAYMENT p Join users u ON p.user_id = u.id
-        WHERE comments = 'cash' order by p.id desc
+        WHERE comments = 'cash' and inout = 'in' order by p.id desc
     </select>
     <insert id="insertCash" parameterType="PaymentDto">
-        INSERT INTO PAYMENT (user_id, comments, inout, amount, cash)
-        VALUES (#{userId}, #{comments}, #{inout}, #{amount}, #{cash})
-    </insert>
-    <insert id="insertCashRefund" parameterType="PaymentDto">
         INSERT INTO PAYMENT (user_id, comments, inout, amount, cash)
         VALUES (#{userId}, #{comments}, #{inout}, #{amount}, #{cash})
     </insert>
@@ -30,4 +26,24 @@
     <update id="updateUserOrder" parameterType="PaymentDto">
         UPDATE users set cash=cash+#{amount} where id=#{userId} And cash>=#{amount}
     </update>
+    <select id="totalCountPayment" parameterType="int">
+        SELECT SUM(amount) FROM payment WHERE TRUNC(created_at) = TRUNC(SYSDATE)
+        AND inout = 'in' AND comments = 'cash'
+    </select>
+    <select id="cashSearch" resultType="PaymentDto" parameterType="map">
+        SELECT p.*, u.email, u.nickname
+        FROM PAYMENT p Join users u ON p.user_id = u.id
+        <where>
+            comments = 'cash' and inout = 'in'
+            <if test="type != null and keyword != null and type != 'all'">
+                AND
+                <choose>
+                    <when test="type == 'email'"> u.email LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'nickname'"> u.nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'id'"> TO_CHAR(p.id) LIKE '%' || #{keyword} || '%' </when>
+                </choose>
+            </if>
+        </where>
+        order by p.id desc
+    </select>
 </mapper>
