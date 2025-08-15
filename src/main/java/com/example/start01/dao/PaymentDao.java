@@ -12,5 +12,9 @@ public interface PaymentDao {
 
     void insertCash(PaymentDto paymentDto);
 
-    int updateCash(@Param("comments") String comments, @Param("id") Integer id);
+    void insertCashRefund(PaymentDto paymentDto);
+
+    void updateUserCash(PaymentDto paymentDto);
+
+    List<PaymentDto> allPaymentInOnly();
 }

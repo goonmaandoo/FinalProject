@@ -25,12 +25,16 @@ public class CashChargeService {
         if (updated == 0) {
             throw new RuntimeException("충전에 실패했습니다.");
         }
+
+        Integer currentCash = cashChargeDao.selectCash(userId);
+
         // 결제 기록 저장
         PaymentDto paymentDto = new PaymentDto();
         paymentDto.setUserId(userId);
         paymentDto.setComments("cash");
         paymentDto.setInout("in");
         paymentDto.setAmount(cash);
+        paymentDto.setCash(currentCash);
         paymentDao.insertCash(paymentDto);
     }
 
@@ -55,4 +59,14 @@ public class CashChargeService {
             throw new IllegalStateException("잔액 부족으로 결제할 수 없습니다.");
         }
     }
+
+//    //환불
+//    public void payCashRefund(Integer userId, Integer amount) {
+//        int updated = cashChargeDao.payCash(userId, amount);
+//        if(updated == 0) {
+//
+//            throw new IllegalStateException("잔액이 부족합니다.");
+//        }
+//    }
+
 }
