@@ -1,11 +1,13 @@
 package com.example.start01.dto;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -21,4 +23,7 @@ public class OrdersDto {
     private String storeName;
     private String nickname;
     private Integer id;
+    private String tel;
+    private String storeAddress;
+
 }
