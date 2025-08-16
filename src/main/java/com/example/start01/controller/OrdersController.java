@@ -44,9 +44,9 @@ public class OrdersController {
     // 주문 상세
     @GetMapping("/getTheOrder/{orderId}")
     public OrdersDto getTheOrder(@PathVariable Integer orderId) {
-        System.out.println("orderId: "+ orderId);
+//        System.out.println("orderId: "+ orderId);
         OrdersDto dto = ordersService.selectByOrderId(orderId);
-        System.out.println("DB -> DTO roomOrder: " + dto.getRoomOrder());
+//        System.out.println("DB -> DTO roomOrder: " + dto.getRoomOrder());
         return dto;
     }
 
@@ -119,7 +119,13 @@ public class OrdersController {
         return dtos;
     }
 
-
+    @GetMapping("/OrderDetail/{orderId}")
+    public OrdersDto OrderDetail(@PathVariable Integer orderId) {
+//        OrdersDto dto = ordersDao.OrderDetail(orderId);
+//        System.out.println("DB -> DTO roomOrder: " + dto);
+        return ordersDao.OrderDetail(orderId);
+//        return dto;
+    }
 
 
 }

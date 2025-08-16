@@ -40,12 +40,10 @@
     </select>
     <!--주문관리(캐시주문) 검색-->
     <select id="cashSearch" resultType="PaymentDto" parameterType="map">
-        SELECT p.*, u.email, u.nickname
-        FROM PAYMENT p Join users u ON p.user_id = u.id
+        SELECT p.*, u.email, u.nickname FROM payment p Join users u ON p.user_id = u.id
         <where>
             comments = 'cash' and inout = 'in'
             <if test="type != null and keyword != null and type != 'all'">
-                AND
                 <choose>
                     <when test="type == 'email'"> u.email LIKE '%' || #{keyword} || '%' </when>
                     <when test="type == 'nickname'"> u.nickname LIKE '%' || #{keyword} || '%' </when>
@@ -57,27 +55,27 @@
     </select>
     <!--환불관리 검색-->
     <select id="refundSearchAll" resultType="UsersDto" parameterType="map">
-        SELECT p.*, u.email, u.nickname FROM PAYMENT p Join users u ON p.user_id = u.id
+        SELECT p.*, u.email, u.nickname FROM payment p Join users u ON p.user_id = u.id
         <where>
             <if test="type != null and keyword != null and keyword != ''">
                 <choose>
                     <when test="type == 'email'"> u.email LIKE '%' || #{keyword} || '%' </when>
                     <when test="type == 'nickname'"> u.nickname LIKE '%' || #{keyword} || '%' </when>
-                    <when test="type == 'outCash'"> p.comments = 'cash' and inout = 'out' </when>
-                    <when test="type == 'InOrder'"> p.comments = 'order' and inout = 'in' </when>
+                    <when test="type == 'outCash'"> p.comments = 'cash' and p.inout = 'out' </when>
+                    <when test="type == 'InOrder'"> p.comments = 'order' and p.inout = 'in' </when>
                 </choose>
             </if>
         </where>
     </select>
     <select id="refundSearchCash" resultType="UsersDto" parameterType="map">
-        SELECT p.*, u.email, u.nickname FROM PAYMENT p Join users u ON p.user_id = u.id
+        SELECT p.*, u.email, u.nickname FROM payment p Join users u ON p.user_id = u.id
         <where>
             p.comments = 'cash'
             <if test="type != null and keyword != null and keyword != ''">
                 <choose>
-                    <when test="type == 'email'"> AND u.email LIKE '%' || #{keyword} || '%' </when>
-                    <when test="type == 'nickname'"> AND u.nickname LIKE '%' || #{keyword} || '%' </when>
-                    <when test="type == 'outCash'"> AND inout = 'out' </when>
+                    <when test="type == 'email'">u.email LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'nickname'">u.nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'outCash'">p.inout = 'out' </when>
                 </choose>
             </if>
         </where>
@@ -88,9 +86,9 @@
             p.comments = 'order'
             <if test="type != null and keyword != null and keyword != ''">
                 <choose>
-                    <when test="type == 'email'"> AND u.email LIKE '%' || #{keyword} || '%' </when>
-                    <when test="type == 'nickname'"> AND u.nickname LIKE '%' || #{keyword} || '%' </when>
-                    <when test="type == 'InOrder'"> AND inout = 'in' </when>
+                    <when test="type == 'email'">u.email LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'nickname'">u.nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'InOrder'">p.inout = 'in' </when>
                 </choose>
             </if>
         </where>
