@@ -12,6 +12,7 @@
         </where>
         order by p.id desc
     </select>
+    <!--주문관리(캐시주문)-->
     <select id="allPaymentInOnly" resultType="PaymentDto">
         SELECT p.*, u.email, u.nickname FROM PAYMENT p Join users u ON p.user_id = u.id
         WHERE comments = 'cash' and inout = 'in' order by p.id desc
@@ -20,16 +21,24 @@
         INSERT INTO PAYMENT (user_id, comments, inout, amount, cash)
         VALUES (#{userId}, #{comments}, #{inout}, #{amount}, #{cash})
     </insert>
+    <!--users테이블 사용자cash업데이트(환불)-->
     <update id="updateUserCash" parameterType="PaymentDto">
         UPDATE users set cash=cash-#{amount} where id=#{userId} And cash>=#{amount}
     </update>
+<!--users테이블 사용자cash업데이트(주문 취소)-->
     <update id="updateUserOrder" parameterType="PaymentDto">
-        UPDATE users set cash=cash+#{amount} where id=#{userId} And cash>=#{amount}
+        UPDATE users set cash=cash+#{amount} where id=#{userId}
     </update>
+<!--두번 취소되지 않도록 상태 UPDATE-->
+    <update id="updateStatus" parameterType="PaymentDto">
+        UPDATE payment set status='refund' where id=#{id}
+    </update>
+<!--총매출-->
     <select id="totalCountPayment" parameterType="int">
-        SELECT SUM(amount) FROM payment WHERE TRUNC(created_at) = TRUNC(SYSDATE)
+        SELECT NVL(SUM(amount),0)  FROM payment WHERE TRUNC(created_at) = TRUNC(SYSDATE)
         AND inout = 'in' AND comments = 'cash'
     </select>
+    <!--주문관리(캐시주문) 검색-->
     <select id="cashSearch" resultType="PaymentDto" parameterType="map">
         SELECT p.*, u.email, u.nickname
         FROM PAYMENT p Join users u ON p.user_id = u.id
@@ -45,5 +54,45 @@
             </if>
         </where>
         order by p.id desc
+    </select>
+    <!--환불관리 검색-->
+    <select id="refundSearchAll" resultType="UsersDto" parameterType="map">
+        SELECT p.*, u.email, u.nickname FROM PAYMENT p Join users u ON p.user_id = u.id
+        <where>
+            <if test="type != null and keyword != null and keyword != ''">
+                <choose>
+                    <when test="type == 'email'"> u.email LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'nickname'"> u.nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'outCash'"> p.comments = 'cash' and inout = 'out' </when>
+                    <when test="type == 'InOrder'"> p.comments = 'order' and inout = 'in' </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+    <select id="refundSearchCash" resultType="UsersDto" parameterType="map">
+        SELECT p.*, u.email, u.nickname FROM PAYMENT p Join users u ON p.user_id = u.id
+        <where>
+            p.comments = 'cash'
+            <if test="type != null and keyword != null and keyword != ''">
+                <choose>
+                    <when test="type == 'email'"> AND u.email LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'nickname'"> AND u.nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'outCash'"> AND inout = 'out' </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+    <select id="refundSearchOrder" resultType="UsersDto" parameterType="map">
+        SELECT p.*, u.email, u.nickname FROM PAYMENT p Join users u ON p.user_id = u.id
+        <where>
+            p.comments = 'order'
+            <if test="type != null and keyword != null and keyword != ''">
+                <choose>
+                    <when test="type == 'email'"> AND u.email LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'nickname'"> AND u.nickname LIKE '%' || #{keyword} || '%' </when>
+                    <when test="type == 'InOrder'"> AND inout = 'in' </when>
+                </choose>
+            </if>
+        </where>
     </select>
 </mapper>

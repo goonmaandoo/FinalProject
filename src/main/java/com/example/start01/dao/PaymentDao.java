@@ -2,6 +2,7 @@ package com.example.start01.dao;
 
 import com.example.start01.dto.PaymentDto;
 import com.example.start01.dto.StoreDto;
+import com.example.start01.dto.UsersDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,7 +21,15 @@ public interface PaymentDao {
 
     void updateUserOrder(PaymentDto paymentDto);
 
-    int totalCountPayment();
+    Integer totalCountPayment();
 
     List<PaymentDto> cashSearch(Map<String, String> param);
+
+    List<PaymentDto> refundSearchAll(Map<String, String> param);
+
+    List<PaymentDto> refundSearchCash(Map<String, String> param);
+
+    List<PaymentDto> refundSearchOrder(Map<String, String> param);
+
+    void updateStatus(@Param("id") Integer id);
 }

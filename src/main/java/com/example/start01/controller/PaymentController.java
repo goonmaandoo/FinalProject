@@ -61,4 +61,33 @@ public class PaymentController {
         return paymentDao.cashSearch(param);
     }
 
+    @GetMapping("/refundSearchAll")
+    public List<PaymentDto> refundSearchAll(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return paymentDao.refundSearchAll(param);
+    }
+
+    @GetMapping("/refundSearchCash")
+    public List<PaymentDto> refundSearchCash(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return paymentDao.refundSearchCash(param);
+    }
+
+    @GetMapping("/refundSearchOrder")
+    public List<PaymentDto> refundSearchOrder(@RequestParam String type, @RequestParam String keyword){
+        Map<String, String> param = new HashMap<>();
+        param.put("type", type);
+        param.put("keyword", keyword);
+        return paymentDao.refundSearchOrder(param);
+    }
+
+    @PostMapping("/updateStatus")
+    public String updateStatus(@RequestParam("id") Integer id) {
+        paymentDao.updateStatus(id);
+        return "가게 수정 완료!";
+    }
 }

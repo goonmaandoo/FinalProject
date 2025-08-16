@@ -20,4 +20,5 @@ public class PaymentDto {
     private String email;
     private String nickname;
     private Integer cash;
+    private String status;
 }
