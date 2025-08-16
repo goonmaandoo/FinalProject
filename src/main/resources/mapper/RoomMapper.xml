@@ -33,7 +33,7 @@
         COUNT(rj.id) AS joinCount
         FROM room r
         LEFT JOIN room_join rj ON r.id = rj.room_id
-        WHERE JSON_EXISTS(r.users, '$[*]?(@.userId == ${id})')
+        WHERE REGEXP_LIKE(r.users, '"userId"\s*:\s*' || #{id,jdbcType=VARCHAR})
         GROUP BY r.id, r.store_id, r.room_name, r.room_address, r.max_people, r.status
     </select>
 
@@ -141,7 +141,7 @@
     </update>
     <select id="AdminSelectRoom" resultType="RoomDto">
         SELECT r.*, s.store_name as storeName
-        FROM room r Join store s ON r.store_id = s.id
+        FROM room r Join store s ON r.store_id = s.id order by r.created_at desc
     </select>
     <select id="selectUsersByRoomId" parameterType="int" resultMap="UsersWithJoinResultMap">
         SELECT u.id AS user_id, u.nickname, rj.id AS room_join_id, rj.status AS join_status

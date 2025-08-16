@@ -8,6 +8,7 @@
     <select id="orderList" resultType="OrdersDto">
     SELECT o.*, s.store_name, u.nickname FROM orders o
         Join store s on o.store_id = s.id Join users u on o.user_id = u.id
+    order by o.order_id desc
     </select>
 
 <!--    전체 목록 : 로그인 id 기준 (최신순)-->

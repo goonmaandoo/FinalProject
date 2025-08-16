@@ -18,6 +18,7 @@ public class PaymentDto {
     private String comments;
     private LocalDateTime createdAt;
     private String email;
-    private String nickName;
+    private String nickname;
     private Integer cash;
+    private String status;
 }
