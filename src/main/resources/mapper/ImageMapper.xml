@@ -3,12 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.start01.mapper.MenuMapper">
+<mapper namespace="com.example.start01.dao.ImageDao">
     <select id="ImageByFolder" parameterType="int" resultType="ImageDto">
         SELECT * FROM image WHERE FOLDER=#{folder}
     </select>
-    <insert id="MenuImageInsertByOwner" parameterType="ImageDto">
+    <insert id="MenuImageInsertByOwner" parameterType="ImageDto"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO image (folder, filename)
-        values (#{folder}, #{filename})
+        VALUES (#{folder}, #{filename})
     </insert>
+    <select id="getImageById" parameterType="int" resultType="ImageDto">
+        SELECT id, folder, filename
+        FROM image
+        WHERE id = #{id}
+    </select>
 </mapper>
