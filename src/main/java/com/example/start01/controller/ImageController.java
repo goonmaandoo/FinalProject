@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -43,21 +45,41 @@ public class ImageController {
     }
 
     @PostMapping("/menuImageInsertByOwner")
-    public String MenuImageInsertByOwner(
+    public ResponseEntity<Integer> MenuImageInsertByOwner(
             @RequestParam("folder") String folder,
             @RequestParam("filename") MultipartFile file) {
 
-        // 여기서 folder 값: "store1" 이런 식으로 넘어옴
-        // file.getOriginalFilename() 등으로 파일명 사용 가능
+        try {
+            // 1. 파일 저장
+            String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/image/" + folder + "/";
+            File directory = new File(uploadDir);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
 
-        ImageDto dto = new ImageDto();
-        dto.setFolder(folder);
-        dto.setFilename(file.getOriginalFilename());
+            // 2. 새로운 파일명 생성 (중복 방지)
+            String originalFilename = file.getOriginalFilename();
+            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String newFilename = System.currentTimeMillis() + "_" + originalFilename;
 
-        imageDao.MenuImageInsertByOwner(dto);
+            // 3. 실제 파일 저장
+            File saveFile = new File(uploadDir + newFilename);
+            file.transferTo(saveFile);
 
-        // 파일 저장 로직이 필요하면 여기에 작성
-        return "이미지 삽입 완료!";
+            // 4. DB에 이미지 정보 저장
+            ImageDto dto = new ImageDto();
+            dto.setFolder(folder);
+            dto.setFilename(newFilename); // 새로운 파일명 사용
+
+            imageDao.MenuImageInsertByOwner(dto);
+
+            // 5. 생성된 이미지 ID 반환 (MyBatis가 자동으로 dto.id에 설정함)
+            return ResponseEntity.ok(dto.getId());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("파일 저장 실패: " + e.getMessage());
+        }
     }
 
 }

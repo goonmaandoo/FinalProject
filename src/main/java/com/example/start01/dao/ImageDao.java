@@ -14,4 +14,6 @@ public interface ImageDao {
     // 사장님 메뉴 삽입
     void MenuImageInsertByOwner(ImageDto imageDto);
 
+    // 이미지 ID로 조회
+    ImageDto getImageById(Integer id);
 }
