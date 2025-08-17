@@ -1,6 +1,8 @@
 package com.example.start01.service;
 
 import com.example.start01.dao.CashChargeDao;
+import com.example.start01.dao.PaymentDao;
+import com.example.start01.dto.PaymentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class CashChargeService {
     @Autowired
     private CashChargeDao cashChargeDao;
+
+    @Autowired
+    private PaymentDao paymentDao;
 
     //캐쉬 충전
     @Transactional
@@ -20,6 +25,17 @@ public class CashChargeService {
         if (updated == 0) {
             throw new RuntimeException("충전에 실패했습니다.");
         }
+
+        Integer currentCash = cashChargeDao.selectCash(userId);
+
+        // 결제 기록 저장
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setUserId(userId);
+        paymentDto.setComments("cash");
+        paymentDto.setInout("in");
+        paymentDto.setAmount(cash);
+        paymentDto.setCash(currentCash);
+        paymentDao.insertCash(paymentDto);
     }
 
     //현재 캐쉬 조회
@@ -42,5 +58,25 @@ public class CashChargeService {
             //잔액 부족 or 사용자 없음
             throw new IllegalStateException("잔액 부족으로 결제할 수 없습니다.");
         }
+        Integer currentCash = cashChargeDao.selectCash(userId);
+
+        // 결제 기록 저장
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setUserId(userId);
+        paymentDto.setComments("order");
+        paymentDto.setInout("out");
+        paymentDto.setAmount(amount);
+        paymentDto.setCash(currentCash);
+        paymentDao.insertCash(paymentDto);
     }
+
+//    //환불
+//    public void payCashRefund(Integer userId, Integer amount) {
+//        int updated = cashChargeDao.payCash(userId, amount);
+//        if(updated == 0) {
+//
+//            throw new IllegalStateException("잔액이 부족합니다.");
+//        }
+//    }
+
 }

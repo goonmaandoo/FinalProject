@@ -33,11 +33,11 @@
     </select>
 <!--    전체 사용자(관리자 제외)-->
     <select id="selectAllAdmin" resultType="UsersDto">
-        <![CDATA[ SELECT * FROM USERS WHERE role <> 'admin' ]]>
+        <![CDATA[ SELECT * FROM USERS WHERE role <> 'admin' ORDER BY id desc]]>
     </select>
 <!--    전체 사용자(활성사용자 제외)-->
     <select id="selectAllActive" resultType="UsersDto">
-        <![CDATA[ SELECT * FROM USERS WHERE status <> 'active' ]]>
+        <![CDATA[ SELECT * FROM USERS WHERE status <> 'active' ORDER BY id desc]]>
     </select>
 <!--    총사용자-->
     <select id="TotalCount" resultType="int">
@@ -52,7 +52,7 @@
         SELECT COUNT(*) FROM users WHERE STATUS = 'ban'
     </select>
     <select id="unactiveBan" resultType="UsersDto" parameterType="String">
-        SELECT * FROM users WHERE STATUS = #{status}
+        SELECT * FROM users WHERE STATUS = #{status} ORDER BY id desc
     </select>
 <!--    사용자/사장님 정보-->
     <select id="userBtnCount" resultType="UsersDto" parameterType="String">
