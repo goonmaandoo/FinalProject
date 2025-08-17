@@ -32,21 +32,42 @@
     </select>
 
     <!-- 내가 쓴 리뷰 리스트 + 메뉴 정보 (페이지네이션) -->
+<!--    <select id="selectReviewByUserIdPaging" resultType="com.example.start01.dto.ReviewDto">-->
+<!--        SELECT-->
+<!--            r.id,-->
+<!--            r.user_id AS userId,-->
+<!--            r.score,-->
+<!--            r.order_id AS orderId,-->
+<!--            r.store_id AS storeId,-->
+<!--            r.comments,-->
+<!--            r.created_at AS createdAt,-->
+<!--            o.room_order AS roomOrder-->
+<!--        FROM review r-->
+<!--        JOIN orders o ON r.order_id = o.order_id-->
+<!--        WHERE r.user_id = #{userId}-->
+<!--        ORDER BY r.created_at DESC-->
+<!--        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY-->
+<!--    </select>-->
     <select id="selectReviewByUserIdPaging" resultType="com.example.start01.dto.ReviewDto">
-        SELECT
-            r.id,
-            r.user_id AS userId,
-            r.score,
-            r.order_id AS orderId,
-            r.store_id AS storeId,
-            r.comments,
-            r.created_at AS createdAt,
-            o.room_order AS roomOrder
-        FROM review r
-        JOIN orders o ON r.order_id = o.order_id
-        WHERE r.user_id = #{userId}
-        ORDER BY r.created_at DESC
-        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
+    <bind name="startRow" value="offset + 1"/>
+    <bind name="endRow"   value="offset + size"/>
+    SELECT *
+        FROM (
+            SELECT
+                r.id,
+                r.user_id       AS userId,
+                r.score,
+                r.order_id      AS orderId,
+                r.store_id      AS storeId,
+                r.comments,
+                r.created_at    AS createdAt,
+                o.room_order    AS roomOrder,
+                ROW_NUMBER() OVER (ORDER BY r.created_at DESC, r.id DESC) AS rn
+                FROM review r
+                JOIN orders o ON r.order_id = o.order_id
+                WHERE r.user_id = #{userId}
+                )
+                WHERE rn BETWEEN #{startRow} AND #{endRow}
     </select>
 
     <!-- 총 개수(특정 유저 리뷰 전체) -->
@@ -63,21 +84,47 @@
 
 
     <!-- 작성 가능한 리뷰 -->
+<!--    <select id="selectCanReviewByUserId" resultType="com.example.start01.dto.OrdersDto">-->
+<!--        SELECT-->
+<!--            o.order_id AS orderId,-->
+<!--            o.room_id AS roomId,-->
+<!--            o.user_id AS userId,-->
+<!--            o.store_id AS storeId,-->
+<!--            o.room_order AS roomOrder,-->
+<!--            o.total_price AS totalPrice,-->
+<!--            o.created_at AS createdAt-->
+<!--        FROM orders o-->
+<!--        LEFT JOIN review r ON o.order_id = r.order_id AND r.user_id = #{userId}-->
+<!--        WHERE o.user_id = #{userId}-->
+<!--            AND r.id IS NULL-->
+<!--        ORDER BY o.created_at DESC-->
+<!--        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY-->
+<!--    </select>-->
+
     <select id="selectCanReviewByUserId" resultType="com.example.start01.dto.OrdersDto">
-        SELECT
-            o.order_id AS orderId,
-            o.room_id AS roomId,
-            o.user_id AS userId,
-            o.store_id AS storeId,
-            o.room_order AS roomOrder,
-            o.total_price AS totalPrice,
-            o.created_at AS createdAt
-        FROM orders o
-        LEFT JOIN review r ON o.order_id = r.order_id AND r.user_id = #{userId}
-        WHERE o.user_id = #{userId}
-            AND r.id IS NULL
-        ORDER BY o.created_at DESC
-        OFFSET #{offset} ROWS FETCH NEXT #{size} ROWS ONLY
+        <bind name="endRow" value="offset + size"/>
+        <bind name="startRow" value="offset + 1" />
+        SELECT *
+            FROM (
+                SELECT
+                    o.order_id AS orderId,
+                    o.room_id AS roomId,
+                    o.user_id AS userId,
+                    o.store_id AS storeId,
+                    o.room_order AS roomOrder,
+                    o.total_price AS totalPrice,
+                    o.created_at AS createdAt,
+                    ROW_NUMBER() OVER (ORDER BY o.created_at DESC) AS rn
+                FROM orders o
+                WHERE o.user_id = #{userId}
+                    AND NOT EXISTS (
+                        SELECT 1
+                        FROM review r
+                        WHERE r.order_id = o.order_id
+                        AND r.user_id  = #{userId}
+                    )
+                )
+        WHERE rn BETWEEN #{startRow} AND #{endRow}
     </select>
 
 <!--    작성 가능 전체 갯수 카운트 -->
