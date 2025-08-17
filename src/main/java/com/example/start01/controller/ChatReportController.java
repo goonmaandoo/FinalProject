@@ -2,6 +2,7 @@ package com.example.start01.controller;
 
 import com.example.start01.dto.ChatReportDto;
 import com.example.start01.service.ChatReportService;
+import com.example.start01.service.ReportBanService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +37,34 @@ public class ChatReportController {
         //채팅방 기준 없으면 빈 리스트
         return List.of();
     }
+
+    //관리자용 페이징 리스트
+    @GetMapping("/admin")
+    public java.util.Map<String, Object> adminList(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) Integer userId,
+            @RequestParam(required = false) Integer reportedBy,
+            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") java.time.LocalDateTime from,
+            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") java.time.LocalDateTime to,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String chatPreview
+    ) {
+        int offset = page * size;
+        java.sql.Timestamp fromTs = (from == null) ? null : java.sql.Timestamp.valueOf(from);
+        java.sql.Timestamp toTs = (to == null) ? null : java.sql.Timestamp.valueOf(to);
+
+        var items = chatReportService.selectAdminReports(status, userId, reportedBy, fromTs, toTs, keyword, offset, size, chatPreview);
+        int total = chatReportService.countAdminReports(status, userId, reportedBy, fromTs, toTs, keyword);
+
+        var res = new java.util.HashMap<String, Object>();
+        res.put("items", items);
+        res.put("total", total);
+        return res;
+    }
+
+
 
     @GetMapping("/all")
     public List<ChatReportDto> getAllReports() {

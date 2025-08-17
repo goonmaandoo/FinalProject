@@ -26,14 +26,4 @@ public class ReportBanController {
         reportBanService.lift(dto);
         return ResponseEntity.ok("유저 제재가 해제됐습니다.");
     }
-
-    // 관리자 회원 목록에서 직접 밴
-//    @PostMapping("/users/{userId}/ban")
-//    public void banUserDirect(@PathVariable Integer userId,
-//                              @RequestParam int days,
-//                              @RequestParam(required = false) String reason,
-//                              @RequestParam Integer adminId) {
-//        reportBanService.banUserDirect(userId, days, reason, adminId);
-//    }
-
 }

@@ -8,7 +8,7 @@
 
     <!--    공통 컬럼-->
     <sql id="ChatReportColumns">
-        id, chat_id, users_id, reason, reported_by, created_at,
+        id, chat_id, user_id, reason, reported_by, created_at,
         response_status, responded_at, admin_id
     </sql>
     <!--    단건 조회 -->
@@ -40,13 +40,97 @@
         ORDER BY created_at DESC
     </select>
 
+<!--    오라클 DB 11g 기준 조회 & 페이지네이션-->
+    <select id="selectAdminReports" resultType="com.example.start01.dto.ChatReportDto">
+        <bind name="endRow" value="offset + size"/>
+        <bind name="startRow" value="offset + 1"/>
+        SELECT * FROM (
+            SELECT t.*, ROWNUM rnum
+            FROM (
+                SELECT
+                    r.id AS id,
+                    r.chat_id AS chatId,
+                    r.user_id AS userId,
+                    r.reason AS reason,
+                    r.reported_by AS reportedBy,
+                    r.created_at AS createdAt,
+                    r.response_status AS responseStatus,
+                    r.responded_at AS respondedAt,
+                    r.admin_id AS adminId,
+                    c.chat AS chatPreview,
+                    tu.nickname AS targetNickname,
+                    ru.nickname AS reporterNickname
+                FROM chat_report r
+                JOIN chat c ON c.id = r.chat_id
+                JOIN users tu ON tu.id = r.user_id
+                JOIN users ru ON ru.id = r.reported_by
+                <where>
+                    <if test="status != null and status != ''">
+                        AND r.response_status = #{status}
+                    </if>
+                    <if test="userId != null">
+                        AND r.user_id = #{userId}
+                    </if>
+                    <if test="reportedBy != null">
+                        AND r.reported_by = #{reportedBy}
+                    </if>
+                    <if test="from != null">
+                        AND r.created_at &gt;= #{from}
+                    </if>
+                    <if test="to != null">
+                        AND r.created_at &lt; #{to}
+                    </if>
+                    <if test="keyword != null and keyword != ''">
+                        AND(
+                            LOWER(r.reason) LIKE '%' || LOWER(#{keyword}) || '%'
+                            OR LOWER(c.chat) LIKE '%' || LOWER(#{keyword}) || '%'
+                            OR LOWER(tu.nickname) LIKE '%' || LOWER(#{keyword}) || '%'
+                            OR LOWER(ru.nickname) LIKE '%' || LOWER(#{keyword}) || '%'
+                    </if>
+                </where>
+                ORDER BY r.id DESC
+            ) t
+            WHERE ROWNUM &lt;= #{endRow}
+        )
+        WHERE rnum &gt;=#{startRow}
+    </select>
+
+    <!-- 총 개수 -->
+    <select id="countAdminReports" resultType="int">
+        SELECT COUNT(*)
+        FROM chat_report r
+        WHERE 1=1
+            <if test="status != null and status != ''">
+                AND r.response_status = #{status}
+            </if>
+            <if test="userId != null">
+                AND r.user_id = #{userId}
+            </if>
+            <if test="reportedBy != null">
+                AND r.reported_by = #{reportedBy}
+            </if>
+            <if test="from != null">
+                AND r.created_at &gt;= #{from}
+            </if>
+            <if test="to != null">
+                AND r.created_at &lt;= #{to}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND LOWER(r.reason) LIKE '%' || LOWER(#{keyword}) || '%'
+            </if>
+    </select>
+
     <!-- 신고 insert -->
-    <insert id="insert" parameterType="com.example.start01.dto.ChatReportDto"
-            useGeneratedKeys="true" keyProperty="id" keyColumn="ID">
-        INSERT INTO chat_report (chat_id, users_id, reason, reported_by)
+    <insert id="insert" parameterType="com.example.start01.dto.ChatReportDto">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            SELECT chat_report_seq.NEXTVAL FROM dual
+        </selectKey>
+
+<!--            useGeneratedKeys="true" keyProperty="id" keyColumn="ID">-->
+        INSERT INTO chat_report (chat_id, user_id, reason, reported_by)
         VALUES (
         #{chatId},
-        #{usersId},
+        #{userId},
         #{reason, jdbcType=VARCHAR},
         #{reportedBy}
         )
@@ -61,7 +145,7 @@
     <update id="markInProgress" parameterType="map">
         UPDATE chat_report
         SET response_status = 'in_progress',
-        responded_at    = SYSTIMESTAMP,
+<!--        responded_at    = SYSTIMESTAMP,-->
         admin_id        = #{adminId}
         WHERE id = #{id}
         AND response_status IN ('pending', 'in_progress') <!-- 중복 클릭 방지 -->
