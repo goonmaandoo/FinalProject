@@ -127,4 +127,23 @@
         SET status = #{status}
         WHERE id = #{id}
     </update>
+
+    <select id="findByStoreId" parameterType="int" resultType="com.example.start01.dto.ReviewDto">
+        SELECT r.id,
+        r.user_id AS userId,
+        u.nickname AS nickname,      <!-- DTO 필드와 맞춤 -->
+        r.score,
+        r.comments,
+        r.store_id AS storeId,
+        r.order_id AS orderId,
+        r.created_at AS createdAt
+        FROM review r
+        LEFT JOIN users u ON r.user_id = u.id
+        WHERE r.store_id = #{storeId}
+    </select>
+
+
+
+
+
 </mapper>

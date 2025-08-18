@@ -52,4 +52,8 @@ public interface ReviewDao {
 
     // 사장님 리뷰 업데이트
     void updateReviewByOwner(ReviewDto reviewDto);
+
+    // 특정 가게(storeId)의 리뷰 전체 조회
+    List<ReviewDto> findByStoreId(@Param("storeId") int storeId);
+
 }

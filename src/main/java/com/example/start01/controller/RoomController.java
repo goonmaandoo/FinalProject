@@ -107,7 +107,13 @@ public class RoomController {
     }
     @GetMapping("/{roomId}")
     public RoomDto getRoomById(@PathVariable("roomId") int roomId) {
-        return roomDao.SelectByIdRoom(roomId);
+        // room 변수를 먼저 선언하고 값 할당
+        RoomDto room = roomDao.SelectByIdRoom(roomId); // 기존 방 정보 조회
+        if (room != null) {
+            List<UsersDto> users = roomDao.selectUsersByRoomId(roomId);
+            room.setUsersInfo(users); // 이제 room은 정의되어 있음
+        }
+        return room;
     }
 
     @GetMapping("/roomsbyId/{id}")
@@ -116,4 +122,3 @@ public class RoomController {
     }
 
 }
-

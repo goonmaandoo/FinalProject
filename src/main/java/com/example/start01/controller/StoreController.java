@@ -1,6 +1,8 @@
 package com.example.start01.controller;
 
+import com.example.start01.dao.ReviewDao;
 import com.example.start01.dao.StoreDao;
+import com.example.start01.dto.ReviewDto;
 import com.example.start01.dto.RoomDto;
 import com.example.start01.dto.StoreDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ import java.util.Map;
 public class StoreController {
     @Autowired
     private StoreDao storeDao;
+
+    @Autowired   // ✅ 이 부분 추가!
+    private ReviewDao reviewDao;
 
     @GetMapping("/categoryId/{menuCategoryId}")
     public List<StoreDto> StoreById(@PathVariable int menuCategoryId) {
@@ -74,6 +79,12 @@ public class StoreController {
         storeDao.StoreUpdate(storeDto);
         return "가게 수정 완료!";
     }
+
+    @GetMapping("/{storeId}/reviews")
+    public List<ReviewDto> getReviewsByStoreId(@PathVariable int storeId) {
+        return reviewDao.findByStoreId(storeId);
+    }
+
 
 
 }
