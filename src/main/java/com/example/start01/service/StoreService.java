@@ -20,4 +20,3 @@ public class StoreService {
         return storedao.selectMinPrice(storeId);
     }
 }
-
