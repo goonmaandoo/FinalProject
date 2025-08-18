@@ -33,5 +33,7 @@ public interface RoomJoinDao {
     void roomOut(RoomJoinDto roomJoinDto);
 
     Integer joinCount(@Param("roomId") Integer roomId);
+
+    void deleteByRoomId(Integer roomId);
 }
 

@@ -83,4 +83,7 @@
             </if>
         </where>
     </select>
+    <select id="selectMinPrice" resultType="Integer" parameterType="Integer">
+        select min_price from store where id = #{storeId}
+    </select>
 </mapper>

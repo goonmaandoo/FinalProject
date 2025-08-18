@@ -29,7 +29,9 @@ public class RoomJoinService {
     public Integer countingRoomJoin(Integer roomId) {
         return joinDao.joinCount(roomId);
     }
-
+    public void deleteRoomJoin(Integer roomId) {
+        joinDao.deleteByRoomId(roomId);
+    }
     public List<UsersDto> getUsersByRoomId(Integer roomId) {
         return joinDao.getUsersByRoomId(roomId);
     }
