@@ -82,6 +82,7 @@
         s.store_name,
         s.owner_id,
         m.image_id,
+        m.status,
         m.menu_name,
         m.menu_price,
         i.folder,
@@ -96,14 +97,29 @@
 <!--        SELECT * FROM menu WHERE store_id = #{storeId}-->
 <!--    </select>-->
     <update id="MenuUpdateByOwner" parameterType="MenuDto" >
-        UPDATE menu SET menu_name=#{menuName}, menu_price=#{menuPrice}, status=#{status}
+        UPDATE menu SET
+        menu_name=#{menuName},
+        menu_price=#{menuPrice},
+        status=#{status}
+        <if test="imageId != null">
+            , image_id=#{imageId}
+        </if>
         WHERE id=#{id}
     </update>
     <delete id="MenuDeleteByOwner" parameterType="MenuDto">
         DELETE FROM menu WHERE id=#{id}
     </delete>
-    <insert id="MenuInsertByOwner" parameterType="MenuDto">
-        INSERT INTO menu (store_id, menu_name, menu_price)
-        VALUES (#{storeId},#{menuName},#{menuPrice})
+    <insert id="MenuInsertByOwner" parameterType="MenuDto"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO menu (store_id, menu_name, menu_price
+        <if test="imageId != null">
+            , image_id
+        </if>
+        )
+        VALUES (#{storeId}, #{menuName}, #{menuPrice}
+        <if test="imageId != null">
+            , #{imageId}
+        </if>
+        )
     </insert>
 </mapper>

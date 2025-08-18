@@ -14,8 +14,8 @@ public class ChatReportDto {
     private Integer id;
     private Integer chatId;
 
-//    @JsonProperty("usersId")
-    private Integer usersId;
+//    @JsonProperty("userId")
+    private Integer userId;
 
     private String reason;
 
@@ -26,4 +26,8 @@ public class ChatReportDto {
     private String responseStatus;
     private LocalDateTime respondedAt;
     private Integer adminId;
+    
+    private String targetNickname; //신고 대상 닉네임
+    private String reporterNickname; //신고자 닉네임
+    private String chatPreview;
 }

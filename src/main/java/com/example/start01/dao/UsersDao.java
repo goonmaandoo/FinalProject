@@ -85,4 +85,6 @@ public interface UsersDao {
 
     UsersDto findById(Integer id);
 
+    //로그인 시 밴 만료된 사용자 상태 복구
+    int updateExpiredBan(@Param("id") Integer id);
 }
