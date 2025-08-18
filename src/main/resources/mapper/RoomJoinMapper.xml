@@ -54,5 +54,7 @@
     <select id="joinCount" parameterType="Integer" resultType="Integer">
         SELECT COUNT(*) FROM room_join WHERE room_id=#{roomId}
     </select>
-
+    <delete id="deleteByRoomId" parameterType="Integer">
+        delete from room_join where room_id = #{roomId}
+    </delete>
 </mapper>

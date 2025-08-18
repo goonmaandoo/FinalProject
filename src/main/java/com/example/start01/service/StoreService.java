@@ -15,5 +15,9 @@ public class StoreService {
     public List<StoreDto> selectStore(StoreDto storeDto) {
         return storedao.selectStore(storeDto);
     }
+
+    public Integer selectMinPrice(Integer storeId) {
+        return storedao.selectMinPrice(storeId);
+    }
 }
 

@@ -8,6 +8,7 @@
     <select id="orderList" resultType="OrdersDto">
     SELECT o.*, s.store_name, u.nickname FROM orders o
         Join store s on o.store_id = s.id Join users u on o.user_id = u.id
+    order by o.order_id desc
     </select>
 
 <!--    전체 목록 : 로그인 id 기준 (최신순)-->
@@ -47,7 +48,6 @@
         SELECT order_id, room_id, user_id,
         room_order AS roomOrder,
         total_price, created_at
-
         FROM orders
         WHERE order_id = #{orderId}
     </select>
@@ -127,6 +127,14 @@
         SELECT order_id, room_id, user_id, store_id, room_order AS roomOrder, total_price, created_at
         FROM orders
         ORDER BY created_at DESC
+    </select>
+
+    <!--  주문 상세  -->
+    <select id="OrderDetail" parameterType="int" resultType="OrdersDto">
+        SELECT o.order_id, o.room_id, o.user_id, o.room_order AS roomOrder,
+               o.total_price, o.created_at, s.store_name, s.store_address, s.tel, u.nickname
+        FROM orders o Join users u on o.user_id = u.id Join store s on o.store_id = s.id
+        WHERE o.order_id = #{orderId}
     </select>
 
 </mapper>

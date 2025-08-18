@@ -2,6 +2,7 @@ package com.example.start01.controller;
 
 
 import com.example.start01.dto.CashChargeDto;
+import com.example.start01.dto.PaymentDto;
 import com.example.start01.dto.UsersDto;
 import com.example.start01.service.CashChargeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +22,24 @@ public class CashChargeController {
     private UsersDao usersDao;
 
     //캐쉬 충전
-    @PostMapping("/charge")
-    public void chargeCash(
-            @RequestBody CashChargeDto dto,
-            @RequestHeader("Authorization") String authorizationHeader) {
-        //Authorization 헤더에서 토큰만 추출
-        String token = authorizationHeader.startsWith("Bearer ")
-                ? authorizationHeader.substring(7)
-                : authorizationHeader;
-        //JwtTokenProvider에서 이메일 추출
-        String email = jwtTokenProvider.getEmail(token);
-        //이메일로 db에서 userId 조회
-        UsersDto user = usersDao.findByEmail(email);
-        if (user == null) {
-            throw new IllegalArgumentException("존재하지 않는 사용자입니다.");
+        @PostMapping("/charge")
+        public void chargeCash(
+                @RequestBody CashChargeDto dto,
+                @RequestHeader("Authorization") String authorizationHeader) {
+            //Authorization 헤더에서 토큰만 추출
+            String token = authorizationHeader.startsWith("Bearer ")
+                    ? authorizationHeader.substring(7)
+                    : authorizationHeader;
+            //JwtTokenProvider에서 이메일 추출
+            String email = jwtTokenProvider.getEmail(token);
+            //이메일로 db에서 userId 조회
+            UsersDto user = usersDao.findByEmail(email);
+            if (user == null) {
+                throw new IllegalArgumentException("존재하지 않는 사용자입니다.");
+            }
+            Integer userId = user.getId();
+            cashChargeService.chargeCash(userId, dto.getCash());
         }
-        Integer userId = user.getId();
-        cashChargeService.chargeCash(userId, dto.getCash());
-    }
 
     //캐쉬 조회
     @GetMapping

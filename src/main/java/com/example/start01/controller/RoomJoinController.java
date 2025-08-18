@@ -39,6 +39,13 @@ public class RoomJoinController {
         System.out.println("deleteroomJoinDto");
         joinService.roomOut(roomJoinDto);
     }
+
+    @DeleteMapping("/{roomId}/deleteRoomOnlyJoin")
+    public void deleteOnlyRoomJoin(@PathVariable("roomId") Integer roomId) {
+        System.out.println("delete roomJoin");
+        joinService.deleteRoomJoin(roomId);
+    }
+
     @GetMapping("/countingJoin")
     public Integer countingJoin(@RequestParam Integer roomId) {
         System.out.println("countingJoin");

@@ -63,4 +63,15 @@ public class ChatReportService {
         chatReportDao.updateStatus(id, status, adminId);
     }
 
+    public List<ChatReportDto> selectAdminReports(String status, Integer userId, Integer reportedBy,
+                                                  java.sql.Timestamp from, java.sql.Timestamp to,
+                                                  String keyword, int offset, int size, String chatPreview) {
+        return chatReportDao.selectAdminReports(status, userId, reportedBy, from, to, keyword, offset, size, chatPreview);
+    }
+
+    public int countAdminReports(String status, Integer userId, Integer reportedBy,
+                                 java.sql.Timestamp from, java.sql.Timestamp to,
+                                 String keyword) {
+        return chatReportDao.countAdminReports(status, userId, reportedBy, from, to, keyword);
+    }
 }
