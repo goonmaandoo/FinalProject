@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/popular")
+@RequestMapping("/api/popular")
 public class PopularController {
 
     @Autowired
