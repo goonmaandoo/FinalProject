@@ -38,4 +38,5 @@ public interface StoreDao {
 
     void StoreUpdate(StoreDto storeDto);
 
+    Integer selectMinPrice(Integer storeId);
 }
