@@ -44,7 +44,28 @@ public class S3Service {
         URL signed = s3Template.createSignedGetURL(bucket, key, Duration.ofMinutes(10));
         return signed.toString(); // 프론트에서 바로 표시/다운로드 가능 (유효기간 10분)
     }
+    public String uploadProfile(MultipartFile file, Integer userId) throws Exception {
 
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("업로드할 파일이 없습니다."); }
+
+        String original = file.getOriginalFilename();
+        String ext = (original != null && original.contains(".")) ?
+                original.substring(original.lastIndexOf('.')) : "";
+
+        //프로필 이미지 경로
+        String key = "profileimg/"+ userId +"/profile" + ext;
+
+        try (InputStream is = file.getInputStream()) {
+            s3Template.upload(
+                    bucket,
+                    key,
+                    is,
+                    ObjectMetadata.builder()
+                    .contentType(file.getContentType()) .build() );
+        }
+        return key;
+    }
     public void delete(String key) {
         s3Template.deleteObject(bucket, key);
     }
