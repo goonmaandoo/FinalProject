@@ -158,11 +158,13 @@
     </resultMap>
 
     <select id="ownerDeliverySelect" resultType="RoomOrdersDto">
-        SELECT orders.room_id, owner_id, order_id, room_order, room_address, room_address_detail, status
+        SELECT orders.room_id, store.owner_id, orders.order_id, orders.room_order,
+        room.room_address, room.room_address_detail, room.status
         FROM room, orders, store
         WHERE orders.room_id = room.id
         AND store.id = orders.store_id
         AND owner_id = #{ownerId}
+        ORDER BY orders.created_at desc
     </select>
     <update id="ownerDeliveryUpdate" parameterType="RoomOrdersDto">
         UPDATE room
