@@ -139,6 +139,11 @@
         SET ready_people = ready_people + #{delta}
         WHERE id = #{roomId}
     </update>
+    <update id="updateRoomOrder" parameterType="int">
+        UPDATE room
+        SET room_order = room_order + #{delta}
+        WHERE id = #{roomId}
+    </update>
     <select id="AdminSelectRoom" resultType="RoomDto">
         SELECT r.*, s.store_name as storeName
         FROM room r Join store s ON r.store_id = s.id order by r.created_at desc

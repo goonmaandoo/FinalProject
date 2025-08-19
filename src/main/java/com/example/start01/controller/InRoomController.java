@@ -38,6 +38,10 @@ public class InRoomController {
         System.out.println("counting"+roomId);
         roomService.readyCount(roomId, delta);
     }
+    @PutMapping("/{roomId}/roomOrder")
+    public void updateRoomOrder(@PathVariable Integer roomId, @RequestParam Integer delta) {
+        roomService.updateRoomOrder(roomId, delta);
+    }
     @PutMapping("/{roomId}/roomStatus")
     public void updateRoomStatus(@PathVariable Integer roomId, @RequestParam String status) {
         System.out.println("room status update");

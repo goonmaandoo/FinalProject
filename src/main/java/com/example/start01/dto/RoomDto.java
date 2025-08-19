@@ -30,7 +30,7 @@ public class RoomDto {
     private String storeNameLike;
     // 준비인원 체크용
     private Integer readyPeople;
-
+    private Integer roomOrder;
     private Integer joinIngCount;
     private Integer ingCount;
     private Integer endCount;
