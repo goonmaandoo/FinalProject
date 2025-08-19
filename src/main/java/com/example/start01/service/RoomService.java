@@ -31,6 +31,9 @@ public class RoomService {
     public void readyCount(Integer roomId, Integer delta) {
         roomDao.updateReadyCount(roomId, delta);
     }
+    public void updateRoomOrder(Integer roomId, Integer delta) {
+        roomDao.updateRoomOrder(roomId, delta);
+    }
     public Integer getReadyPeople(Integer roomId) {
         return roomDao.selectReadyPeople(roomId);
     }

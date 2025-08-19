@@ -47,6 +47,8 @@ public interface RoomDao {
 
     // 카운팅
     void updateReadyCount(@Param("roomId") Integer roomId, @Param("delta") Integer delta);
+    void updateRoomOrder(@Param("roomId") Integer roomId, @Param("delta") Integer delta);
+
     // 준비인원
     Integer selectReadyPeople(@Param("roomId") Integer roomId);
 
