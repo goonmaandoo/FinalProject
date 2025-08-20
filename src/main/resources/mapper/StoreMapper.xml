@@ -16,8 +16,24 @@
         SELECT * FROM store WHERE menu_category_id = #{menuCategoryId}
     </select>
     <select id="StoreDetail" resultType="StoreDto">
-        SELECT * FROM store WHERE id = #{id}
+        SELECT
+        s.id,
+        s.menu_category_id AS menuCategoryId,
+        s.store_name AS storeName,
+        s.store_address AS storeAddress,
+        s.min_price AS minPrice,
+        s.tel,
+        s.owner_id AS ownerId,
+        COALESCE(AVG(r.score),0) AS avgRating,   -- 별점 평균
+        COUNT(r.id) AS reviewCount               -- 리뷰 개수
+        FROM store s
+        LEFT JOIN review r ON s.id = r.store_id
+        WHERE s.id = #{id}
+        GROUP BY
+        s.id, s.menu_category_id, s.store_name,
+        s.store_address, s.min_price, s.tel, s.owner_id
     </select>
+
     <insert id="StoreInsert" parameterType="StoreDto">
         INSERT INTO store (menu_category_id, store_name, store_address, min_price, tel, owner_id)
         VALUES (#{menuCategoryId},#{storeName},#{storeAddress}, #{minPrice},#{tel},#{ownerId})
@@ -69,9 +85,14 @@
     </delete>
 
     <select id="storeSearch" resultType="StoreDto" parameterType="map">
-        SELECT s.*, u.nickname AS nickName
+        SELECT
+        s.*,
+        u.nickname AS nickName,
+        COALESCE(AVG(r.score),0) AS avgRating,
+        COUNT(r.id) AS reviewCount
         FROM store s
         JOIN users u ON s.owner_id = u.id
+        LEFT JOIN review r ON s.id = r.store_id
         <where>
             <if test="type != null and keyword != null and type != 'all'">
                 <choose>
@@ -82,7 +103,10 @@
                 </choose>
             </if>
         </where>
+        GROUP BY s.id, u.nickname
+        ORDER BY s.id DESC
     </select>
+
     <select id="selectMinPrice" resultType="Integer" parameterType="Integer">
         select min_price from store where id = #{storeId}
     </select>
