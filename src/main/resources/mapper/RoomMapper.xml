@@ -59,7 +59,7 @@
         NVL(COUNT(rj.id), 0) AS joinCount
         FROM room r
         LEFT JOIN room_join rj ON r.id = rj.room_id AND rj.status = '참여중'
-        WHERE r.status = '모집중'
+        WHERE r.status IN ('모집중', '배달중', '주문진행중', '진행중')
         GROUP BY r.id, r.store_id, r.room_name, r.room_address, r.max_people, r.status, r.created_at, r.room_address_detail
         ORDER BY r.created_at DESC
     </select>
