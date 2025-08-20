@@ -1,5 +1,6 @@
 package com.example.start01.s3;
 
+import com.example.start01.service.UsersService;
 import io.awspring.cloud.s3.S3Template;
 import io.awspring.cloud.s3.ObjectMetadata;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,12 +17,14 @@ import java.util.UUID;
 public class S3Service {
 
     private final S3Template s3Template;
+    private final UsersService usersService;
 
     @Value("${app.s3.bucket}")
     private String bucket;
 
-    public S3Service(S3Template s3Template) {
+    public S3Service(S3Template s3Template, UsersService usersService) {
         this.s3Template = s3Template;
+        this.usersService = usersService;
     }
 
     public String upload(MultipartFile file, Integer storeId) throws Exception {
@@ -82,6 +85,9 @@ public class S3Service {
                     ObjectMetadata.builder()
                             .contentType(file.getContentType()).build());
         }
+
+        usersService.updateProfileUrl(userId, key);
+
         return key;
     }
 
