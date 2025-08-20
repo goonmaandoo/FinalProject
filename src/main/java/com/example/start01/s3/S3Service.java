@@ -18,10 +18,7 @@ public class S3Service {
 
     private final S3Template s3Template;
     private final UsersService usersService;
-<<<<<<< HEAD
-=======
 
->>>>>>> 2bcbb9f (경로수정)
 
     @Value("${app.s3.bucket}")
     private String bucket;
@@ -69,11 +66,6 @@ public class S3Service {
     }
     public String uploadProfile(MultipartFile file, Integer userId) throws Exception {
 
-<<<<<<< HEAD
-    public String uploadProfile(MultipartFile file, Integer userId) throws Exception {
-
-=======
->>>>>>> 2bcbb9f (경로수정)
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("업로드할 파일이 없습니다.");
         }
@@ -82,10 +74,6 @@ public class S3Service {
         String ext = (original != null && original.contains(".")) ?
                 original.substring(original.lastIndexOf('.')) : "";
 
-<<<<<<< HEAD
-        //프로필 이미지 경로
-=======
->>>>>>> 2bcbb9f (경로수정)
         String key = "profileimg/" + userId + "/profile" + ext;
 
         try (InputStream is = file.getInputStream()) {
@@ -97,18 +85,11 @@ public class S3Service {
                             .contentType(file.getContentType()).build());
         }
 
-<<<<<<< HEAD
-=======
-        // 이제 null이 아니므로 안전하게 호출 가능
->>>>>>> 2bcbb9f (경로수정)
         usersService.updateProfileUrl(userId, key);
 
         return key;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 2bcbb9f (경로수정)
     public void delete(String key) {
         s3Template.deleteObject(bucket, key);
     }
