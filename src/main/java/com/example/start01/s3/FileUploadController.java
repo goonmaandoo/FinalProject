@@ -13,9 +13,10 @@ public class FileUploadController {
 
     private final S3Service s3Service;
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) throws Exception {
-        String url = s3Service.upload(file);
+    @PostMapping("/upload/menuByOwner")
+    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file, @RequestParam("storeId") Integer storeId
+            ) throws Exception {
+        String url = s3Service.upload(file, storeId);
         return ResponseEntity.ok(url);
     }
 
