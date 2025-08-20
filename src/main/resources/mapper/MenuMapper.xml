@@ -21,11 +21,12 @@
     </select>
 
     <select id="StoreMenuList" parameterType="int" resultType="MenuDto">
-        SELECT * FROM menu WHERE store_id=#{storeId}
+        SELECT * FROM menu WHERE store_id=#{storeId} AND status='판매중'
     </select>
     <select id="StoreMenuImage" parameterType="int" resultType="MenuDto">
         SELECT m.id, m.store_id, m.image_id, m.menu_name, m.menu_price, i.folder, i.filename
         FROM menu m LEFT JOIN image i ON m.image_id = i.id WHERE m.store_id = #{storeId}
+        AND m.status = '판매중'
     </select>
 
     <!-- 룸/챗 -->
