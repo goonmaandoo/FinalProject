@@ -1,6 +1,5 @@
 package com.example.start01.s3;
 
-import com.example.start01.service.UsersService;
 import io.awspring.cloud.s3.S3Template;
 import io.awspring.cloud.s3.ObjectMetadata;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,14 +16,12 @@ import java.util.UUID;
 public class S3Service {
 
     private final S3Template s3Template;
-    private final UsersService usersService;
 
     @Value("${app.s3.bucket}")
     private String bucket;
 
-    public S3Service(S3Template s3Template, UsersService usersService) {
+    public S3Service(S3Template s3Template) {
         this.s3Template = s3Template;
-        this.usersService = usersService;
     }
 
     public String upload(MultipartFile file, Integer storeId) throws Exception {
@@ -44,6 +41,32 @@ public class S3Service {
             }
         }
         String key = "imgfile/" + "store_" + storeId + "/menu_"+ nextId + ext; // requestparam으로 받아오기 이게 경로명
+        // key가 저장경로 겸 파일이름
+        // 저장경로 같고 파일이름 다르면 prefix
+
+        try (InputStream is = file.getInputStream()) {
+            // content-type 자동 추론되지만 명시하고 싶으면 ObjectMetadata에 넣어도 됨
+            s3Template.upload(
+                    bucket,
+                    key,
+                    is,
+                    ObjectMetadata.builder()
+                            .contentType(file.getContentType())
+                            .build()
+            );
+        }
+
+        // 버킷을 퍼블릭으로 열지 않았다면, 프론트에서 접근용으로 pre-signed URL을 만들어 반환
+        URL signed = s3Template.createSignedGetURL(bucket, key, Duration.ofMinutes(10));
+        return signed.toString(); // 프론트에서 바로 표시/다운로드 가능 (유효기간 10분)
+    }
+    public String uploadStore(MultipartFile file, Integer id) throws Exception {
+        // insert만되는거(admin dashboard상단)
+        String original = file.getOriginalFilename();
+        String ext = (original != null && original.contains(".")) ? original.substring(original.lastIndexOf('.')) : "";
+
+
+        String key = "imgfile/store/" + "/store_" + id + ext; // requestparam으로 받아오기 이게 경로명
         // key가 저장경로 겸 파일이름
         // 저장경로 같고 파일이름 다르면 prefix
 
@@ -85,9 +108,6 @@ public class S3Service {
                     ObjectMetadata.builder()
                             .contentType(file.getContentType()).build());
         }
-
-        usersService.updateProfileUrl(userId, key);
-
         return key;
     }
 

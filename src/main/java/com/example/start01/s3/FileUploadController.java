@@ -20,6 +20,13 @@ public class FileUploadController {
         return ResponseEntity.ok(url);
     }
 
+    @PostMapping("/upload/storeByOwner")
+    public ResponseEntity<String> uploadStore(@RequestParam("file") MultipartFile file, @RequestParam("id") Integer id
+    ) throws Exception {
+        String url = s3Service.upload(file, id);
+        return ResponseEntity.ok(url);
+    }
+
     @PostMapping("/upload/profile")
     public ResponseEntity<String> uploadProfile(@RequestParam("file") MultipartFile file, @RequestParam("userId") Integer userId) {
         try {
