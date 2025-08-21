@@ -18,7 +18,7 @@ public class StoreController {
     @Autowired
     private StoreDao storeDao;
 
-    @Autowired   // ✅ 이 부분 추가!
+    @Autowired   // 이 부분 추가!
     private ReviewDao reviewDao;
 
     @GetMapping("/categoryId/{menuCategoryId}")

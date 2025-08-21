@@ -4,7 +4,19 @@
 
 <mapper namespace="com.example.start01.dao.StoreDao">
     <select id="StoreAll" resultType="StoreDto">
-        SELECT * FROM store
+        SELECT
+        s.id,
+        s.menu_category_id AS menuCategoryId,
+        s.store_name AS storeName,
+        s.store_address AS storeAddress,
+        s.min_price AS minPrice,
+        s.tel,
+        s.owner_id AS ownerId,
+        COALESCE(AVG(r.score),0) AS avgRating,
+        COUNT(r.id) AS reviewCount
+        FROM store s
+        LEFT JOIN review r ON s.id = r.store_id
+        GROUP BY s.id, s.menu_category_id, s.store_name, s.store_address, s.min_price, s.tel, s.owner_id
     </select>
     <select id="StoreUserAll" resultType="StoreDto">
         SELECT s.*, u.nickName FROM store s LEFT JOIN users u on s.owner_id = u.id
@@ -13,7 +25,20 @@
         SELECT count(*) as storeCount FROM store
     </select>
     <select id="StoreById" resultType="StoreDto">
-        SELECT * FROM store WHERE menu_category_id = #{menuCategoryId}
+        SELECT
+        s.id,
+        s.menu_category_id AS menuCategoryId,
+        s.store_name AS storeName,
+        s.store_address AS storeAddress,
+        s.min_price AS minPrice,
+        s.tel,
+        s.owner_id AS ownerId,
+        COALESCE(AVG(r.score),0) AS avgRating,
+        COUNT(r.id) AS reviewCount
+        FROM store s
+        LEFT JOIN review r ON s.id = r.store_id
+        WHERE s.menu_category_id = #{menuCategoryId}
+        GROUP BY s.id, s.menu_category_id, s.store_name, s.store_address, s.min_price, s.tel, s.owner_id
     </select>
     <select id="StoreDetail" resultType="StoreDto">
         SELECT
