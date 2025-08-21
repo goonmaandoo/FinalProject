@@ -17,4 +17,8 @@ public class StoreDto {
     private Integer ownerId;
     private Integer storeCount;
     private String nickName;
+
+    //  리뷰 정보 추가
+    private Double avgRating;   // 평균 별점
+    private Integer reviewCount; // 리뷰 개수
 }

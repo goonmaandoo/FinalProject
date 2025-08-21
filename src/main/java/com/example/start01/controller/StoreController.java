@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/store")
+@RequestMapping("/api/store")
 public class StoreController {
     @Autowired
     private StoreDao storeDao;

@@ -149,7 +149,7 @@
         FROM room r Join store s ON r.store_id = s.id order by r.created_at desc
     </select>
     <select id="selectUsersByRoomId" parameterType="int" resultMap="UsersWithJoinResultMap">
-        SELECT u.id AS user_id, u.nickname, rj.id AS room_join_id, rj.status AS join_status
+        SELECT u.id AS user_id, u.nickname, u.profileUrl, rj.id AS room_join_id, rj.status AS join_status
         FROM room_join rj
         JOIN users u ON rj.users_id = u.id
         WHERE rj.room_id = #{roomId}
