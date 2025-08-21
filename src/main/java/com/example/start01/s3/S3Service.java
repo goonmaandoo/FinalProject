@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.Duration;
@@ -24,6 +25,7 @@ public class S3Service {
         this.s3Template = s3Template;
     }
 
+    // 메뉴이미지
     public String upload(MultipartFile file, Integer storeId) throws Exception {
         // insert만되는거(admin dashboard상단)
         String original = file.getOriginalFilename();
@@ -60,6 +62,8 @@ public class S3Service {
         URL signed = s3Template.createSignedGetURL(bucket, key, Duration.ofMinutes(10));
         return signed.toString(); // 프론트에서 바로 표시/다운로드 가능 (유효기간 10분)
     }
+
+    // 가게대표이미지
     public String uploadStore(MultipartFile file, Integer id) throws Exception {
         // insert만되는거(admin dashboard상단)
         String original = file.getOriginalFilename();
@@ -84,6 +88,33 @@ public class S3Service {
         URL signed = s3Template.createSignedGetURL(bucket, key, Duration.ofMinutes(10));
         return signed.toString(); // 프론트에서 바로 표시/다운로드 가능 (유효기간 10분)
     }
+
+    // 메뉴이미지수정
+//    public String updateMenu(MultipartFile file, Integer storeId,Integer imageId) throws Exception {
+//        // insert만되는거(admin dashboard상단)
+//        String original = file.getOriginalFilename();
+//        String ext = (original != null && original.contains(".")) ? original.substring(original.lastIndexOf('.')) : "";
+//
+//        String key = "imgfile/" + "store_" + storeId + "/menu_" + imageId + ext; // requestparam으로 받아오기 이게 경로명
+//        // key가 저장경로 겸 파일이름
+//        // 저장경로 같고 파일이름 다르면 prefix
+//
+//        try (InputStream is = file.getInputStream()) {
+//            // content-type 자동 추론되지만 명시하고 싶으면 ObjectMetadata에 넣어도 됨
+//            s3Template.upload(
+//                    bucket,
+//                    key,
+//                    is,
+//                    ObjectMetadata.builder()
+//                            .contentType(file.getContentType())
+//                            .build()
+//            );
+//        }
+//
+//        // 버킷을 퍼블릭으로 열지 않았다면, 프론트에서 접근용으로 pre-signed URL을 만들어 반환
+//        URL signed = s3Template.createSignedGetURL(bucket, key, Duration.ofMinutes(10));
+//        return signed.toString(); // 프론트에서 바로 표시/다운로드 가능 (유효기간 10분)
+//    }
 
     public String uploadProfile(MultipartFile file, Integer userId) throws Exception {
 
