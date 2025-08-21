@@ -1,6 +1,5 @@
 package com.example.start01.s3;
 
-import com.example.start01.service.UsersService;
 import io.awspring.cloud.s3.S3Template;
 import io.awspring.cloud.s3.ObjectMetadata;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,15 +16,12 @@ import java.util.UUID;
 public class S3Service {
 
     private final S3Template s3Template;
-    private final UsersService usersService;
-
 
     @Value("${app.s3.bucket}")
     private String bucket;
 
-    public S3Service(S3Template s3Template, UsersService usersService) {
+    public S3Service(S3Template s3Template) {
         this.s3Template = s3Template;
-        this.usersService = usersService;
     }
 
     public String upload(MultipartFile file, Integer storeId) throws Exception {
@@ -64,7 +60,6 @@ public class S3Service {
         URL signed = s3Template.createSignedGetURL(bucket, key, Duration.ofMinutes(10));
         return signed.toString(); // 프론트에서 바로 표시/다운로드 가능 (유효기간 10분)
     }
-
     public String uploadStore(MultipartFile file, Integer id) throws Exception {
         // insert만되는거(admin dashboard상단)
         String original = file.getOriginalFilename();
@@ -102,6 +97,7 @@ public class S3Service {
         String ext = (original != null && original.contains(".")) ?
                 original.substring(original.lastIndexOf('.')) : "";
 
+        //프로필 이미지 경로
         String key = "profileimg/" + userId + "/profile" + ext;
 
         try (InputStream is = file.getInputStream()) {
@@ -112,9 +108,6 @@ public class S3Service {
                     ObjectMetadata.builder()
                             .contentType(file.getContentType()).build());
         }
-
-        usersService.updateProfileUrl(userId, key);
-
         return key;
     }
 
