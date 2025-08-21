@@ -19,6 +19,7 @@ public class StoreController {
     private StoreDao storeDao;
 
     @Autowired
+
     private ReviewDao reviewDao;
 
     @GetMapping("/categoryId/{menuCategoryId}")
