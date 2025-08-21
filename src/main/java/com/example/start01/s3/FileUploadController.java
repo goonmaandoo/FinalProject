@@ -23,7 +23,7 @@ public class FileUploadController {
     @PostMapping("/upload/storeByOwner")
     public ResponseEntity<String> uploadStore(@RequestParam("file") MultipartFile file, @RequestParam("id") Integer id
     ) throws Exception {
-        String url = s3Service.upload(file, id);
+        String url = s3Service.uploadStore(file, id);
         return ResponseEntity.ok(url);
     }
 

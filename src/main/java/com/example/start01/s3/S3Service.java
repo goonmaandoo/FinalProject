@@ -64,9 +64,7 @@ public class S3Service {
         // insert만되는거(admin dashboard상단)
         String original = file.getOriginalFilename();
         String ext = (original != null && original.contains(".")) ? original.substring(original.lastIndexOf('.')) : "";
-
-
-        String key = "imgfile/store/" + "/store_" + id + ext; // requestparam으로 받아오기 이게 경로명
+        String key = "imgfile/store/store_" + id + ext; // requestparam으로 받아오기 이게 경로명
         // key가 저장경로 겸 파일이름
         // 저장경로 같고 파일이름 다르면 prefix
 
