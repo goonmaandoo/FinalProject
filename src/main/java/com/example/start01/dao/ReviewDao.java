@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
-public interface ReviewDao {
+public interface  ReviewDao {
 
     //리뷰 작성
     void insertReview(ReviewDto reviewDto);

@@ -16,10 +16,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .maxAge(3600);
     }
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // 실제 디스크 경로 -> 요청 URL 매핑
-        registry.addResourceHandler("/image/profileimg/**")
-                .addResourceLocations("file:///C:/upload/profileimg/");
-    }
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        // 실제 디스크 경로 -> 요청 URL 매핑
+//        registry.addResourceHandler("/image/profileimg/**")
+//                .addResourceLocations("file:///C:/upload/profileimg/");
+//    }
 }

@@ -17,8 +17,9 @@ public class ReviewDto {
     private Integer storeId;
     private Integer orderId;
     private String comments;
-    private LocalDateTime createdAt;
+    private java.time.LocalDateTime createdAt;
     private String roomOrder;
     private String nickname;
     private String status;
+    private String storeName;
 }

@@ -1,3 +1,5 @@
+package com.example.start01.s3;
+
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Configuration;
 
