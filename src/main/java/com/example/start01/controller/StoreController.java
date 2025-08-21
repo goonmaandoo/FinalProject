@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/store")
+@RequestMapping("/api/store")
 public class StoreController {
     @Autowired
     private StoreDao storeDao;
 
-    @Autowired   // ✅ 이 부분 추가!
+    @Autowired
     private ReviewDao reviewDao;
 
     @GetMapping("/categoryId/{menuCategoryId}")

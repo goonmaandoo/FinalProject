@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/api/menu")
 public class MenuController {
     @Autowired
     public MenuDao menuDao;
