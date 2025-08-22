@@ -62,37 +62,6 @@ public class MenuController {
         menuDto.setMenuPrice(menuPrice);
         menuDto.setStatus(status);
 
-        if (file != null && !file.isEmpty()) {
-            try {
-                String storeFolder = "store_" + storeId;
-                String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/image/imgfile/" + storeFolder + "/";
-                File directory = new File(uploadDir);
-                if (!directory.exists()) {
-                    directory.mkdirs();
-                }
-
-                String originalFilename = file.getOriginalFilename();
-                String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-                String newFilename = "menu_" + id + extension;
-
-                File saveFile = new File(uploadDir + newFilename);
-                file.transferTo(saveFile);
-
-                // 1. 이미지 정보를 image 테이블에 저장
-                ImageDto imageDto = new ImageDto();
-                imageDto.setFolder(storeFolder);
-                imageDto.setFilename(newFilename);
-                imageDao.MenuImageInsertByOwner(imageDto);
-
-                // 2. 메뉴에 이미지 ID 연결
-                menuDto.setImageId(imageDto.getId()); // 생성된 이미지 ID 설정
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                throw new RuntimeException("파일 저장 실패: " + e.getMessage());
-            }
-        }
-
         menuDao.MenuUpdateByOwner(menuDto);
         return "메뉴 수정 완료!";
     }
