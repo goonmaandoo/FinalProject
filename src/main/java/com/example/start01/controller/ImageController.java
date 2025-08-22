@@ -73,18 +73,16 @@ public class ImageController {
 
     @PostMapping("/menuImageUpdateByOwner")
     public ResponseEntity<Integer> MenuImageUpdateByOwner(
-            @RequestParam("folder") String folder,
             @RequestParam("filename") MultipartFile file,
-            @RequestParam("storeId") Integer storeId) {
+            @RequestParam("id") Integer id) {
         try {
             // 이제 s3Service.upload() 호출 가능
-            FileUploadResult uploadResult = s3Service.upload(file, storeId);
+            FileUploadResult uploadResult = s3Service.update(file, id);
             String newFilename = uploadResult.getFileName();
 
             ImageDto dto = new ImageDto();
-            dto.setFolder(folder);
             dto.setFilename(newFilename);
-            imageDao.MenuImageInsertByOwner(dto);
+            imageDao.ImageUpdateByOwner(dto);
 
             return ResponseEntity.ok(dto.getId());
         } catch (Exception e) {
