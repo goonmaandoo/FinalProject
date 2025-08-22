@@ -107,7 +107,7 @@ public class FileUploadController {
             System.out.println("S3 업로드 완료 - 파일명: " + newFilename);
             System.out.println("받은 id: " + id);
 
-            // 2. DB에 이미지 정보 삽입
+            // 2. DB에 이미지 정보 업데이트
             ImageDto dto = new ImageDto();
 
             dto.setFilename(newFilename);

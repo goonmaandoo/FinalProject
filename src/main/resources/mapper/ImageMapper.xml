@@ -19,7 +19,7 @@
     </select>
     <update id="ImageUpdateByOwner" parameterType="ImageDto" >
         UPDATE image SET
-        filename=#{fileName},
+        filename=#{fileName}
         WHERE id=#{id}
     </update>
 </mapper>
