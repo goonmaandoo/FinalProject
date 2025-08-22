@@ -16,4 +16,6 @@ public interface ImageDao {
 
     // 이미지 ID로 조회
     ImageDto getImageById(Integer id);
+
+    void ImageUpdateByOwner(ImageDto imageDto);
 }

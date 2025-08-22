@@ -35,10 +35,12 @@ public class FileUploadController {
             String newFilename = result.getFileName();
             String url = result.getSignedUrl();
 
+            /*
             System.out.println("=== 디버깅 정보 ===");
             System.out.println("S3 업로드 완료 - 파일명: " + newFilename);
             System.out.println("받은 storeId: " + storeId);
             System.out.println("받은 folderParam: " + folderParam);
+             */
 
             // 2. DB에 이미지 정보 삽입
             ImageDto dto = new ImageDto();
@@ -89,13 +91,60 @@ public class FileUploadController {
         return ResponseEntity.ok(url);
     }
 
-//    @PostMapping("/upload/updateMenu")
-//    public ResponseEntity<String> updateMenu(@RequestParam("file") MultipartFile file, @RequestParam("store_id") Integer storeId,
-//                                             @RequestParam("image_id") Integer imageId
-//    ) throws Exception {
-//        String url = s3Service.updateMenu(file, storeId, imageId);
-//        return ResponseEntity.ok(url);
-//    }
+    @PostMapping("/upload/menuImageByOwner")
+    public ResponseEntity<Map<String, Object>> update(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("id") Integer id,
+            @RequestParam(value = "folder", required = false) String folderParam) throws Exception {
+
+        try {
+            // 1. S3 업로드
+            FileUploadResult result = s3Service.upload(file, id);
+            String newFilename = result.getFileName();
+            String url = result.getSignedUrl();
+
+            System.out.println("=== 디버깅 정보 ===");
+            System.out.println("S3 업로드 완료 - 파일명: " + newFilename);
+            System.out.println("받은 id: " + id);
+
+            // 2. DB에 이미지 정보 삽입
+            ImageDto dto = new ImageDto();
+
+            dto.setFilename(newFilename);
+
+            /* 디버깅용
+            System.out.println("DTO 설정 값:");
+            System.out.println("- folder: '" + dto.getFolder() + "'");
+            System.out.println("- filename: '" + dto.getFilename() + "'");
+            System.out.println("- folder가 null인가? " + (dto.getFolder() == null));
+            System.out.println("- filename이 null인가? " + (dto.getFilename() == null));
+             */
+
+            // null 체크
+            if (dto.getFolder() == null || dto.getFolder().trim().isEmpty()) {
+                throw new RuntimeException("folder 값이 비어있습니다.");
+            }
+            if (dto.getFilename() == null || dto.getFilename().trim().isEmpty()) {
+                throw new RuntimeException("filename 값이 비어있습니다.");
+            }
+
+            imageDao.MenuImageInsertByOwner(dto);
+
+            System.out.println("DB 저장 후 - 생성된 ID: " + dto.getId());
+
+            // 3. 응답 데이터 구성
+            Map<String, Object> response = new HashMap<>();
+            response.put("url", url);
+            response.put("imageId", dto.getId());
+            response.put("filename", newFilename);
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("파일 업로드 및 저장 실패: " + e.getMessage());
+        }
+    }
 
     @PostMapping("/upload/profile")
     public ResponseEntity<String> uploadProfile(@RequestParam("file") MultipartFile file, @RequestParam("userId") Integer userId) {

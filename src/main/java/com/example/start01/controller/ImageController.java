@@ -71,4 +71,26 @@ public class ImageController {
         }
     }
 
+    @PostMapping("/menuImageUpdateByOwner")
+    public ResponseEntity<Integer> MenuImageUpdateByOwner(
+            @RequestParam("folder") String folder,
+            @RequestParam("filename") MultipartFile file,
+            @RequestParam("storeId") Integer storeId) {
+        try {
+            // 이제 s3Service.upload() 호출 가능
+            FileUploadResult uploadResult = s3Service.upload(file, storeId);
+            String newFilename = uploadResult.getFileName();
+
+            ImageDto dto = new ImageDto();
+            dto.setFolder(folder);
+            dto.setFilename(newFilename);
+            imageDao.MenuImageInsertByOwner(dto);
+
+            return ResponseEntity.ok(dto.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("파일 저장 실패: " + e.getMessage());
+        }
+    }
+
 }
