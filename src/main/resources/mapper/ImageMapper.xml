@@ -17,4 +17,9 @@
         FROM image
         WHERE id = #{id}
     </select>
+    <update id="ImageUpdateByOwner" parameterType="ImageDto" >
+        UPDATE image SET
+        filename=#{fileName},
+        WHERE id=#{id}
+    </update>
 </mapper>
