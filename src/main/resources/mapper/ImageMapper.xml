@@ -7,10 +7,10 @@
     <select id="ImageByFolder" parameterType="int" resultType="ImageDto">
         SELECT * FROM image WHERE FOLDER=#{folder}
     </select>
-    <insert id="MenuImageInsertByOwner" parameterType="ImageDto"
-            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO image (folder, filename)
-        VALUES (#{folder}, #{filename})
+    <insert id="MenuImageInsertByOwner" parameterType="map"
+            useGeneratedKeys="true" keyProperty="dto.id" keyColumn="id">
+        INSERT INTO image (bucket, folder, filename)
+        VALUES ('imgfile', #{dto.folder,jdbcType=VARCHAR}, #{dto.filename,jdbcType=VARCHAR})
     </insert>
     <select id="getImageById" parameterType="int" resultType="ImageDto">
         SELECT id, folder, filename

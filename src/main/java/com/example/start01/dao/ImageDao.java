@@ -12,7 +12,7 @@ public interface ImageDao {
     List<ImageDto> ImageByFolder(@Param("folder") String folder);
 
     // 사장님 메뉴 삽입
-    void MenuImageInsertByOwner(ImageDto imageDto);
+    void MenuImageInsertByOwner(@Param("dto") ImageDto imageDto);
 
     // 이미지 ID로 조회
     ImageDto getImageById(Integer id);

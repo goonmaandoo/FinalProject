@@ -27,7 +27,7 @@ public class FileUploadController {
     public ResponseEntity<Map<String, Object>> upload(
             @RequestParam("file") MultipartFile file,
             @RequestParam("storeId") Integer storeId,
-            @RequestParam("folder") String folder) throws Exception {
+            @RequestParam(value = "folder", required = false) String folderParam) throws Exception {
 
         try {
             // 1. S3 업로드
@@ -35,13 +35,40 @@ public class FileUploadController {
             String newFilename = result.getFileName();
             String url = result.getSignedUrl();
 
+            System.out.println("=== 디버깅 정보 ===");
+            System.out.println("S3 업로드 완료 - 파일명: " + newFilename);
+            System.out.println("받은 storeId: " + storeId);
+            System.out.println("받은 folderParam: " + folderParam);
+
             // 2. DB에 이미지 정보 삽입
             ImageDto dto = new ImageDto();
-            dto.setFolder(folder);
+
+            // folder 값 확실하게 설정
+            String folderValue = "store_" + storeId;
+            dto.setFolder(folderValue);
             dto.setFilename(newFilename);
+
+            /* 디버깅용
+            System.out.println("DTO 설정 값:");
+            System.out.println("- folder: '" + dto.getFolder() + "'");
+            System.out.println("- filename: '" + dto.getFilename() + "'");
+            System.out.println("- folder가 null인가? " + (dto.getFolder() == null));
+            System.out.println("- filename이 null인가? " + (dto.getFilename() == null));
+             */
+
+            // null 체크
+            if (dto.getFolder() == null || dto.getFolder().trim().isEmpty()) {
+                throw new RuntimeException("folder 값이 비어있습니다.");
+            }
+            if (dto.getFilename() == null || dto.getFilename().trim().isEmpty()) {
+                throw new RuntimeException("filename 값이 비어있습니다.");
+            }
+
             imageDao.MenuImageInsertByOwner(dto);
 
-            // 3. 응답 데이터 구성 (URL + 이미지 ID 반환)
+            System.out.println("DB 저장 후 - 생성된 ID: " + dto.getId());
+
+            // 3. 응답 데이터 구성
             Map<String, Object> response = new HashMap<>();
             response.put("url", url);
             response.put("imageId", dto.getId());
