@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.start01.dao.ReviewAdminDao">
+    <!-- 목록(페이징) -->
+    <select id="selectAdminReviews" resultType="com.example.start01.dto.ReviewDto">
+        SELECT * FROM (
+          SELECT t.*, ROWNUM rnum
+          FROM (
+            SELECT
+                r.id,
+                r.user_id AS userId,
+                r.store_id AS storeId,
+                r.order_id AS orderId,
+                r.score,
+                r.comments,
+                r.status,
+                r.created_at AS createdAt,
+                u.nickname AS nickname,
+                s.store_name AS storeName
+            FROM REVIEW r
+            LEFT JOIN USERS u ON u.id = r.user_id
+            LEFT JOIN STORE s ON s.id = r.store_id
+            <where>
+                <if test="statuses != null and statuses.size() > 0">
+                    AND r.status IN
+                    <foreach collection="statuses" item="st" open="(" separator="," close=")">
+                        #{st}
+                    </foreach>
+                </if>
+                <if test="storeId != null"> AND r.store_id = #{storeId}</if>
+                <if test="userId != null"> AND r.user_id = #{userId}</if>
+                <if test="from != null"> AND r.created_at &gt;= TO_TIMESTAMP(#{from}, 'YYYY-MM-DD HH24:MI:SS')</if>
+                <if test="to != null"> AND r.created_at &lt; TO_TIMESTAMP(#{to},   'YYYY-MM-DD HH24:MI:SS')</if>
+            </where>
+            ORDER BY r.created_at DESC
+            ) t
+          WHERE ROWNUM &lt;= #{endRow}
+        )
+        WHERE rnum &gt;= #{startRow}
+    </select>
+
+    <!-- 총 갯수 -->
+    <select id="countAdminReviews" resultType="int">
+        SELECT COUNT(*)
+        FROM REVIEW r
+        <where>
+            <if test="statuses != null and statuses.size() > 0">
+                AND r.status IN
+                <foreach collection="statuses" item="st" open="(" separator="," close=")">
+                    #{st}
+                </foreach>
+            </if>
+            <if test="storeId != null"> AND r.store_id = #{storeId}</if>
+            <if test="userId != null"> AND r.user_id = #{userId}</if>
+            <if test="from != null"> AND r.created_at &gt;= TO_TIMESTAMP(#{from}, 'YYYY-MM-DD HH24:MI:SS')</if>
+            <if test="to != null"> AND r.created_at &lt; TO_TIMESTAMP(#{to},   'YYYY-MM-DD HH24:MI:SS')</if>
+        </where>
+    </select>
+
+    <!-- 상대별 카운트 -->
+    <select id="countByStatus" resultType="hashmap">
+        SELECT
+            COUNT(*) AS TOTAL,
+            SUM(CASE WHEN r.status = '공개' THEN 1 ELSE 0 END) AS 공개,
+            SUM(CASE WHEN r.status = '비공개' THEN 1 ELSE 0 END) AS 비공개,
+            SUM(CASE WHEN r.status = '임시제한' THEN 1 ELSE 0 END) AS 임시제한
+        FROM REVIEW r
+        <where>
+            <if test="storeId != null"> AND r.store_id = #{storeId} </if>
+            <if test="userId  != null"> AND r.user_id  = #{userId}  </if>
+            <if test="from    != null"> AND r.created_at &gt;= TO_TIMESTAMP(#{from}, 'YYYY-MM-DD HH24:MI:SS') </if>
+            <if test="to      != null"> AND r.created_at &lt;  TO_TIMESTAMP(#{to},   'YYYY-MM-DD HH24:MI:SS') </if>
+        </where>
+    </select>
+
+    <!-- 상태 변경 -->
+    <update id="updateReviewStatus">
+        UPDATE REVIEW
+            SET STATUS = #{status}
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="deleteReview">
+        DELETE FROM REVIEW WHERE ID = #{id}
+    </delete>
+</mapper>

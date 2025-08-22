@@ -53,7 +53,7 @@ public class RoomJoinController {
     }
     @GetMapping("/participants")
     public List<UsersDto> getParticipants(@RequestParam Integer roomId) {
-        System.out.println("📥 참여자 목록 조회 - roomId: " + roomId);
+        System.out.println(" 참여자 목록 조회 - roomId: " + roomId);
         return joinService.getUsersByRoomId(roomId);  // UsersDto 리스트 반환
     }
 }

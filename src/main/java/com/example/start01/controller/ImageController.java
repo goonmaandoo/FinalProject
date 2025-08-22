@@ -1,8 +1,10 @@
 package com.example.start01.controller;
 
 import com.example.start01.dao.ImageDao;
+import com.example.start01.dto.FileUploadResult;
 import com.example.start01.dto.ImageDto;
 import com.example.start01.dto.MenuDto;
+import com.example.start01.s3.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ import java.util.List;
 public class ImageController {
     @Autowired
     public ImageDao imageDao;
+
+    @Autowired
+    S3Service s3Service;
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/images/{filename}")
@@ -47,36 +52,20 @@ public class ImageController {
     @PostMapping("/menuImageInsertByOwner")
     public ResponseEntity<Integer> MenuImageInsertByOwner(
             @RequestParam("folder") String folder,
-            @RequestParam("filename") MultipartFile file) {
-
+            @RequestParam("filename") MultipartFile file,
+            @RequestParam("storeId") Integer storeId) {
         try {
-            // 1. 파일 저장
-            String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/image/" + folder + "/";
-            File directory = new File(uploadDir);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
+            // 이제 s3Service.upload() 호출 가능
+            FileUploadResult uploadResult = s3Service.upload(file, storeId);
+            String newFilename = uploadResult.getFileName();
 
-            // 2. 새로운 파일명 생성 (중복 방지)
-            String originalFilename = file.getOriginalFilename();
-            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            String newFilename = System.currentTimeMillis() + "_" + originalFilename;
-
-            // 3. 실제 파일 저장
-            File saveFile = new File(uploadDir + newFilename);
-            file.transferTo(saveFile);
-
-            // 4. DB에 이미지 정보 저장
             ImageDto dto = new ImageDto();
             dto.setFolder(folder);
-            dto.setFilename(newFilename); // 새로운 파일명 사용
-
+            dto.setFilename(newFilename);
             imageDao.MenuImageInsertByOwner(dto);
 
-            // 5. 생성된 이미지 ID 반환 (MyBatis가 자동으로 dto.id에 설정함)
             return ResponseEntity.ok(dto.getId());
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("파일 저장 실패: " + e.getMessage());
         }

@@ -28,7 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        // ✅ 웹소켓 엔드포인트 요청은 필터링하지 않고 바로 통과
+        // 웹소켓 엔드포인트 요청은 필터링하지 않고 바로 통과
         // SockJS는 "/ws-chat/..." 와 같은 경로로 요청이 옴
         if (request.getRequestURI().startsWith("/ws-chat")) {
             System.out.println("웹소켓 엔드포인트 요청! 필터 통과.");
