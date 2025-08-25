@@ -52,6 +52,7 @@ public class MenuController {
             @RequestParam("id") Integer id,
             @RequestParam("storeId") Integer storeId,
             @RequestParam("menuName") String menuName,
+            @RequestParam("imageId") Integer imageId,
             @RequestParam("menuPrice") int menuPrice,
             @RequestParam("status") String status,
             @RequestParam(value = "file", required = false) MultipartFile file) {
@@ -59,6 +60,7 @@ public class MenuController {
         MenuDto menuDto = new MenuDto();
         menuDto.setId(id);
         menuDto.setMenuName(menuName);
+        menuDto.setImageId(imageId);
         menuDto.setMenuPrice(menuPrice);
         menuDto.setStatus(status);
 
